@@ -1,0 +1,282 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "プログラミング演習",
+    "section": "",
+    "text": "目次\n\n第1週，+R授業\n第2週\n第3週\n第4週\n第5週\n第6週\n第7週\n第8週\n第9週\n第10週\n第11週\n第12週\n第13週\n第15週",
+    "crumbs": [
+      "目次"
+    ]
+  },
+  {
+    "objectID": "week01.html",
+    "href": "week01.html",
+    "title": "1  ガイダンス・環境構築",
+    "section": "",
+    "text": "1.1 +R授業のコンテンツ\n+R授業では，C言語プログラムの開発環境について，オンライン・オフラインそれぞれの環境設定方法を説明する．オンライン環境については，Google Cloud Shell Editorの使い方を本稿で述べる．オフライン環境については，毛利先生による解説動画を別途アップロードする．\n本講義（プログラミング演習Bクラス）では，オンラインの開発環境としてGoogle Cloud Shell Editorを推奨する．Googleアカウントが必要となるので，アカウントを取得できない場合や，本講義でアカウントを使用したくない場合は，オフライン環境を使用すること．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#google-cloud-shell-editorについて",
+    "href": "week01.html#google-cloud-shell-editorについて",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.2 Google Cloud Shell Editorについて",
+    "text": "1.2 Google Cloud Shell Editorについて\nインターネットを経由してGoogle社が管理するサーバに接続すると，サーバ内で仮想マシンが起動する．Googleアカウントがあれば無料で使用できるが，いくつか使用上の制限がある (https://cloud.google.com/shell/docs/how-cloud-shell-works?hl=ja):\n\n1週間の使用時間が50時間以下に制限される\n20分間キー入力がないと接続が切断され，再接続が必要となる（作成したファイルは残る）\n120日間アクセスがない場合はホームフォルダの中身が自動的に削除される\nストレージサイズは5 GB\n\n\n\n\n\n\n\nTip\n\n\n\n仮想マシンのOSは，Debian ベースの Linux OS (https://cloud.google.com/shell/docs/how-cloud-shell-works) とのこと．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#エディタを起動する",
+    "href": "week01.html#エディタを起動する",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.3 エディタを起動する",
+    "text": "1.3 エディタを起動する\nまずはエディタを起動してみよう：\n\nGoogle Cloud Shell Editor (https://ide.cloud.google.com/) にアクセスする\nGoogleアカウントにログインしていない場合は，ダイアログに従ってログインする\nしばらく待つと仮想マシンが起動する\n\n起動直後は下図のような画面である．右端にGeminiの広告パネルが表示されている場合は，✕ボタンで閉じてよい．\n\n左上の File メニューからOpen Folderを選択して，ホームフォルダを開いてみよう．Open Folderという青いボタンからでもよい．ホームフォルダは，/home/自分のGoogleアカウント名である．\n左側のペインに開いているフォルダ内のファイルが一覧で表示される．初期状態ではREADME-cloudshell.txtが存在しているはず\n\n右上のペンマークのとなりのボタンを押すと，ターミナルウィンドウが表示される．\n\nターミナルとは，テキストコマンドでコンピュータの操作を行うためのアプリケーションである．（仮想）端末とも呼ばれる．Windowsでは古くはコマンドプロンプト，最近ではWindows Terminalがある．\nプログラムのコンパイル，コンパイルしたプログラムの実行などをターミナルにコマンドを入力することで行う．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#ターミナルを使ってみる",
+    "href": "week01.html#ターミナルを使ってみる",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.4 ターミナルを使ってみる",
+    "text": "1.4 ターミナルを使ってみる\nターミナルにコマンドを打ち込んでコンピュータを操作する練習をしてみよう．\n現在の作業フォルダを表示するコマンドpwdを$マークの右側に打ち込み，Enterキーで実行する．\nkunihisa_okano@cloudshell:~$ pwd\n/home/kunihisa_okano\n1行目の$の右側が入力したコマンド，2行目は実行結果を示している．kunihisa_okanoは筆者のGoogleアカウント名である． なお，$の左側は，ログイン名@マシン名:カレントフォルダ$を表す． 以後のコマンド例では$の右側のみを記述する．\nファイルの中身をテキストで表示するcatコマンドを使ってみよう．\ncat README-cloudshell.txt # 実行するとファイルの中身がターミナルに表示される\nここで，表示したいファイル名README-cloudshell.txtをすべて手動で入力する必要はない．Rを入力してTabキーを押せば，作業フォルダ内でRから始まるファイル名を自動的に補完してくれる．\n現在のフォルダに，テスト用のフォルダtest_dirを作成しよう．mkdirコマンド1で作成して，lsコマンドで作成結果を確認する：\nmkdir test_dir # test_dir という名前のフォルダを作成\nls # ファイル一覧が表示される．新たに test_dir が追加されている\n#以降はコメントなので入力する必要はない．\n作成したディレクトリtest_dirに作業ディレクトリを移動しよう．cdコマンドを使う．\ncd test_dir # test_dirへ移動\npwd # 移動できたか確認する\nフォルダ階層を相対パスで表すには，., ..を使う．\n\n. 現在のフォルダ\n.. 一つ上の階層\n~ ホームフォルダ\n\nたとえば，一つ上のフォルダに移動したい場合はつぎのようにする．\ncd .. # ひとつ上のフォルダに移動\ncd test_dir # 戻る\nこのほか，以下のコマンドはよく使う．\n\nmv ファイルを移動，名前の変更\ncp ファイルをコピー\nrm ファイルを削除",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#c言語ソースファイルの作成とコンパイル",
+    "href": "week01.html#c言語ソースファイルの作成とコンパイル",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.5 C言語ソースファイルの作成とコンパイル",
+    "text": "1.5 C言語ソースファイルの作成とコンパイル\ntest_dirにhello.cというC言語のソースファイルを作成してみよう．\ntouch hello.c # 作業フォルダに hello.c という名前の新規ファイルを作成\nファイル一覧領域でhello.cを選択すると，エディタ領域でこのファイルを編集できる．\n\nhello.cを編集して，標準出力にHellow worldというテキストを出力するプログラムを作成しよう．\n#include &lt;stdio.h&gt;\n\nint main(void)\n{\n    printf(\"Hello world\\n\");\n    return 0;\n}\n作成したファイルをコンパイルするには，ターミナルでgccを呼び出す．\ngcc hello.c\nタイプミスなどがあると，コンパイラが警告やエラーを出力する．メッセージを読んで該当箇所を修正しよう．\nコンパイルによって作成した実行ファイルは，自動的にa.outという名前がつけられる． これを実行してみよう．\n./a.out # Hello world と表示される\n行頭の./は，a.outという実行ファイルが現在のフォルダに存在することを示す．a.outはコマンドとしてコンピュータが認識していないので，どこのa.outなのか，明示的に記述する必要がある．\n\n\n\n\n\n\nTip\n\n\n\n実行ファイル名をa.out以外にするには，gcc hello.c -o helloのようにoオプションの後に実行ファイル名を記述する．実行するときは，./helloとする．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#作成したファイルをローカルpcに保存する",
+    "href": "week01.html#作成したファイルをローカルpcに保存する",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.6 作成したファイルをローカルPCに保存する",
+    "text": "1.6 作成したファイルをローカルPCに保存する\n作成したソースコードをローカルPCに保存するには，保存したいファイルを選択した状態でFileメニュー &gt; Save As を選択して，\n\n表示されるダイアログで，Show Localを選択する．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#オフライン環境の構築方法",
+    "href": "week01.html#オフライン環境の構築方法",
+    "title": "1  ガイダンス・環境構築",
+    "section": "1.7 オフライン環境の構築方法",
+    "text": "1.7 オフライン環境の構築方法\nWindowsユーザーの場合は，別途アップロードする毛利先生による解説動画を参照する．\nmacOSユーザーの場合は，App StoreからXcodeをインストールする． Xcodeは容量が大きいので，ストレージ容量が気になる場合は，Command Line Toolsをインストールする．\nxcode-select --install\nエディタは好きなものを使えばよいが，Visual Studio Code を推奨する．",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week01.html#footnotes",
+    "href": "week01.html#footnotes",
+    "title": "1  ガイダンス・環境構築",
+    "section": "",
+    "text": "Make directoryの略．↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ガイダンス・環境構築</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html",
+    "href": "week02.html",
+    "title": "2  C言語の復習 1",
+    "section": "",
+    "text": "2.1 本日のメニュー",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#本日のメニュー",
+    "href": "week02.html#本日のメニュー",
+    "title": "2  C言語の復習 1",
+    "section": "",
+    "text": "演算子\n型\n分岐 (if)\n繰り返し (for)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#準備",
+    "href": "week02.html#準備",
+    "title": "2  C言語の復習 1",
+    "section": "2.2 準備",
+    "text": "2.2 準備\nGoogle Cloud Shell Editor (https://ide.cloud.google.com/)を立ち上げて，ホームフォルダ(/usr/自分のgoogleアカウント名)を開く． ホームフォルダに今日の演習ファイルを格納するフォルダ02を作成して，ターミナルの作業フォルダを/usr/自分のgoogleアカウント名/02に移動させる．\n\n\n\nコマンド\n用途\n用例\n\n\n\n\npwd\n現在の作業フォルダを表示\npwd\n\n\nmkdir\nフォルダを生成\nmkdir 02\n\n\ncd\n作業フォルダを移動\ncd 02\n\n\ntouch\n新規ファイル生成\ntouch hoge.c",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#四則演算",
+    "href": "week02.html#四則演算",
+    "title": "2  C言語の復習 1",
+    "section": "2.3 四則演算",
+    "text": "2.3 四則演算\n整数を2つ読み込み，それらの足し算，引き算，掛け算，割り算の計算結果と，割り算の余りを表示するプログラムcalc2int.cを作成しよう．\n数値を入力するメッセージの表示はprintf関数で，入力された数値の読み込みはscanf関数で行う．\nint a;\nprintf(\"1番目の整数を入力してください: \");\nscanf(\"%d\", &a);\n四則演算を行う演算子を復習しよう．\nprintf(\"a + b = %d\\n\", a + b); // a+b\nprintf(\"a - b = %d\\n\", a - b); // a-b\nprintf(\"a * b = %d\\n\", a * b); // a*b\nprintf(\"a / b = %d\\n\", a / b); // a/bの商を表示 !注意!\nprintf(\"a %% b = %d\\n\", a % b); // bをaで割った余りを表示\nたとえばa = 2, b = 3のように代入した場合，a/bの計算結果は電卓で2/3を計算した結果と異なり，0が出力される． これは，a, bがともに整数を表すint型であることと，printfの出力形式%dが整数値書式となっているため．\nprintf中で，パーセント記号は出力書式を表す特殊文字として使われるので，%と書くだけではパーセント記号を出力しない． パーセント記号自身を文字として表示したい場合は，%%のように2回続けて記述する1．\n計算に用いる値に小数が含まれている場合は，自動的に小数で計算される．\nprintf(\" 2 / 3 = %d\\n\", 2/3);         // 小数点以下を切り捨てた 0\nprintf(\" 2.0 / 3 = %d\\n\", 2.0/3);     // 小数で計算されるが出力書式がint指定なので変な値に\nprintf(\" 2.0 / 3 = %f\\n\", 2.0/3);     // 0.666667 (内部的には更に下の桁まで計算されている)\nprintf(\" 2.0 / 3.0 = %f\\n\", 2.0/3.0); // 0.666667 (内部的には更に下の桁まで計算されている)\n\n\n\n\n\n\n負の数を用いた除算\n\n\n\n少なくとも1つが負の数の場合，/の計算結果が「商以下の最大の整数」となるか「商以上の最小の整数」となるかは，処理系に依存する．",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#型",
+    "href": "week02.html#型",
+    "title": "2  C言語の復習 1",
+    "section": "2.4 型",
+    "text": "2.4 型\n基本的には，整数はint，小数にはdoubleを使う．\n\n\n\n\n\n\n\n\n\n\n型\n用途\nバイト数\n範囲(処理系依存)\n書式指定子\n\n\n\n\nchar\n文字\n1\n\\(-127\\)–\\(128\\)\n%c,%s\n\n\nint\n整数\n4\n\\(-32768\\)–\\(32767\\)\n%d\n\n\nlong\n整数\n4\n\\(-2147483648\\)–\\(2147483647\\)\n%ld\n\n\nunsigned char\n文字\n2\n\\(0\\)–\\(255\\)\n%c,%s\n\n\nunsigned int\n符号なし整数\n4\n\\(0\\)–\\(65535\\)\n%u\n\n\nunsigned short\n符号なし整数\n2\n\\(0\\)–\\(65535\\)\n%hu\n\n\nunsigned long\n符号なし整数\n4\n\\(0\\)–\\(4294967295\\)\n%lu\n\n\nfloat\n単精度浮動小数点数\n4\n有効桁数6–7\n%f\n\n\ndouble\n倍精度浮動小数点数\n8\n有効桁数15–16\n%lf\n\n\n\n\n\n\n\n\n\n\nintとdoubleの演算ではintで宣言された変数の値が自動的にdoubleに変換されて計算が行われる． どのような場合に暗黙の型変換が行われるかを網羅的に書くことは難しいが，とりあえずはintとdoubleの関係について知っておけばよい．\n明示的に型変換を行いたい場合は，(型名)(変換対象の式)のように書く． これをキャストという．\nint a = 1;\nint b = 2;\ndouble c = (double)(a + b) / 2 // intのa+bをdoubleに変換してから 2 で除す→計算結果はdouble",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#分岐-if",
+    "href": "week02.html#分岐-if",
+    "title": "2  C言語の復習 1",
+    "section": "2.5 分岐 if",
+    "text": "2.5 分岐 if\nプログラムの処理を，条件によって分岐させるにはif文を使う． 次のプログラムは，入力された整数が偶数の場合，そのように出力するプログラム（の一部）である． evenorodd.cというファイルを作成し，以下の内容を書き写して実行してみよう．\nint a;\nprintf(\"整数を入力してください: \");\nscanf(\"%d, &a\");\nif(a % 2 == 0){\n  printf(\"aは偶数です\\n\");\n}\nif(式)で式の真偽によってプログラムの実行が分岐する． 式が真の場合のみifの直後のブロックが実行される． ブロックとは，{}で囲われた部分のことである．\nさらに，式が偽の場合の動作を別途指定したい場合は，elseを使う．\nint a;\nprintf(\"整数を入力してください: \");\nscanf(\"%d, &a\");\nif(a % 2 == 0){\n  printf(\"aは偶数です\\n\");\n}else{\n  printf(\"aは奇数です\\n\");\n}\n最初の式が偽の場合に，さらに別の条件で分岐を行う場合はelse ifを使う．\nint a;\nprintf(\"整数を入力してください: \");\nscanf(\"%d, &a\");\nif(a &lt; 0){\n  printf(\"aは負の数です\\n\");\n}else if (a % 2 == 0){\n  printf(\"aは正の偶数です\\n\");\n}else{\n  printf(\"aは正の奇数です\\n\");\n}\nまた，if文のなかにif文を書くこともできる． 次のプログラムは，上のプログラムと同一だが，elseの中に別のif文が入っている．\nint a;\nprintf(\"整数を入力してください: \");\nscanf(\"%d, &a\");\nif(a &lt; 0){\n  printf(\"aは負の数です\\n\");\n}else{\n  if (a % 2 == 0){\n    printf(\"aは正の偶数です\\n\");\n  }else{\n    printf(\"aは正の奇数です\\n\");\n  }\n}\nこのように，ブロックの中に別のブロックが入る場合は，インデント（行頭の空白文字の長さ）をブロックの深さごとに変えて，視覚的にプログラムの構造を表すとよい． 多くのエディタではインデントを自動的に整形する機能がついている． Google Cloud Shell EditorではFormat Documentコマンドで整形できる． これを呼び出すには，Ctrl+Shift+Pでメニューを呼び出し，Format Documentと入力するか，Shift+Alt+Fのショートカットキーを使う．\n条件に大小関係を用いる場合は，関係演算子を用いて記述する．\n\n\n\n演算子\n用例\n意味\n\n\n\n\n&lt;\na &lt; b\naがb未満ならば真，そうでなければ偽\n\n\n&gt;\na &gt; b\naがbより大きければ真，そうでなければ偽\n\n\n&lt;=\na &lt;= b\naがb以下ならば真，そうでなければ偽 (=&lt;は不可)\n\n\n&gt;=\na &gt;= b\naがb以上ならば真，そうでなければ偽 (=&gt;は不可)\n\n\n==\na == b\naとbが等しければ真，そうでなければ偽\n\n\n!=\na != b\naとbが異なれば真，そうでなければ偽\n\n\n\n式で複数の条件を複合したい場合は，\n\n&& AND, 論理積\n|| OR, 論理和\n! NOT, 否定\n\nを組合わせて表現します．\n\n\n\n\n\n\n真偽を表す数値\n\n\n\nC言語では，整数0が偽を表し，それ以外は真を表す． 真を表す数値を明示的に書く場合には1がよく用いられるが，1以外も0でなければ真であることに注意．",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#分岐-switch",
+    "href": "week02.html#分岐-switch",
+    "title": "2  C言語の復習 1",
+    "section": "2.6 分岐 switch",
+    "text": "2.6 分岐 switch\n3つ以上の処理に分岐したい場合はswitch文を使うことができる． 以下は，入力された整数の剰余を計算して，その値によってテキストを出力するプログラムである． mod3.cというファイルを作成し，以下の内容を書き写して実行してみよう．\nint a;\nprintf(\"整数を入力してください: \");\nscanf(\"%d\", &a);\n\nswitch(a % 3){\n  case 0 :\n    printf(\"3で割り切れます\\n\");\n    break;\n  case 1 :\n    printf(\"3で割った余りは1です\\n\");\n    break;\n  case 2 :\n    printf(\"3で割った余りは2です\\n\");\n    break;\n  default :\n    printf(\"剰余が0, 1, 2のいずれでもありません\\n\");\n}\nswitch文は次のような構造になっている．\nswitch(式){\n  case 定数式: 文\n  case 定数式: 文\n  default: 文\n}\n式の値が，caseのあとに続く定数式に合致する箇所にジャンプし，それ以後の文を実行する． defaultは，どのcaseにも合致しない場合に実行される． breakは，その行でswitch文のブロックを抜ける動作をする． つまり，switch文直後のブロックの後に処理が移動する． もしbreakが無いと，その後のcaseの文も実行される． （個人的には，switchを使わずにifで書いたほうがわかりやすいと思う．）",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#繰り返し-for",
+    "href": "week02.html#繰り返し-for",
+    "title": "2  C言語の復習 1",
+    "section": "2.7 繰り返し for",
+    "text": "2.7 繰り返し for\n繰り返し特定の処理を行いたい場合はfor文を使う． 以下のプログラムは，“hello world”を10回繰り返して出力する． “world”の後には繰り返し回数を表示する． hello10.cというファイルを作成し，以下の内容を書き写して実行してみよう．\nint i;\nfor(i=0; i &lt; 10; i = i + 1){\n  printf(\"hello world %d\\n\", i+1);\n}\nfor文は以下のような構造をもつ:\nfor(式1; 式2; 式3)\nまず式1を実行し，つぎに式2を評価する． 評価結果が真であればfor文の直後のブロックを実行する． その後，式3を実行して式2の真偽評価に戻る． これを，式2の評価が偽となるまで繰り返す．\n\n\n\n\n\n\n無限ループを止める\n\n\n\n無限ループを含むプログラムを実行して入力を受け付けなくなってしまった場合は，ターミナル上でCtrl+Cを押すと止まる．",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#演習",
+    "href": "week02.html#演習",
+    "title": "2  C言語の復習 1",
+    "section": "2.8 演習",
+    "text": "2.8 演習\n以下の問題に取り組み，ソースコードをmanaba+Rにアップロードせよ．\n\n3つの整数値を読み込み，それらの平均を表示するプログラムave3int.cを作成せよ\n1つの整数値を読み込み，最も下の桁の数を表示するプログラムleastdigit.cを作成せよ\n整数値を読み込み，その回数だけおみくじの結果を表示するプログラムomikuji.cを作成せよ．ただし，おみくじは「大吉」，「吉」，「小吉」，「凶」，「大凶」のいずれかを等確率で選択するとする\n\nstdlib.hを読み込んでrand()を使うと整数の乱数を作成できる\n乱数の範囲は0からRAND_MAXで指定されている",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week02.html#footnotes",
+    "href": "week02.html#footnotes",
+    "title": "2  C言語の復習 1",
+    "section": "",
+    "text": "このエスケープ方法はprintf関数に直接%%を書く場合のみ有効．たとえばputs(\"%%\");や，char a[5]; strcpy(a, \"%%\"); printf(\"%s\", a);は%%を出力する．↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>C言語の復習 1</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html",
+    "href": "week03.html",
+    "title": "3  C言語の復習 2",
+    "section": "",
+    "text": "3.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#今日のメニュー",
+    "href": "week03.html#今日のメニュー",
+    "title": "3  C言語の復習 2",
+    "section": "3.2 今日のメニュー",
+    "text": "3.2 今日のメニュー",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#繰り返し-while",
+    "href": "week03.html#繰り返し-while",
+    "title": "3  C言語の復習 2",
+    "section": "3.3 繰り返し while",
+    "text": "3.3 繰り返し while",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#繰り返し-do-while",
+    "href": "week03.html#繰り返し-do-while",
+    "title": "3  C言語の復習 2",
+    "section": "3.4 繰り返し do while",
+    "text": "3.4 繰り返し do while\n変数のスコープ",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#演算子の順序",
+    "href": "week03.html#演算子の順序",
+    "title": "3  C言語の復習 2",
+    "section": "3.5 演算子の順序",
+    "text": "3.5 演算子の順序",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#インクリメント複合代入",
+    "href": "week03.html#インクリメント複合代入",
+    "title": "3  C言語の復習 2",
+    "section": "3.6 インクリメント，複合代入",
+    "text": "3.6 インクリメント，複合代入",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#配列",
+    "href": "week03.html#配列",
+    "title": "3  C言語の復習 2",
+    "section": "3.7 配列",
+    "text": "3.7 配列\n宣言 初期化 値の参照 値の書き換え 多次元配列 多次元配列の初期化",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#演習",
+    "href": "week03.html#演習",
+    "title": "3  C言語の復習 2",
+    "section": "3.8 演習",
+    "text": "3.8 演習\n\n3.8.1 問題1\n行列の\\(A\\)をつぎのように定義する． \\[\n\\require{physics}\nA=\\mqty[1 & 1 & 3\\\\\n5 & 2 & 6\\\\\n-2 & -1 & -3]\n\\]\n\\(A^2\\)と\\(A^3\\)を計算して出力するプログラムnilpo.cを作成せよ．\n\n\n\n3.8.2 問題2\n銀行をひとつ選び，普通預金金利を調べよ．その金利に基づき，下記のとおり利息を付加する．1月1日に元本10万円を預け入れ，以後，30日おきに3万円を預け入れるとする1．1月1日を1日目とし，初めて100万円以上となるのは何日目かを出力するプログラムmillion.cを作成せよ．\n\n1日あたりの利息＝当日締めの預入残高×金利÷365とする．ただし1円未満は切り捨てする\n半年複利とする\n\n上記で計算した利息を，半年に1回，2月15日（46日目）と8月15日（227日目）に元本に組み入れる\n\nうるう年は考慮せず，1年は必ず365日とする\n所得税の源泉徴収は考慮しない\n引き出しはしない",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  },
+  {
+    "objectID": "week03.html#footnotes",
+    "href": "week03.html#footnotes",
+    "title": "3  C言語の復習 2",
+    "section": "",
+    "text": "初回の預け入れは30日目の1月30日，2回目は60日目の3月1日↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>C言語の復習 2</span>"
+    ]
+  }
+]
