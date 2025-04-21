@@ -76,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -263,13 +265,13 @@ Tip
 <section id="ターミナルを使ってみる" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="ターミナルを使ってみる"><span class="header-section-number">1.4</span> ターミナルを使ってみる</h2>
 <p>ターミナルにコマンドを打ち込んでコンピュータを操作する練習をしてみよう．</p>
-<p>現在の作業フォルダを表示するコマンド<code>pwd</code>を<code>$</code>マークの右側に打ち込み，<code>Enter</code>キーで実行する．</p>
+<p>現在の作業フォルダを表示するコマンド<code>pwd</code>を<code>$</code>マークの右側に打ち込み，<kbd aria-hidden="true">Enter</kbd><span class="visually-hidden">Enter</span>キーで実行する．</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kunihisa_okano@cloudshell:~$</span> pwd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/kunihisa_okano</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>1行目の<code>$</code>の右側が入力したコマンド，2行目は実行結果を示している．<code>kunihisa_okano</code>は筆者のGoogleアカウント名である． なお，<code>$</code>の左側は，<code>ログイン名@マシン名:カレントフォルダ$</code>を表す． 以後のコマンド例では<code>$</code>の右側のみを記述する．</p>
 <p>ファイルの中身をテキストで表示する<code>cat</code>コマンドを使ってみよう．</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> README-cloudshell.txt <span class="co"># 実行するとファイルの中身がターミナルに表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>ここで，表示したいファイル名<code>README-cloudshell.txt</code>をすべて手動で入力する必要はない．<code>R</code>を入力して<code>Tab</code>キーを押せば，作業フォルダ内で<code>R</code>から始まるファイル名を自動的に補完してくれる．</p>
+<p>ここで，表示したいファイル名<code>README-cloudshell.txt</code>をすべて手動で入力する必要はない．<kbd aria-hidden="true">R</kbd><span class="visually-hidden">R</span>のあとに<kbd aria-hidden="true">Tab</kbd><span class="visually-hidden">Tab</span>キーを押せば，作業フォルダ内で<code>R</code>から始まるファイル名を自動的に補完してくれる．</p>
 <p>現在のフォルダに，テスト用のフォルダ<code>test_dir</code>を作成しよう．<code>mkdir</code>コマンド<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>で作成して，<code>ls</code>コマンドで作成結果を確認する：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> test_dir <span class="co"># test_dir という名前のフォルダを作成</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="co"># ファイル一覧が表示される．新たに test_dir が追加されている</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -309,10 +311,10 @@ Tip
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>作成したファイルをコンパイルするには，ターミナルで<code>gcc</code>を呼び出す．</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> hello.c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>タイプミスなどがあると，コンパイラが警告やエラーを出力する．メッセージを読んで該当箇所を修正しよう．</p>
+<p>プログラム中にタイプミスなどがあると，コンパイラが警告やエラーを出力する．メッセージを読んで該当箇所を修正しよう．</p>
 <p>コンパイルによって作成した実行ファイルは，自動的に<code>a.out</code>という名前がつけられる． これを実行してみよう．</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./a.out</span> <span class="co"># Hello world と表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>行頭の<code>./</code>は，<code>a.out</code>という実行ファイルが現在のフォルダに存在することを示す．<code>a.out</code>はコマンドとしてコンピュータが認識していないので，どこの<code>a.out</code>なのか，明示的に記述する必要がある．</p>
+<p>行頭の<code>./</code>は，<code>a.out</code>という実行ファイルが現在のフォルダに存在することを示す．<code>a.out</code>はコマンドとしてコンピュータが認識していないので，どこの<code>a.out</code>なのか，実行するファイルの所在地を明示的に記述する必要がある．</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

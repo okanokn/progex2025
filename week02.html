@@ -76,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -212,6 +214,9 @@ window.Quarto = {
   <li><a href="#分岐-switch" id="toc-分岐-switch" class="nav-link" data-scroll-target="#分岐-switch"><span class="header-section-number">2.6</span> 分岐 switch</a></li>
   <li><a href="#繰り返し-for" id="toc-繰り返し-for" class="nav-link" data-scroll-target="#繰り返し-for"><span class="header-section-number">2.7</span> 繰り返し for</a></li>
   <li><a href="#演習" id="toc-演習" class="nav-link" data-scroll-target="#演習"><span class="header-section-number">2.8</span> 演習</a></li>
+  <li><a href="#問題1" id="toc-問題1" class="nav-link" data-scroll-target="#問題1"><span class="header-section-number">2.9</span> 問題1</a></li>
+  <li><a href="#問題2" id="toc-問題2" class="nav-link" data-scroll-target="#問題2"><span class="header-section-number">2.10</span> 問題2</a></li>
+  <li><a href="#問題3" id="toc-問題3" class="nav-link" data-scroll-target="#問題3"><span class="header-section-number">2.11</span> 問題3</a></li>
   </ul>
 </nav>
     </div>
@@ -429,7 +434,7 @@ window.Quarto = {
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>if(式)</code>で式の真偽によってプログラムの実行が分岐する． 式が真の場合のみ<code>if</code>の直後のブロックが実行される． ブロックとは，<code>{}</code>で囲われた部分のことである．</p>
+<p><code>if(式)</code>で式の真偽によってプログラムの実行が分岐する．式が真の場合のみ<code>if</code>の直後のブロックが実行される．ブロックとは，<code>{}</code>で囲われた部分のことである．</p>
 <p>さらに，式が偽の場合の動作を別途指定したい場合は，<code>else</code>を使う．</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
@@ -463,7 +468,7 @@ window.Quarto = {
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"aは正の奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>このように，ブロックの中に別のブロックが入る場合は，インデント（行頭の空白文字の長さ）をブロックの深さごとに変えて，視覚的にプログラムの構造を表すとよい． 多くのエディタではインデントを自動的に整形する機能がついている． Google Cloud Shell Editorでは<code>Format Document</code>コマンドで整形できる． これを呼び出すには，<code>Ctrl+Shift+P</code>でメニューを呼び出し，<code>Format Document</code>と入力するか，<code>Shift+Alt+F</code>のショートカットキーを使う．</p>
+<p>このように，ブロックの中に別のブロックが入る場合は，インデント（行頭の空白文字の長さ）をブロックの深さごとに変えて，視覚的にプログラムの構造を表すとよい． 多くのエディタではインデントを自動的に整形する機能がついている． Google Cloud Shell Editorでは<code>Format Document</code>コマンドで整形できる． これを呼び出すには，<kbd aria-hidden="true" data-mac="Shift-Cmd-P" data-windows="Shift-Ctrl-P"></kbd><span class="visually-hidden"></span>でメニューを呼び出し，<code>Format Document</code>と入力するか，<kbd aria-hidden="true" data-mac="Shift-Option-F" data-windows="Shift-Alt-F"></kbd><span class="visually-hidden"></span>のショートカットキーを使う．</p>
 <p>条件に大小関係を用いる場合は，関係演算子を用いて記述する．</p>
 <table class="caption-top table">
 <thead>
@@ -575,22 +580,29 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>無限ループを含むプログラムを実行して入力を受け付けなくなってしまった場合は，ターミナル上で<code>Ctrl+C</code>を押すと止まる．</p>
+<p>無限ループを含むプログラムを実行して入力を受け付けなくなってしまった場合は，ターミナル上で<kbd aria-hidden="true">Control-C</kbd><span class="visually-hidden">Control-C</span>を押すと止まる．</p>
 </div>
 </div>
 </section>
 <section id="演習" class="level2" data-number="2.8">
 <h2 data-number="2.8" class="anchored" data-anchor-id="演習"><span class="header-section-number">2.8</span> 演習</h2>
 <p>以下の問題に取り組み，ソースコードをmanaba+Rにアップロードせよ．</p>
-<ol type="1">
-<li>3つの整数値を読み込み，それらの平均を表示するプログラム<code>ave3int.c</code>を作成せよ</li>
-<li>1つの整数値を読み込み，最も下の桁の数を表示するプログラム<code>leastdigit.c</code>を作成せよ</li>
-<li>整数値を読み込み，その回数だけおみくじの結果を表示するプログラム<code>omikuji.c</code>を作成せよ．ただし，おみくじは「大吉」，「吉」，「小吉」，「凶」，「大凶」のいずれかを等確率で選択するとする
+</section>
+<section id="問題1" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="問題1"><span class="header-section-number">2.9</span> 問題1</h2>
+<p>3つの整数値を読み込み，それらの平均を表示するプログラム<code>ave3int.c</code>を作成せよ</p>
+</section>
+<section id="問題2" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="問題2"><span class="header-section-number">2.10</span> 問題2</h2>
+<p>1つの整数値を読み込み，最も下の桁の数を表示するプログラム<code>leastdigit.c</code>を作成せよ</p>
+</section>
+<section id="問題3" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="問題3"><span class="header-section-number">2.11</span> 問題3</h2>
+<p>整数値を読み込み，その回数だけおみくじの結果を表示するプログラム<code>omikuji.c</code>を作成せよ．ただし，おみくじは「大吉」，「吉」，「小吉」，「凶」，「大凶」のいずれかを等確率で選択するとする</p>
 <ul>
 <li><code>stdlib.h</code>を読み込んで<code>rand()</code>を使うと整数の乱数を作成できる</li>
 <li>乱数の範囲は0から<code>RAND_MAX</code>で指定されている</li>
-</ul></li>
-</ol>
+</ul>
 
 
 </section>
