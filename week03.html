@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./week04.html" rel="next">
 <link href="./week02.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -195,6 +196,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">C言語の復習 2</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -282,19 +289,19 @@ Tip
 <section id="繰り返し-while" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="繰り返し-while"><span class="header-section-number">3.3</span> 繰り返し while</h2>
 <p><code>while</code>文の構成は以下のとおり:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span><span class="op">(</span>式<span class="op">){</span>文<span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">while</span><span class="op">(</span>式<span class="op">){</span>文<span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>式が真である場合，文を実行し，式の評価に戻る．偽の場合は直後のブロック<code>{}</code>の後にジャンプする． 式が定数式の場合は真偽が変わらないので，真ならば文を無限回実行するプログラムとなり，偽ならば文は一度も実行されない．</p>
 <p>以下は，入力された整数<code>a</code>と<code>a+9</code>の間の整数を出力するプログラム（の一部）である．</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">,</span> amax<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力: "</span><span class="op">);</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>amax <span class="op">=</span> a <span class="op">+</span> <span class="dv">9</span><span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> a<span class="op">);</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  a <span class="op">=</span> a <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">int</span> a<span class="op">,</span> amax<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>printf<span class="op">(</span><span class="st">"整数を入力: "</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>amax <span class="op">=</span> a <span class="op">+</span> <span class="dv">9</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> a<span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  a <span class="op">=</span> a <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>while</code>の条件式に変数<code>a</code>が含まれており，繰り返し実行するブロック中で<code>a</code>の値が変更されていることに注意． 例えば，3行目で10が入力された場合，<code>a</code>は10，<code>amax</code>は19である． <code>while</code>文のブロック中で，<code>a</code>は値を出力した後インクリメントされる． 10回目のループで<code>a</code>に20が代入されると，11回目の条件式評価では<code>a &lt;= amax</code>が偽となり，<code>{}</code>の中を実行することなく10行目のブロック直後にジャンプする．</p>
 <div class="callout callout-style-default callout-note callout-titled" title="【再掲】無限ループを止める">
 <div class="callout-header d-flex align-content-center">
@@ -313,17 +320,17 @@ Tip
 <section id="繰り返し-do-while" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="繰り返し-do-while"><span class="header-section-number">3.4</span> 繰り返し do while</h2>
 <p><code>while</code>文と似ているが，ブロックを実行してから，その後に繰り返し条件式を判断する構文もある．</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span><span class="op">{</span>文<span class="op">}</span><span class="cf">while</span><span class="op">(</span>式<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">do</span><span class="op">{</span>文<span class="op">}</span><span class="cf">while</span><span class="op">(</span>式<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>まず文を実行し，式が真であればもう一度，文を実行する．偽であれば次の行に移動する．</p>
 <p>次のプログラム（の一部）は入力された整数を出力する動作を繰り返す．</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span><span class="op">{</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"整数を入力: "</span><span class="op">);</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"--&gt; 入力された数: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a<span class="op">);</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"終了する場合は 0 を入力: "</span><span class="op">);</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>a<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="cf">do</span><span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  printf<span class="op">(</span><span class="st">"整数を入力: "</span><span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  printf<span class="op">(</span><span class="st">"--&gt; 入力された数: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a<span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  printf<span class="op">(</span><span class="st">"終了する場合は 0 を入力: "</span><span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>a<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>while (a)</code>は，<code>a</code>が真を表す値である0以外のとき条件式が真となりブロックの先頭に戻る． それ以外，つまり0のときは偽となり繰り返しを終了する．</p>
 <div class="callout callout-style-default callout-note callout-titled" title="【再掲】真偽を表す数値">
 <div class="callout-header d-flex align-content-center">
@@ -348,13 +355,13 @@ Tip
 </ul>
 <p>このような動作をインクリメント（デクリメント）という． <code>while</code>文のサンプルプログラムで<code>a = a + 1;</code>としているところは，<code>a++;</code>に置き換えることができる．</p>
 <p>さらに，以下のように書くこともできる．</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> a<span class="op">++);</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> a<span class="op">++);</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>a</code>の値を<code>printf</code>に渡して出力してから，<code>a</code>の値を1増加させる動作をする． <code>a</code>の値を先に増加させてから<code>printf</code>で出力したい場合は，<code>++</code>を<code>a</code>の前につける．</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> <span class="op">++</span>a<span class="op">);</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="cf">while</span> <span class="op">(</span>a <span class="op">&lt;=</span> amax<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> <span class="op">++</span>a<span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>インクリメントの前置と後置はややこしいが，筆者の主観では後置を使うべき場面はそんなに多くない．</p>
 <p>インクリメントのように1ずつの増減に限らず，変数にある数を加える動作はよく使う． <code>a = a + summand</code>は<code>a += summand</code>と書くことができる．このような演算子を複合代入演算子と呼ぶ．</p>
 <table class="caption-top table">
@@ -405,45 +412,63 @@ Note
 <section id="配列" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="配列"><span class="header-section-number">3.6</span> 配列</h2>
 <p>同じデータ型をまとめて多数扱う場合には，配列として宣言するとよい． 配列を宣言するには，下記のように書く．</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>型 変数名<span class="op">[</span>要素数<span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a>型 変数名<span class="op">[</span>要素数<span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>たとえば，10名のテストの点数を格納する配列<code>score</code>は，</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>である．</p>
 <p>配列を宣言すると，データ型のバイト数✕配列要素数だけ連番でメモリ上に領域が確保される． 上の例では，<code>int</code>の4バイトを30個分，連続した領域が確保される． C言語では配列の宣言時にサイズを確定する必要がある<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>．</p>
 <p>配列の要素に値を代入するには次のように書く．</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>score<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>score<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">80</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a>score<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>score<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">80</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>配列の要素番号は0からスタートする</strong>ことに注意が必要． つまり，配列の最後の要素の番号は，要素数-1である．</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>score<span class="op">[</span><span class="dv">9</span><span class="op">]</span> <span class="op">=</span> <span class="dv">100</span><span class="op">;</span>  <span class="co">// 10番目の要素</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>score<span class="op">[</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span>  <span class="co">// 実行時にエラー</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a>score<span class="op">[</span><span class="dv">9</span><span class="op">]</span> <span class="op">=</span> <span class="dv">100</span><span class="op">;</span>  <span class="co">// 10番目の要素</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>score<span class="op">[</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span>  <span class="co">// 実行時にエラー</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>宣言と同時に値を代入する場合には，以下のように書く（配列の初期化という）．</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> score<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a><span class="dt">int</span> score<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>score[10]</code>のように要素数を指定してもよいし，省略してもよい． ただし，省略できるのは宣言と同時に値を代入する場合に限る． 値を指定せずに宣言だけ行う場合には要素数を省略できない．</p>
+<div class="callout callout-style-default callout-note callout-titled" title="2025/04/28 追記">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+2025/04/28 追記
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>配列の要素数を指定して宣言し，宣言と同時に一部の要素を初期化した場合，値を指定していない残りの要素は<code>0</code>で初期化される． たとえば，</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>のように<code>score</code>配列を宣言して<code>score[0]</code>と<code>score[1]</code>を<code>99</code>と<code>80</code>で初期化する．残りの要素<code>score[3]</code>から<code>score[9]</code>は<code>0</code>で初期化される．これを応用して，<code>score</code>の値をすべて<code>0</code>で初期化したいときに</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>のように10個の0を並べることなく初期化できる．このような書き方は初期化のみ，つまり宣言と同時に値を代入するときのみ可能．また，値をひとつも指定しない場合は不定値で初期化されることに注意．</p>
+</div>
+</div>
 <p>配列の値は，変数名と要素番号を用いて参照できる．</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++){</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> 番: </span><span class="sc">%d</span><span class="st">点</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> score<span class="op">[</span>i<span class="op">]);</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>ここまで連番の配列を考えたが，連番を2次元以上に設定することもできる． たとえば，前述の10名のテスト点数を5科目分に拡張したい場合は次のように書く．</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">5</span><span class="op">][</span><span class="dv">10</span><span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> 番: </span><span class="sc">%d</span><span class="st">点</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> score<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>ここまで1次元の配列を考えたが，連番を2次元以上に設定することもできる． たとえば，前述の10名のテスト点数を5科目分に拡張したい場合は次のように書く．</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a><span class="dt">int</span> score<span class="op">[</span><span class="dv">5</span><span class="op">][</span><span class="dv">10</span><span class="op">];</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>これは，<code>score[0][0]</code>→<code>score[0][1]</code>→…→<code>score[0][9]</code>→<code>score[1][0]</code>→…→<code>score[4][9]</code>のように先のインデックスが上位桁，後のインデックスが下位桁の連番となるようにメモリ領域を確保する．</p>
 <p>多次元配列の初期化は，要素ごとに値を代入するか，以下のように書く．</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> score<span class="op">[][</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">},</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">91</span><span class="op">,</span> <span class="dv">98</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span>  <span class="dv">4</span><span class="op">,</span>  <span class="dv">39</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">26</span><span class="op">,</span> <span class="dv">26</span><span class="op">,</span> <span class="dv">84</span><span class="op">,</span> <span class="dv">6</span><span class="op">},</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">92</span><span class="op">,</span> <span class="dv">49</span><span class="op">,</span> <span class="dv">94</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span>  <span class="dv">80</span><span class="op">,</span> <span class="dv">17</span><span class="op">,</span> <span class="dv">70</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">55</span><span class="op">,</span> <span class="dv">78</span><span class="op">},</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">64</span><span class="op">,</span> <span class="dv">81</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">19</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">90</span><span class="op">,</span> <span class="dv">93</span><span class="op">,</span> <span class="dv">92</span><span class="op">,</span> <span class="dv">94</span><span class="op">},</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">}</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span> <span class="co">// 文末に ; を忘れないように</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1"></a><span class="dt">int</span> score<span class="op">[][</span><span class="dv">10</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">},</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="op">{</span><span class="dv">91</span><span class="op">,</span> <span class="dv">98</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span>  <span class="dv">4</span><span class="op">,</span>  <span class="dv">39</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">26</span><span class="op">,</span> <span class="dv">26</span><span class="op">,</span> <span class="dv">84</span><span class="op">,</span> <span class="dv">6</span><span class="op">},</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="op">{</span><span class="dv">92</span><span class="op">,</span> <span class="dv">49</span><span class="op">,</span> <span class="dv">94</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span>  <span class="dv">80</span><span class="op">,</span> <span class="dv">17</span><span class="op">,</span> <span class="dv">70</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">55</span><span class="op">,</span> <span class="dv">78</span><span class="op">},</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="op">{</span><span class="dv">64</span><span class="op">,</span> <span class="dv">81</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">19</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">90</span><span class="op">,</span> <span class="dv">93</span><span class="op">,</span> <span class="dv">92</span><span class="op">,</span> <span class="dv">94</span><span class="op">},</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="op">{</span><span class="dv">99</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">100</span><span class="op">}</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="op">};</span> <span class="co">// 文末に ; を忘れないように</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>2次元配列の要素を順番に出力するには，次のように2重ループを使う．</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> student_num <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> subject_num <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> subject_num<span class="op">;</span> i<span class="op">++){</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"Subject no. </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">);</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> student_num<span class="op">;</span> j<span class="op">++){</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">" </span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> score<span class="op">[</span>i<span class="op">][</span>j<span class="op">]);</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">int</span> subject_num <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="dt">int</span> student_num <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> subject_num<span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  printf<span class="op">(</span><span class="st">"Subject no. </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> student_num<span class="op">;</span> j<span class="op">++){</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>    printf<span class="op">(</span><span class="st">" </span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> score<span class="op">[</span>i<span class="op">][</span>j<span class="op">]);</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  <span class="op">}</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="演習" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="演習"><span class="header-section-number">3.7</span> 演習</h2>
@@ -480,7 +505,7 @@ A=\mqty[1 &amp; 1 &amp; 3\\
 <li>引き出しはしない</li>
 </ul>
 <p>出力例</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">◯◯銀行に預けた場合</span> 1234日 で100万円貯まります</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="ex">◯◯銀行に預けた場合</span> 1234日 で100万円貯まります</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -922,6 +947,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./week04.html" class="pagination-link" aria-label="C言語の復習 3">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

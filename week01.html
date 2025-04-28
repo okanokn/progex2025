@@ -167,6 +167,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">C言語の復習 2</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -215,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<iframe width="600" height="400" src="./content/01/01_slide.pdf" title="スライド"></iframe>
+<iframe width="100%" height="400" src="./content/01/01_slide.pdf" title="スライド"></iframe>
 <section id="r授業のコンテンツ" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="r授業のコンテンツ"><span class="header-section-number">1.1</span> +R授業のコンテンツ</h2>
 <p>+R授業では，C言語プログラムの開発環境について，オンライン・オフラインそれぞれの環境設定方法を説明する．オンライン環境については，Google Cloud Shell Editorの使い方を本稿で述べる．オフライン環境については，毛利先生による解説動画を別途アップロードする．</p>
@@ -223,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="google-cloud-shell-editorについて" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="google-cloud-shell-editorについて"><span class="header-section-number">1.2</span> Google Cloud Shell Editorについて</h2>
-<p>インターネットを経由してGoogle社が管理するサーバに接続すると，サーバ内で仮想マシンが起動する．Googleアカウントがあれば無料で使用できるが，いくつか使用上の制限がある (<a href="https://cloud.google.com/shell/docs/how-cloud-shell-works?hl=ja" class="uri">https://cloud.google.com/shell/docs/how-cloud-shell-works?hl=ja</a>):</p>
+<p>インターネットを経由してGoogle社が管理するサーバに接続すると，サーバ内で仮想マシンが起動する．Googleアカウントがあれば無料で使用できるが，いくつか<a href="https://cloud.google.com/shell/docs/how-cloud-shell-works?hl=ja">使用上の制限</a>がある:</p>
 <ul>
 <li>1週間の使用時間が50時間以下に制限される</li>
 <li>20分間キー入力がないと接続が切断され，再接続が必要となる（作成したファイルは残る）</li>
@@ -240,7 +246,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>仮想マシンのOSは，Debian ベースの Linux OS (<a href="https://cloud.google.com/shell/docs/how-cloud-shell-works" class="uri">https://cloud.google.com/shell/docs/how-cloud-shell-works</a>) とのこと．</p>
+<p>仮想マシンのOSは，DebianベースのLinux OSとのこと<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>．</p>
 </div>
 </div>
 </section>
@@ -266,19 +272,19 @@ Tip
 <h2 data-number="1.4" class="anchored" data-anchor-id="ターミナルを使ってみる"><span class="header-section-number">1.4</span> ターミナルを使ってみる</h2>
 <p>ターミナルにコマンドを打ち込んでコンピュータを操作する練習をしてみよう．</p>
 <p>現在の作業フォルダを表示するコマンド<code>pwd</code>を<code>$</code>マークの右側に打ち込み，<kbd aria-hidden="true">Enter</kbd><span class="visually-hidden">Enter</span>キーで実行する．</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kunihisa_okano@cloudshell:~$</span> pwd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/kunihisa_okano</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">kunihisa_okano@cloudshell:~$</span> pwd</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">/home/kunihisa_okano</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>1行目の<code>$</code>の右側が入力したコマンド，2行目は実行結果を示している．<code>kunihisa_okano</code>は筆者のGoogleアカウント名である． なお，<code>$</code>の左側は，<code>ログイン名@マシン名:カレントフォルダ$</code>を表す． 以後のコマンド例では<code>$</code>の右側のみを記述する．</p>
 <p>ファイルの中身をテキストで表示する<code>cat</code>コマンドを使ってみよう．</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> README-cloudshell.txt <span class="co"># 実行するとファイルの中身がターミナルに表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">cat</span> README-cloudshell.txt <span class="co"># 実行するとファイルの中身がターミナルに表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>ここで，表示したいファイル名<code>README-cloudshell.txt</code>をすべて手動で入力する必要はない．<kbd aria-hidden="true">R</kbd><span class="visually-hidden">R</span>のあとに<kbd aria-hidden="true">Tab</kbd><span class="visually-hidden">Tab</span>キーを押せば，作業フォルダ内で<code>R</code>から始まるファイル名を自動的に補完してくれる．</p>
-<p>現在のフォルダに，テスト用のフォルダ<code>test_dir</code>を作成しよう．<code>mkdir</code>コマンド<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>で作成して，<code>ls</code>コマンドで作成結果を確認する：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> test_dir <span class="co"># test_dir という名前のフォルダを作成</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="co"># ファイル一覧が表示される．新たに test_dir が追加されている</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>現在のフォルダに，テスト用のフォルダ<code>test_dir</code>を作成しよう．<code>mkdir</code>コマンド<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>で作成して，<code>ls</code>コマンドで作成結果を確認する：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">mkdir</span> test_dir <span class="co"># test_dir という名前のフォルダを作成</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">ls</span> <span class="co"># ファイル一覧が表示される．新たに test_dir が追加されている</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>#</code>以降はコメントなので入力する必要はない．</p>
 <p>作成したディレクトリ<code>test_dir</code>に作業ディレクトリを移動しよう．<code>cd</code>コマンドを使う．</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> test_dir <span class="co"># test_dirへ移動</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span> <span class="co"># 移動できたか確認する</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="bu">cd</span> test_dir <span class="co"># test_dirへ移動</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="bu">pwd</span> <span class="co"># 移動できたか確認する</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>フォルダ階層を相対パスで表すには，<code>.</code>, <code>..</code>を使う．</p>
 <ul>
 <li><code>.</code> 現在のフォルダ</li>
@@ -286,8 +292,8 @@ Tip
 <li><code>~</code> ホームフォルダ</li>
 </ul>
 <p>たとえば，一つ上のフォルダに移動したい場合はつぎのようにする．</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> .. <span class="co"># ひとつ上のフォルダに移動</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> test_dir <span class="co"># 戻る</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="bu">cd</span> .. <span class="co"># ひとつ上のフォルダに移動</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="bu">cd</span> test_dir <span class="co"># 戻る</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>このほか，以下のコマンドはよく使う．</p>
 <ul>
 <li><code>mv</code> ファイルを移動，名前の変更</li>
@@ -298,22 +304,22 @@ Tip
 <section id="c言語ソースファイルの作成とコンパイル" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="c言語ソースファイルの作成とコンパイル"><span class="header-section-number">1.5</span> C言語ソースファイルの作成とコンパイル</h2>
 <p><code>test_dir</code>に<code>hello.c</code>というC言語のソースファイルを作成してみよう．</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> hello.c <span class="co"># 作業フォルダに hello.c という名前の新規ファイルを作成</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">touch</span> hello.c <span class="co"># 作業フォルダに hello.c という名前の新規ファイルを作成</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>ファイル一覧領域で<code>hello.c</code>を選択すると，エディタ領域でこのファイルを編集できる．</p>
 <p><img src="./content/plusR/plusR_04.png" class="img-fluid"></p>
 <p><code>hello.c</code>を編集して，標準出力にHellow worldというテキストを出力するプログラムを作成しよう．</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Hello world</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    printf<span class="op">(</span><span class="st">"Hello world</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>作成したファイルをコンパイルするには，ターミナルで<code>gcc</code>を呼び出す．</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> hello.c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">gcc</span> hello.c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>プログラム中にタイプミスなどがあると，コンパイラが警告やエラーを出力する．メッセージを読んで該当箇所を修正しよう．</p>
 <p>コンパイルによって作成した実行ファイルは，自動的に<code>a.out</code>という名前がつけられる． これを実行してみよう．</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./a.out</span> <span class="co"># Hello world と表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="ex">./a.out</span> <span class="co"># Hello world と表示される</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>行頭の<code>./</code>は，<code>a.out</code>という実行ファイルが現在のフォルダに存在することを示す．<code>a.out</code>はコマンドとしてコンピュータが認識していないので，どこの<code>a.out</code>なのか，実行するファイルの所在地を明示的に記述する必要がある．</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -340,7 +346,7 @@ Tip
 <h2 data-number="1.7" class="anchored" data-anchor-id="オフライン環境の構築方法"><span class="header-section-number">1.7</span> オフライン環境の構築方法</h2>
 <p>Windowsユーザーの場合は，別途アップロードする毛利先生による解説動画を参照する．</p>
 <p>macOSユーザーの場合は，App Storeから<a href="https://developer.apple.com/jp/xcode/">Xcode</a>をインストールする． Xcodeは容量が大きいので，ストレージ容量が気になる場合は，Command Line Toolsをインストールする．</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>エディタは好きなものを使えばよいが，<a href="https://code.visualstudio.com/">Visual Studio Code</a> を推奨する．</p>
 
 
@@ -348,7 +354,8 @@ Tip
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Make directoryの略．<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>https://cloud.google.com/shell/docs/how-cloud-shell-works<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Make directoryの略．<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

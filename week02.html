@@ -196,6 +196,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">C言語の復習 2</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -296,22 +302,22 @@ window.Quarto = {
 <h2 data-number="2.3" class="anchored" data-anchor-id="四則演算"><span class="header-section-number">2.3</span> 四則演算</h2>
 <p>整数を2つ読み込み，それらの足し算，引き算，掛け算，割り算の計算結果と，割り算の余りを表示するプログラム<code>calc2int.c</code>を作成しよう．</p>
 <p>数値を入力するメッセージの表示は<code>printf</code>関数で，入力された数値の読み込みは<code>scanf</code>関数で行う．</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"1番目の整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>printf<span class="op">(</span><span class="st">"1番目の整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>四則演算を行う演算子を復習しよう．</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"a + b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">+</span> b<span class="op">);</span> <span class="co">// a+b</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"a - b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">-</span> b<span class="op">);</span> <span class="co">// a-b</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"a * b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">*</span> b<span class="op">);</span> <span class="co">// a*b</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"a / b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">/</span> b<span class="op">);</span> <span class="co">// a/bの商を表示 !注意!</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"a </span><span class="sc">%%</span><span class="st"> b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">%</span> b<span class="op">);</span> <span class="co">// bをaで割った余りを表示</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>printf<span class="op">(</span><span class="st">"a + b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">+</span> b<span class="op">);</span> <span class="co">// a+b</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>printf<span class="op">(</span><span class="st">"a - b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">-</span> b<span class="op">);</span> <span class="co">// a-b</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>printf<span class="op">(</span><span class="st">"a * b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">*</span> b<span class="op">);</span> <span class="co">// a*b</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>printf<span class="op">(</span><span class="st">"a / b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">/</span> b<span class="op">);</span> <span class="co">// a/bの商を表示 !注意!</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>printf<span class="op">(</span><span class="st">"a </span><span class="sc">%%</span><span class="st"> b = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> a <span class="op">%</span> b<span class="op">);</span> <span class="co">// bをaで割った余りを表示</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>たとえば<code>a = 2</code>, <code>b = 3</code>のように代入した場合，<code>a/b</code>の計算結果は電卓で<code>2/3</code>を計算した結果と異なり，<code>0</code>が出力される． これは，<code>a</code>, <code>b</code>がともに整数を表す<code>int</code>型であることと，<code>printf</code>の出力形式<code>%d</code>が整数値書式となっているため．</p>
 <p><code>printf</code>中で，パーセント記号は出力書式を表す特殊文字として使われるので，<code>%</code>と書くだけではパーセント記号を出力しない． パーセント記号自身を文字として表示したい場合は，<code>%%</code>のように2回続けて記述する<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>．</p>
 <p>計算に用いる値に小数が含まれている場合は，自動的に小数で計算される．</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">" 2 / 3 = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>         <span class="co">// 小数点以下を切り捨てた 0</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3 = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>     <span class="co">// 小数で計算されるが出力書式がint指定なので変な値に</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3 = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>     <span class="co">// 0.666667 (内部的には更に下の桁まで計算されている)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3.0 = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="fl">3.0</span><span class="op">);</span> <span class="co">// 0.666667 (内部的には更に下の桁まで計算されている)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a>printf<span class="op">(</span><span class="st">" 2 / 3 = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>         <span class="co">// 小数点以下を切り捨てた 0</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3 = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>     <span class="co">// 小数で計算されるが出力書式がint指定なので変な値に</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3 = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="dv">3</span><span class="op">);</span>     <span class="co">// 0.666667 (内部的には更に下の桁まで計算されている)</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>printf<span class="op">(</span><span class="st">" 2.0 / 3.0 = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">/</span><span class="fl">3.0</span><span class="op">);</span> <span class="co">// 0.666667 (内部的には更に下の桁まで計算されている)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip callout-titled" title="負の数を用いた除算">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -421,53 +427,53 @@ window.Quarto = {
 </table>
 <p><code>int</code>と<code>double</code>の演算では<code>int</code>で宣言された変数の値が自動的に<code>double</code>に変換されて計算が行われる． どのような場合に暗黙の型変換が行われるかを網羅的に書くことは難しいが，とりあえずは<code>int</code>と<code>double</code>の関係について知っておけばよい．</p>
 <p>明示的に型変換を行いたい場合は，<code>(型名)(変換対象の式)</code>のように書く． これを<strong>キャスト</strong>という．</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> c <span class="op">=</span> <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>a <span class="op">+</span> b<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span> <span class="co">// intのa+bをdoubleに変換してから 2 で除す→計算結果はdouble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="dt">double</span> c <span class="op">=</span> <span class="op">(</span><span class="dt">double</span><span class="op">)(</span>a <span class="op">+</span> b<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span> <span class="co">// intのa+bをdoubleに変換してから 2 で除す→計算結果はdouble</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="分岐-if" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="分岐-if"><span class="header-section-number">2.5</span> 分岐 if</h2>
 <p>プログラムの処理を，条件によって分岐させるには<code>if</code>文を使う． 次のプログラムは，入力された整数が偶数の場合，そのように出力するプログラム（の一部）である． <code>evenorodd.c</code>というファイルを作成し，以下の内容を書き写して実行してみよう．</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  printf<span class="op">(</span><span class="st">"aは偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>if(式)</code>で式の真偽によってプログラムの実行が分岐する．式が真の場合のみ<code>if</code>の直後のブロックが実行される．ブロックとは，<code>{}</code>で囲われた部分のことである．</p>
 <p>さらに，式が偽の場合の動作を別途指定したい場合は，<code>else</code>を使う．</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  printf<span class="op">(</span><span class="st">"aは偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  printf<span class="op">(</span><span class="st">"aは奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>最初の式が偽の場合に，さらに別の条件で分岐を行う場合は<code>else if</code>を使う．</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは負の数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは正の偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは正の奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  printf<span class="op">(</span><span class="st">"aは負の数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="op">}</span><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  printf<span class="op">(</span><span class="st">"aは正の偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  printf<span class="op">(</span><span class="st">"aは正の奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>また，<code>if</code>文のなかに<code>if</code>文を書くこともできる． 次のプログラムは，上のプログラムと同一だが，<code>else</code>の中に別の<code>if</code>文が入っている．</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"aは負の数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"aは正の偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"aは正の奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">, &amp;a"</span><span class="op">);</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="cf">if</span><span class="op">(</span>a <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  printf<span class="op">(</span><span class="st">"aは負の数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="cf">if</span> <span class="op">(</span>a <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    printf<span class="op">(</span><span class="st">"aは正の偶数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="op">}</span><span class="cf">else</span><span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    printf<span class="op">(</span><span class="st">"aは正の奇数です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>このように，ブロックの中に別のブロックが入る場合は，インデント（行頭の空白文字の長さ）をブロックの深さごとに変えて，視覚的にプログラムの構造を表すとよい． 多くのエディタではインデントを自動的に整形する機能がついている． Google Cloud Shell Editorでは<code>Format Document</code>コマンドで整形できる． これを呼び出すには，<kbd aria-hidden="true" data-mac="Shift-Cmd-P" data-windows="Shift-Ctrl-P"></kbd><span class="visually-hidden"></span>でメニューを呼び出し，<code>Format Document</code>と入力するか，<kbd aria-hidden="true" data-mac="Shift-Option-F" data-windows="Shift-Alt-F"></kbd><span class="visually-hidden"></span>のショートカットキーを使う．</p>
 <p>条件に大小関係を用いる場合は，関係演算子を用いて記述する．</p>
 <table class="caption-top table">
@@ -535,40 +541,40 @@ window.Quarto = {
 <section id="分岐-switch" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="分岐-switch"><span class="header-section-number">2.6</span> 分岐 switch</h2>
 <p>3つ以上の処理に分岐したい場合は<code>switch</code>文を使うことができる． 以下は，入力された整数の剰余を計算して，その値によってテキストを出力するプログラムである． <code>mod3.c</code>というファイルを作成し，以下の内容を書き写して実行してみよう．</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">3</span><span class="op">){</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">0</span> <span class="op">:</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"3で割り切れます</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">1</span> <span class="op">:</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"3で割った余りは1です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> <span class="dv">2</span> <span class="op">:</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"3で割った余りは2です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span> <span class="op">:</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"剰余が0, 1, 2のいずれでもありません</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">int</span> a<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>printf<span class="op">(</span><span class="st">"整数を入力してください: "</span><span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">);</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="cf">switch</span><span class="op">(</span>a <span class="op">%</span> <span class="dv">3</span><span class="op">){</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="cf">case</span> <span class="dv">0</span> <span class="op">:</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>    printf<span class="op">(</span><span class="st">"3で割り切れます</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="cf">case</span> <span class="dv">1</span> <span class="op">:</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>    printf<span class="op">(</span><span class="st">"3で割った余りは1です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>  <span class="cf">case</span> <span class="dv">2</span> <span class="op">:</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>    printf<span class="op">(</span><span class="st">"3で割った余りは2です</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>  <span class="cf">default</span> <span class="op">:</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>    printf<span class="op">(</span><span class="st">"剰余が0, 1, 2のいずれでもありません</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>switch</code>文は次のような構造になっている．</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span><span class="op">(</span>式<span class="op">){</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> 定数式<span class="op">:</span> 文</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> 定数式<span class="op">:</span> 文</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span> 文</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a><span class="cf">switch</span><span class="op">(</span>式<span class="op">){</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="cf">case</span> 定数式<span class="op">:</span> 文</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="cf">case</span> 定数式<span class="op">:</span> 文</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="cf">default</span><span class="op">:</span> 文</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>式の値が，<code>case</code>のあとに続く定数式に合致する箇所にジャンプし，それ以後の文を実行する． <code>default</code>は，どの<code>case</code>にも合致しない場合に実行される． <code>break</code>は，その行で<code>switch</code>文のブロックを抜ける動作をする． つまり，<code>switch</code>文直後の<strong>ブロックの後</strong>に処理が移動する． もし<code>break</code>が無いと，その後の<code>case</code>の文も実行される． （個人的には，<code>switch</code>を使わずに<code>if</code>で書いたほうがわかりやすいと思う．）</p>
 </section>
 <section id="繰り返し-for" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="繰り返し-for"><span class="header-section-number">2.7</span> 繰り返し for</h2>
 <p>繰り返し特定の処理を行いたい場合は<code>for</code>文を使う． 以下のプログラムは，“hello world”を10回繰り返して出力する． “world”の後には繰り返し回数を表示する． <code>hello10.c</code>というファイルを作成し，以下の内容を書き写して実行してみよう．</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span>i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">){</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"hello world </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">+</span><span class="dv">1</span><span class="op">);</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a><span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span><span class="op">(</span>i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">){</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  printf<span class="op">(</span><span class="st">"hello world </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">+</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>for</code>文は以下のような構造をもつ:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span>式<span class="dv">1</span><span class="op">;</span> 式<span class="dv">2</span><span class="op">;</span> 式<span class="dv">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a><span class="cf">for</span><span class="op">(</span>式<span class="dv">1</span><span class="op">;</span> 式<span class="dv">2</span><span class="op">;</span> 式<span class="dv">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>まず式1を実行し，つぎに式2を評価する． 評価結果が真であれば<code>for</code>文の直後のブロックを実行する． その後，式3を実行して<strong>式2の真偽評価に戻る</strong>． これを，式2の評価が偽となるまで繰り返す．</p>
 <div class="callout callout-style-default callout-note callout-titled" title="無限ループを止める">
 <div class="callout-header d-flex align-content-center">
