@@ -397,7 +397,7 @@ window.Quarto = {
 <p>たとえば<span class="math inline">\([\underline{x}, \bar{x}] = [-1, 1]\)</span>として，上図のような関数<span class="math inline">\(f(x)\)</span>がプロットできる場合は，<span class="math inline">\(x = -1, 0, 1\)</span>付近が解であることがわかるが，その厳密な値はグラフからはわからない．また，<span class="math inline">\(f(x)\)</span>が複雑でグラフを描いても解が読み取れない，そもそもプロットできない場合を想定するとよい．</p>
 <section id="二分法" class="level3" data-number="4.5.1">
 <h3 data-number="4.5.1" class="anchored" data-anchor-id="二分法"><span class="header-section-number">4.5.1</span> 二分法</h3>
-<p>探索範囲を2分割して絞り込む方法である． アルゴリズムへの入力として，解を挟む閉区間<span class="math inline">\([a, b]\)</span>と，解の許容誤差<span class="math inline">\(\epsilon\)</span>を与えておく． <span class="math inline">\(a\)</span>と<span class="math inline">\(b\)</span>の中点を新たに<span class="math inline">\(c\)</span>として，<span class="math inline">\(f(c)\)</span>の正負によって探索範囲を<span class="math inline">\([a, c]\)</span>か<span class="math inline">\([c, b]\)</span>に絞る．探索範囲の幅が<span class="math inline">\(\epsilon\)</span>より小さくなった時点で探索終了．</p>
+<p>探索範囲を2分割して絞り込む方法である． アルゴリズムへの入力として，解を挟む閉区間<span class="math inline">\([a, b]\)</span>と，解の許容誤差<span class="math inline">\(\epsilon\)</span>を与えておく． <span class="math inline">\(a\)</span>と<span class="math inline">\(b\)</span>の中点を新たに<span class="math inline">\(c\)</span>として，<span class="math inline">\(f(c)\)</span>の正負によって探索範囲を<span class="math inline">\([a, c]\)</span>か<span class="math inline">\([c, b]\)</span>に絞る．探索範囲の幅が<span class="math inline">\(\epsilon\)</span>より小さくなった時点で探索を終了する．</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -413,8 +413,8 @@ Tip
 </div>
 <ul>
 <li>初期入力: <span class="math inline">\(f(a)\)</span>と<span class="math inline">\(f(b)\)</span>が異符号であるような<span class="math inline">\(a, b \in [\underline{x}, \bar{x}]\)</span>，正数<span class="math inline">\(\epsilon\)</span></li>
-<li>手順1: <span class="math inline">\(c := (a + b)/2\)</span>とする．もし<span class="math inline">\(f(c) = 0\)</span>ならば<span class="math inline">\(c\)</span>を解として終了． もし<span class="math inline">\(f(a)\)</span>と<span class="math inline">\(f(c)0\)</span>が異符号ならば<span class="math inline">\(b \leftarrow c\)</span>とする．もし<span class="math inline">\(f(b)\)</span>と<span class="math inline">\(f(c)0\)</span>が異符号ならば<span class="math inline">\(a \leftarrow a\)</span>とする．</li>
-<li>手順2: <span class="math inline">\(|b-a| &lt; \epsilon\)</span>ならば<span class="math inline">\(a, b\)</span>（またはそのいずれか）を解として終了．そうでなければ手順1へ．</li>
+<li>手順1: <span class="math inline">\(c := (a + b)/2\)</span>とする．もし<span class="math inline">\(f(c) = 0\)</span>ならば<span class="math inline">\(c\)</span>を解として終了． もし<span class="math inline">\(f(a)\)</span>と<span class="math inline">\(f(c)\)</span>が異符号ならば<span class="math inline">\(b \leftarrow c\)</span>とする．もし<span class="math inline">\(f(b)\)</span>と<span class="math inline">\(f(c)\)</span>が異符号ならば<span class="math inline">\(a \leftarrow c\)</span>とする．</li>
+<li>手順2: <span class="math inline">\(|b-a| &lt; \epsilon\)</span>ならば<span class="math inline">\(a, b\)</span>（またはその中点）を解として終了．そうでなければ手順1へ．</li>
 </ul>
 <p>以下は，<span class="math inline">\(f(x) = x^2 -2 = 0\)</span>の解を，<span class="math inline">\(a=0\)</span>, <span class="math inline">\(b = 2\)</span>を初期探索範囲として求めるプログラムである． ただし，二分法のアルゴリズム部分は実装していない（後の演習問題とする）．</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
@@ -428,7 +428,7 @@ Tip
 <span id="cb10-9"><a href="#cb10-9"></a><span class="dt">double</span> bisection_search<span class="op">(</span><span class="dt">double</span> a<span class="op">,</span> <span class="dt">double</span> b<span class="op">,</span> <span class="dt">double</span> eps<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb10-10"><a href="#cb10-10"></a>  <span class="dt">double</span> c<span class="op">;</span></span>
 <span id="cb10-11"><a href="#cb10-11"></a>  <span class="co">// 二分法の探索アルゴリズム</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a>  <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>  <span class="cf">return</span> c<span class="op">;</span></span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="op">}</span></span>
 <span id="cb10-14"><a href="#cb10-14"></a></span>
 <span id="cb10-15"><a href="#cb10-15"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
