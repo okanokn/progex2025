@@ -364,7 +364,7 @@
     "href": "week04.html#方程式の数値解法",
     "title": "4  C言語の復習 3",
     "section": "4.5 方程式の数値解法",
-    "text": "4.5 方程式の数値解法\n方程式\\(f(x) = 0\\), \\(x \\in [\\underline{x}, \\bar{x}]\\)を数値的に解く方法を考えよう．ここで，「数値的に」とは，\\(f(x)=0\\)を式変形して\\(x = \\alpha\\)として\\(\\alpha\\)を求める方法ではなく，\\(x\\)に具体的な数字を代入して計算することによって解\\(\\alpha\\)を求めることを意味する．\n\n\n\n\n\nたとえば\\([\\underline{x}, \\bar{x}] = [-1, 1]\\)として，上図のような関数\\(f(x)\\)がプロットできる場合は，\\(x = -1, 0, 1\\)付近が解であることがわかるが，その厳密な値はグラフからはわからない．また，\\(f(x)\\)が複雑でグラフを描いても解が読み取れない，そもそもプロットできない場合を想定するとよい．\n\n4.5.1 二分法\n探索範囲を2分割して絞り込む方法である． アルゴリズムへの入力として，解を挟む閉区間\\([a, b]\\)と，解の許容誤差\\(\\epsilon\\)を与えておく． \\(a\\)と\\(b\\)の中点を新たに\\(c\\)として，\\(f(c)\\)の正負によって探索範囲を\\([a, c]\\)か\\([c, b]\\)に絞る．探索範囲の幅が\\(\\epsilon\\)より小さくなった時点で探索終了．\n\n\n\n\n\n\nTip\n\n\n\n探索範囲を\\([a, b]\\)の内点に限定してよい理由は，中間値の定理より: \\(f(x)\\)が閉区間\\([a, b]\\)上で連続であり，\\(f(a)\\neq f(b)\\)ならば，\\(f(a)\\)と\\(f(b)\\)の間の任意の値\\(\\xi\\)に対して\\(f(c) = \\xi\\)なる\\(c\\in[a, b]\\)が存在する． ここでは\\(\\xi = 0\\)と考えればよい．\n\n\n\n初期入力: \\(f(a)\\)と\\(f(b)\\)が異符号であるような\\(a, b \\in [\\underline{x}, \\bar{x}]\\)，正数\\(\\epsilon\\)\n手順1: \\(c := (a + b)/2\\)とする．もし\\(f(c) = 0\\)ならば\\(c\\)を解として終了． もし\\(f(a)\\)と\\(f(c)0\\)が異符号ならば\\(b \\leftarrow c\\)とする．もし\\(f(b)\\)と\\(f(c)0\\)が異符号ならば\\(a \\leftarrow a\\)とする．\n手順2: \\(|b-a| &lt; \\epsilon\\)ならば\\(a, b\\)（またはそのいずれか）を解として終了．そうでなければ手順1へ．\n\n以下は，\\(f(x) = x^2 -2 = 0\\)の解を，\\(a=0\\), \\(b = 2\\)を初期探索範囲として求めるプログラムである． ただし，二分法のアルゴリズム部分は実装していない（後の演習問題とする）．\n#include &lt;stdio.h&gt;\n#include &lt;math.h&gt;  // 絶対値を求める関数 fabs を使用するため必要\n\n// 解きたい方程式 f(x) = x^2 - 2 = 0\ndouble f(double x) {\n  return x * x - 2;\n}\n\ndouble bisection_search(double a, double b, double eps) {\n  double c;\n  // 二分法の探索アルゴリズム\n  return a;\n}\n\nint main(void) {\n  double a = 0.0, b = 2.0, eps = 0.01;\n  if (f(a) * f(b) &gt; 0) {\n    printf(\"この範囲に解はありません\\n\");\n    return 0;\n  }\n  if (f(a) == 0 || f(b) == 0) {\n    if (f(a) == 0) {\n      b = a;\n    } else {\n      a = b;\n    }\n  } else {\n    a = bisection_search(a, b, eps);\n  }\n\n  printf(\"解はx = %lf\\n\", a);\n  return 0;\n}\n\n\n\n\n\n\n指数の数学的表記\n\n\n\n\\(0.0001 = 10^{-4}\\)のように0が長く続く数値は1e-4のように表記できる．1E-4, 1.0e-4でも可．同様に\\(10000\\)は1e4, 1E4, 1.0e+4のように表すことができる．いずれもdouble型となり，そのままではint型には代入できない．\n\n\n1回の反復で探索範囲\\([a,b]\\)が半分になるから，探索範囲の長さが\\(\\epsilon\\)より小さくなる反復回数を\\(N\\)とすると， \\[\n\\require{physics}\n\\frac{b-a}{2^N} &lt; \\epsilon\n\\Leftrightarrow N &gt; \\log_2\\qty(\\frac{|b-a|}{\\epsilon})\n\\] である．\n\n\n4.5.2 ニュートン法\n\n\n\n\n\n方程式\\(f(x) = 0\\)の解を求めるために，\\(f'(x)\\)が計算可能な場合を考えよう． ここで「\\(f'(x)\\)が計算可能」とは，\\(x\\)を具体的にひとつ決めれば対応する微分係数\\(f'(x)\\)を計算できるという意味である． 微分が計算できるなら，赤線のグラフを1次関数として近似できる．1次方程式の解は簡単に計算できるので，その解を近似解として採用すればよいのでは？ これをニュートン法と呼ぶ．\n初期解\\(x_0\\)を適当に定義域上に定め（上図では\\(x_0=1.2\\)），その点における勾配\\(f'(x_0)\\)を計算すれば，接線が求まる（上図の青線）． 接線が\\(x\\)軸と交わる点を新たな解の候補\\(x_1\\)とする（上図では\\(x_1 = 1.04096\\)）． これを繰り返せば，点列\\(x_n\\)は\\(f(x)=0\\)の解に近づくと期待できる．\n\n\n\n\n\n点\\(x_n\\)における接線の方程式は \\[\ny = f'(x_n)(x-x_n) + f(x_n)\n\\] であるから，この1次式が\\(x\\)軸と交わる点\\(x_{n+1}\\)は，\\(y=0\\)を\\(x\\)について解いて， \\[\nx_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}\n\\] となる．\n初期解\\(x_0\\)が解\\(\\alpha\\)に十分近いときにはニュートン法によって\\(x_n\\)は\\(\\alpha\\)に2次収束する． つまり，\\(x_n\\)が\\(\\alpha\\)に十分近いときには，ある\\(c&gt;0\\)を用いて \\[\n|x_{n+1} - \\alpha| \\approx c |x_n - \\alpha|^2\n\\] となる．\n探索の終了条件は，\\(f(x_n)\\)が0に十分近くなった場合や，解の候補がほとんど動かなくなった場合，つまり\\(x_{n+1}-x_n\\)が十分小さくなった場合とする: \\[\n|f(x_n)| &lt; \\epsilon \\quad\\text{or}\\quad |x_{n+1}-x_n| &lt; \\delta.\n\\]\n解の更新部分を除く実装例は以下の通り．\n#include &lt;stdio.h&gt;\n#include &lt;math.h&gt;\n\ndouble f(double x) {\n  return x * x - 2;\n}\ndouble dfdx(double x) {\n  return 2 * x;\n}\ndouble newton_search(double x, double eps, double dlt) {\n  double xnext;\n  // ニュートン法の探索アルゴリズム\n  return xnext;\n}\n\nint main(void) {\n  double x0 = 2.0, eps = 0.01, dlt = 0.01;\n  printf(\"解はx = %lf\\n\", newton_search(x0, eps, dlt));\n  return 0;\n}\n\n\n\n\n\n\nニュートン法の問題点\n\n\n\n初期解を解の十分近くに取る必要性に加え，\\(f'(x_n)\\)の逆数を解の更新に用いる点は，ニュートン法を適用するうえでしばしば障害となる．\\(f'(x_n)=0\\)となる場合に計算不能となるのはすぐわかる． 独立変数\\(x\\)が多次元の場合は，\\(f(x)\\)のヤコビ行列の逆行列を計算することに相当し，どの\\(x_n\\)に対してもこの逆行列の存在を保証することはハードルが高い．また，逆行列計算の計算量の多さも問題となる． そこで，\\(f'(x_n)\\)を近似的に計算するニュートン法の改良法が数多く提案されている． \n\n\n\n\n\n\n\n\n反復アルゴリズム\n\n\n\nニュートン法のように，解の候補\\(x_n\\)を\\(f(x_n)\\)や\\(f'(x_n)\\)の値を用いて更新するアルゴリズムは非常に広範囲で使われる． 一般的な形式で書き表すと， \\[\nx_{n+1} = x_n + \\alpha_n \\Delta x_n\n\\] の様に書け，\\(\\Delta x_n\\)は解を更新する方向を，\\(\\alpha_n\\)はどの程度解を動かすかを表している． 初見の数値解法アルゴリズムであっても，上式のように解釈すると意味がわかりやすい．",
+    "text": "4.5 方程式の数値解法\n方程式\\(f(x) = 0\\), \\(x \\in [\\underline{x}, \\bar{x}]\\)を数値的に解く方法を考えよう．ここで，「数値的に」とは，\\(f(x)=0\\)を式変形して\\(x = \\alpha\\)として\\(\\alpha\\)を求める方法ではなく，\\(x\\)に具体的な数字を代入して計算することによって解\\(\\alpha\\)を求めることを意味する．\n\n\n\n\n\nたとえば\\([\\underline{x}, \\bar{x}] = [-1, 1]\\)として，上図のような関数\\(f(x)\\)がプロットできる場合は，\\(x = -1, 0, 1\\)付近が解であることがわかるが，その厳密な値はグラフからはわからない．また，\\(f(x)\\)が複雑でグラフを描いても解が読み取れない，そもそもプロットできない場合を想定するとよい．\n\n4.5.1 二分法\n探索範囲を2分割して絞り込む方法である． アルゴリズムへの入力として，解を挟む閉区間\\([a, b]\\)と，解の許容誤差\\(\\epsilon\\)を与えておく． \\(a\\)と\\(b\\)の中点を新たに\\(c\\)として，\\(f(c)\\)の正負によって探索範囲を\\([a, c]\\)か\\([c, b]\\)に絞る．探索範囲の幅が\\(\\epsilon\\)より小さくなった時点で探索を終了する．\n\n\n\n\n\n\nTip\n\n\n\n探索範囲を\\([a, b]\\)の内点に限定してよい理由は，中間値の定理より: \\(f(x)\\)が閉区間\\([a, b]\\)上で連続であり，\\(f(a)\\neq f(b)\\)ならば，\\(f(a)\\)と\\(f(b)\\)の間の任意の値\\(\\xi\\)に対して\\(f(c) = \\xi\\)なる\\(c\\in[a, b]\\)が存在する． ここでは\\(\\xi = 0\\)と考えればよい．\n\n\n\n初期入力: \\(f(a)\\)と\\(f(b)\\)が異符号であるような\\(a, b \\in [\\underline{x}, \\bar{x}]\\)，正数\\(\\epsilon\\)\n手順1: \\(c := (a + b)/2\\)とする．もし\\(f(c) = 0\\)ならば\\(c\\)を解として終了． もし\\(f(a)\\)と\\(f(c)\\)が異符号ならば\\(b \\leftarrow c\\)とする．もし\\(f(b)\\)と\\(f(c)\\)が異符号ならば\\(a \\leftarrow c\\)とする．\n手順2: \\(|b-a| &lt; \\epsilon\\)ならば\\(a, b\\)（またはその中点）を解として終了．そうでなければ手順1へ．\n\n以下は，\\(f(x) = x^2 -2 = 0\\)の解を，\\(a=0\\), \\(b = 2\\)を初期探索範囲として求めるプログラムである． ただし，二分法のアルゴリズム部分は実装していない（後の演習問題とする）．\n#include &lt;stdio.h&gt;\n#include &lt;math.h&gt;  // 絶対値を求める関数 fabs を使用するため必要\n\n// 解きたい方程式 f(x) = x^2 - 2 = 0\ndouble f(double x) {\n  return x * x - 2;\n}\n\ndouble bisection_search(double a, double b, double eps) {\n  double c;\n  // 二分法の探索アルゴリズム\n  return c;\n}\n\nint main(void) {\n  double a = 0.0, b = 2.0, eps = 0.01;\n  if (f(a) * f(b) &gt; 0) {\n    printf(\"この範囲に解はありません\\n\");\n    return 0;\n  }\n  if (f(a) == 0 || f(b) == 0) {\n    if (f(a) == 0) {\n      b = a;\n    } else {\n      a = b;\n    }\n  } else {\n    a = bisection_search(a, b, eps);\n  }\n\n  printf(\"解はx = %lf\\n\", a);\n  return 0;\n}\n\n\n\n\n\n\n指数の数学的表記\n\n\n\n\\(0.0001 = 10^{-4}\\)のように0が長く続く数値は1e-4のように表記できる．1E-4, 1.0e-4でも可．同様に\\(10000\\)は1e4, 1E4, 1.0e+4のように表すことができる．いずれもdouble型となり，そのままではint型には代入できない．\n\n\n1回の反復で探索範囲\\([a,b]\\)が半分になるから，探索範囲の長さが\\(\\epsilon\\)より小さくなる反復回数を\\(N\\)とすると， \\[\n\\require{physics}\n\\frac{b-a}{2^N} &lt; \\epsilon\n\\Leftrightarrow N &gt; \\log_2\\qty(\\frac{|b-a|}{\\epsilon})\n\\] である．\n\n\n4.5.2 ニュートン法\n\n\n\n\n\n方程式\\(f(x) = 0\\)の解を求めるために，\\(f'(x)\\)が計算可能な場合を考えよう． ここで「\\(f'(x)\\)が計算可能」とは，\\(x\\)を具体的にひとつ決めれば対応する微分係数\\(f'(x)\\)を計算できるという意味である． 微分が計算できるなら，赤線のグラフを1次関数として近似できる．1次方程式の解は簡単に計算できるので，その解を近似解として採用すればよいのでは？ これをニュートン法と呼ぶ．\n初期解\\(x_0\\)を適当に定義域上に定め（上図では\\(x_0=1.2\\)），その点における勾配\\(f'(x_0)\\)を計算すれば，接線が求まる（上図の青線）． 接線が\\(x\\)軸と交わる点を新たな解の候補\\(x_1\\)とする（上図では\\(x_1 = 1.04096\\)）． これを繰り返せば，点列\\(x_n\\)は\\(f(x)=0\\)の解に近づくと期待できる．\n\n\n\n\n\n点\\(x_n\\)における接線の方程式は \\[\ny = f'(x_n)(x-x_n) + f(x_n)\n\\] であるから，この1次式が\\(x\\)軸と交わる点\\(x_{n+1}\\)は，\\(y=0\\)を\\(x\\)について解いて， \\[\nx_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}\n\\] となる．\n初期解\\(x_0\\)が解\\(\\alpha\\)に十分近いときにはニュートン法によって\\(x_n\\)は\\(\\alpha\\)に2次収束する． つまり，\\(x_n\\)が\\(\\alpha\\)に十分近いときには，ある\\(c&gt;0\\)を用いて \\[\n|x_{n+1} - \\alpha| \\approx c |x_n - \\alpha|^2\n\\] となる．\n探索の終了条件は，\\(f(x_n)\\)が0に十分近くなった場合や，解の候補がほとんど動かなくなった場合，つまり\\(x_{n+1}-x_n\\)が十分小さくなった場合とする: \\[\n|f(x_n)| &lt; \\epsilon \\quad\\text{or}\\quad |x_{n+1}-x_n| &lt; \\delta.\n\\]\n解の更新部分を除く実装例は以下の通り．\n#include &lt;stdio.h&gt;\n#include &lt;math.h&gt;\n\ndouble f(double x) {\n  return x * x - 2;\n}\ndouble dfdx(double x) {\n  return 2 * x;\n}\ndouble newton_search(double x, double eps, double dlt) {\n  double xnext;\n  // ニュートン法の探索アルゴリズム\n  return xnext;\n}\n\nint main(void) {\n  double x0 = 2.0, eps = 0.01, dlt = 0.01;\n  printf(\"解はx = %lf\\n\", newton_search(x0, eps, dlt));\n  return 0;\n}\n\n\n\n\n\n\nニュートン法の問題点\n\n\n\n初期解を解の十分近くに取る必要性に加え，\\(f'(x_n)\\)の逆数を解の更新に用いる点は，ニュートン法を適用するうえでしばしば障害となる．\\(f'(x_n)=0\\)となる場合に計算不能となるのはすぐわかる． 独立変数\\(x\\)が多次元の場合は，\\(f(x)\\)のヤコビ行列の逆行列を計算することに相当し，どの\\(x_n\\)に対してもこの逆行列の存在を保証することはハードルが高い．また，逆行列計算の計算量の多さも問題となる． そこで，\\(f'(x_n)\\)を近似的に計算するニュートン法の改良法が数多く提案されている． \n\n\n\n\n\n\n\n\n反復アルゴリズム\n\n\n\nニュートン法のように，解の候補\\(x_n\\)を\\(f(x_n)\\)や\\(f'(x_n)\\)の値を用いて更新するアルゴリズムは非常に広範囲で使われる． 一般的な形式で書き表すと， \\[\nx_{n+1} = x_n + \\alpha_n \\Delta x_n\n\\] の様に書け，\\(\\Delta x_n\\)は解を更新する方向を，\\(\\alpha_n\\)はどの程度解を動かすかを表している． 初見の数値解法アルゴリズムであっても，上式のように解釈すると意味がわかりやすい．",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>C言語の復習 3</span>"
     ]
@@ -377,6 +377,146 @@
     "text": "4.6 演習\n\n4.6.1 問題1\nつぎのプログラムを実行し，出力される値を理由とともに説明せよ．ファイル名をscope.txtとする．\n#include &lt;stdio.h&gt;\n\nint x = 1;\n\nvoid print_x(void) {\n  int x = 10;\n  printf(\"%d\\n\", x);\n}\n\nint main(void) {\n  printf(\"%d\\n\", x);\n  int x = 100;\n  print_x();\n  for (int i = 0; i &lt; 3; i++) {\n    int x = 1000 + i;\n    printf(\"%d\\n\", x);\n    x++;\n  }\n  return 0;\n}\n\n\n\n4.6.2 問題2\n二分法の探索プログラムを完成させ，\\(\\cos(x / 2) = 0\\)の解を\\(x\\in[0, 6]\\)の間で求めよ．ファイル名はbisection.cとする．\n\n\n\n\n\n\n絶対値関数\n\n\n\n絶対値を求めるには，math.hをincludeしてfabs関数を使う．この関数はdouble型を引数として，その絶対値をdobule型で返す．\ndouble fabs(double)\nmath.hで定義されている関数一覧はこのページなどを参照．\n\n\n\n\n\n\n\n\n数学関数を使う場合のコンパイルエラー\n\n\n\nmath.hで宣言されている数学関数を使用すると，コンパイル時にエラーとなる場合がある．その場合は，lmオプションを付ける．\ngcc bisection.c -lm\n\n\n\n\n4.6.3 問題3\nニュートン法の探索プログラムを完成させ，\\(\\cos(x / 2) = 0\\)の解を\\(x\\in[0, 6]\\)の間で求めよ．ファイル名はnewton.cとする．",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>C言語の復習 3</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html",
+    "href": "week05.html",
+    "title": "5  C言語の復習 4",
+    "section": "",
+    "text": "5.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#本日のメニュー",
+    "href": "week05.html#本日のメニュー",
+    "title": "5  C言語の復習 4",
+    "section": "5.2 本日のメニュー",
+    "text": "5.2 本日のメニュー\n\nマクロ\n文字，文字列",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#include指令",
+    "href": "week05.html#include指令",
+    "title": "5  C言語の復習 4",
+    "section": "5.3 include指令",
+    "text": "5.3 include指令\nコンパイラがソースコードを機械語に変換する前に，プリプロセッサがソースコードを編集する． このときの動作について説明する．\n#include &lt;ファイル名&gt;があるとき，その場所にファイル名で指定したファイルの中身が挿入される． 既存のライブラリ（のヘッダファイル）など，システム上のファイルを指定する場合はファイル名を&lt;と&gt;で囲う． 自作のファイルを読み込む場合はファイルパスを\"で囲う．",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#define指令オブジェクトマクロ",
+    "href": "week05.html#define指令オブジェクトマクロ",
+    "title": "5  C言語の復習 4",
+    "section": "5.4 define指令（オブジェクトマクロ）",
+    "text": "5.4 define指令（オブジェクトマクロ）\n#define a bと書くと，これ以降のaはbに置換される（ただし，\"で囲われた中身（文字列リテラル），変数名の一部は置換されない）． これをオブジェクトマクロと呼ぶ． プログラム中で使用する定数（プログラム実行中に書き換えることのない値）に名前をつけて可読性を上げたり，定数を変更する際の手間を省いたりするのに役立つ． たとえば，学生数分の配列を使う場合，下記のように書くことができる．\n#define STUDENT_NUM 30\nint main(void){\n    int score[STUDENT_NUM]; //コンパイルの前に int score[30] に置き換えられる\n    // ...\n    for(int i = 0; i &lt; STUDENT_NUM; i++) \n    // ...\n}\nオブジェクトの名前は，変数と区別するために大文字アルファベットで記述することが多い．\n#define PI 3.14159",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#define指令関数形式マクロ",
+    "href": "week05.html#define指令関数形式マクロ",
+    "title": "5  C言語の復習 4",
+    "section": "5.5 define指令（関数形式マクロ）",
+    "text": "5.5 define指令（関数形式マクロ）\nマクロを使って関数のようなものを定義できる． たとえば，2乗するマクロは以下の通り．\n#define SQR(x) ((x) * (x))\nint main(void){\n    int a = SQR(2); // a = ((2) * (2)) に置換され a = 4 となる\n}\n関数形式（int sqr(int x){ return x*x; }）と比較すると，型を限定しない関数（ぽいもの）を定義できるという利点がある． 例えば，上のSQR()は，\nint a = 2;\nprintf(\"%d\\n\", SQR(a));  // int型の変数を2乗\ndouble b = 2.2;\nprintf(\"%lf\\n\", SQR(b)); // double型の変数を2乗\nのように使うことができる．\n同様に2変数関数も作ることができる．\n#define MAX2(x,y) (x &gt; y ? x : y)\nここで，定義部分は条件演算子と呼ばれ，(条件式 ? 条件式が真の場合の値 : 条件式が偽の場合の値)という書式である．\nマクロには利点がある一方で，意図しない動作をする恐れがある点に注意が必要である． 例えばSQR(a++)は((a++) * (a++))に置換されることから，単にaの2乗を計算してからaをインクリメントするのではなく，インクリメントが2回行われる． もう一つの例として，\n#define NIBAI(x) (x * 2)\nint main(void){\n    printf(\"%d\\n\", NIBAI(3+4)); // 3+4 * 2 と展開される\n}\nとすると，NIBAI(3+4)は3+4 * 2と展開される． よって，おそらく想定していた\\(3+4 = 7\\)の2倍である\\(14\\)とは異なり，値は\\(3+8=11\\)となる．",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#ifdef指令",
+    "href": "week05.html#ifdef指令",
+    "title": "5  C言語の復習 4",
+    "section": "5.6 ifdef指令",
+    "text": "5.6 ifdef指令\nもうひとつ#を使う指令として，ifdefを紹介する． これを使うと，特定の名前のマクロが定義済みか否かによってプログラムの実行を分岐させることができる．\n#define マクロ名 値\n// ...\n#ifdef マクロ名\n  「マクロ名」が定義済みの場合にのみ，この部分を実行\n#endif\nたとえば，デバッグ用にprintf文を仕込んだとき，それを実行するか否かをマクロの有無で切り替えることができる．\n#define IS_DEBUG_MODE // デバッグモードでないときはコメントアウト\nint main(void){\n    #ifdef IS_DEBUG_MODE\n        printf(\"デバッグ用メッセージ\");\n    #endif\n}",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#文字",
+    "href": "week05.html#文字",
+    "title": "5  C言語の復習 4",
+    "section": "5.7 文字",
+    "text": "5.7 文字\n文字1字を表すにはchar型の変数を使う．1文字を表現するにはその文字を単引用符（'）で囲う． printfでchar型の文字を出力するには%cで書式指定する．\nchar moji = 'a'; // 文字「a」を変数mojiに代入\nprintf(\"%c\\n\", moji); // a を出力\ncharは1バイト分の整数（\\(0\\)–\\(255\\)または\\(-128\\)–\\(127\\)）を表現可能な型である． つまり，文字は，文字に対応する整数値で変数に保存される．\nchar moji = 'a';\nprintf(\"%d\\n\", moji); // 文字「a」に対応する数字 97 を出力\nこの整数値はASCII（アスキー）コードと呼ばれる．その一部を別表に示す．\n\n\n\n\n\n\nマルチバイト文字\n\n\n\nここでは文字として半角英数と記号(!\"#$%&'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~)を考える． 日本語の文字は1バイトでは表現できず，1文字を2バイト以上で表現する． 文字と数字の対応は文字コードに依存する．\n\n\n逆に，文字に対応する整数値を指定すれば，文字を表現することができる．\nchar moji = 97; // 整数値97を代入\nprintf(\"%c\\n\", moji); // 書式を%cで指定すると対応する文字「a」を出力\nASCIIコードを確認するとわかるが，連続するアルファベットは連続する数値が割り当てられている． また，Aとaは異なる文字なので，対応する数字も異なる．",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#文字列の基本",
+    "href": "week05.html#文字列の基本",
+    "title": "5  C言語の復習 4",
+    "section": "5.8 文字列の基本",
+    "text": "5.8 文字列の基本\n文字列は，文字の配列で表現する．つまりchar型の配列である． 文字を二重引用符（\"）で囲うと文字列を表す． このように，ソースコード上の\"で囲われた文字列の表現のことを文字列リテラルと呼ぶ．\nchar str[4] = \"abc\"; // 配列strを文字列リテラルで初期化\nprintfで書式指定を%sとすると，与えられた配列の文字列を出力する．\nprintf(\"%s\\n\", str); // 文字列に対応する書式指定は %s\nここで，配列strのサイズが4であることに注意する． これは，文字列は末尾に終端を意味する不可視の記号（NULL文字）を含むため． NULL文字は'\\0'と表現する．\nつまり，文字列の初期化\nchar str[4] = \"abc\";\nを文字に分解して書き表すと\nchar str[4] = {'a', 'b', 'c', '\\0'};\nとなり，両者の意味するところは同一である．\n\n\n\n\n\n\n文字列の末尾にはNULL文字が必要\n\n\n\n末尾にNULL文字が無い文字列はC言語の仕様に適さない．\nchar str[] = {'a', 'b', 'c'};\nprintf(\"%s\\n\", str);\nとすると，abcに続いて変な文字が出力される．",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#配列としての文字列",
+    "href": "week05.html#配列としての文字列",
+    "title": "5  C言語の復習 4",
+    "section": "5.9 配列としての文字列",
+    "text": "5.9 配列としての文字列\n文字列は配列であるから，普通の配列と同様に要素ごとに参照や代入が可能である．\nchar str[] = \"abc\"; // 配列を宣言と同時に初期化する場合はサイズを省略できる\n\n// 文字列として出力\nprintf(\"%s\", str); // abc\nprintf(\"\\n\");\n\n// 1要素ずつ文字として出力\nfor(int i = 0; i &lt; 4; i++){\n    printf(\"%c, \", str[i]); // a, b, c\n}\nprintf(\"\\n\");\n\n// 1要素ずつ数値として出力\nfor(int i = 0; i &lt; 4; i++){\n    printf(\"%d, \", str[i]); // 97, 98, 99\n}\nprintf(\"\\n\");\n通常の配列と同様，初期化以外で一括代入はできない．\nchar str[4];\nstr = \"abc\"; // エラー\n文字列の途中にNULL文字がある場合，最初のNULL文字までが文字列となる． たとえば\"abc\\0def\"という文字列リテラルで初期化した配列を文字列として認識した結果はabcである．\nchar str[] = \"abc\\0def\";\nprintf(\"%s\\n\", str); // abc\n\n\n\n\n\n\nNote\n\n\n\n文字列を初期化するときに，サイズ数より大きい文字列リテラルを代入するとNULL文字が入り切らずに切り取られて不正な文字列になるので注意．\nchar str[4] = \"abcd\"; // dの後のNULL文字が入りきらない\nprintf(\"%s\\n\", str);  // 意図しない出力\n逆に配列のサイズが初期化文字列より大きい場合は，残りの配列要素が0，つまりNULL文字で埋められるので，問題は生じない．\nchar str[10] = \"abcd\"; // 5番目以降は 0 = '\\0' で初期化\nprintf(\"%s\\n\", str);   // abcd",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#文字列の組",
+    "href": "week05.html#文字列の組",
+    "title": "5  C言語の復習 4",
+    "section": "5.10 文字列の組",
+    "text": "5.10 文字列の組\n複数の文字列はchar型の2次元配列で扱うことができる．\nchar name[][11] = {\"Alice\", \"Bob\", \"Charlie\"}; // 長さ11(= 10字+NULL文字)の文字の組を格納する2次元配列\nこの2次元配列の要素は下記のようである．\nname[0][0] = 'A', name[0][1] = 'l', name[0][2] = 'i',  name[0][3] = 'c', name[0][4] = 'e', name[0][5] = '\\0', ..., name[0][10] = '\\0',\nname[1][0] = 'B', name[1][1] = 'o', ...,\nname[2][0] = 'C', name[2][1] = 'h', ..., name[2][10] = '\\0'\n2次元配列の文字列を順に出力するプログラム（の一部）は以下の通り．\nchar name[][11] = {\"Alice\", \"Bob\", \"Charlie\"};\nfor(int i = 0; i&lt; 3; i++){\n    printf(\"%s\\n\", name[i]); // [i]が必要なことに注意\n}",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#文字列の読み込み",
+    "href": "week05.html#文字列の読み込み",
+    "title": "5  C言語の復習 4",
+    "section": "5.11 文字列の読み込み",
+    "text": "5.11 文字列の読み込み\nscanf関数でユーザーの入力を文字列として読み込むことができる．\n#include &lt;stdio.h&gt;\n#define MAX_CHAR 10\nint main(void){\n    char str[MAX_CHAR+1];\n    printf(\"文字列を入力してください:\");\n    scanf(\"%s\", str); // %s = 文字列として解釈, &をつけないstr\n    printf(\"%s と入力しましたね\\n\", str);\n    return 0;\n}\nこのとき，scanfに渡すstrに&が不要である点に注意． これは，配列名は配列先頭のアドレスを表すためであり，（配列ではない）変数にアドレス演算子&をつけたものと同種の情報を渡していることになる．\n\n\n\n\n\n\nscanfはスペースを区切り文字として扱う\n\n\n\nscanfはスペースで入力を区切るので，ユーザーがスペースを入力すると，その後の文字列はstrに格納されない． スペース（や改行）を含めて読み取るには，ファイル入出力に使うfgets関数を使うとよい．\nfgets(str, sizeof(str), stdin); // 読み込み先の配列，配列サイズ，読み込み元 (stdinは標準入力)\nprintf(\"%s と入力しましたね\\n\", str);",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#stringライブラリの便利関数",
+    "href": "week05.html#stringライブラリの便利関数",
+    "title": "5  C言語の復習 4",
+    "section": "5.12 stringライブラリの便利関数",
+    "text": "5.12 stringライブラリの便利関数\nstring.hには文字列関係の便利な関数が定義されている． いくつか紹介する．\n\n5.12.1 文字列の長さ\n\nstrlen(文字列): NULL文字を除く文字列の長さを返す\nstrcpy(配列名, 文字列): 配列名に文字列をコピーする\nstrcat(配列名, 文字列): 配列名内の文字列末尾に文字列を結合する\nstrcmp(文字列1, 文字列2): 文字列1と2を辞書式に大小比較し，文字列1が文字列2より小さい場合に負の整数，等しい場合に0，文字列1が文字列2より大きい場合に正の整数を返す\n\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\nint main(void) {\n  // 文字列の長さ\n  char s1[] = \"abc\";\n  unsigned int len = strlen(s1); // 文字列の長さを返す(NULL文字を除く)\n  printf(\"%d\\n\", len);\n  printf(\"%lu\\n\", sizeof(s1)); // sizeof(配列名)で配列のバイト数を返す. unsigined longなので%lu\n\n  // 文字列のコピー\n  char s2[10];\n  strcpy(s2, s1);     // s2にs1をコピー\n  printf(\"%s\\n\", s2); // abc\n\n  // 文字列の結合\n  char s3[10] = \"xyz\";\n  strcat(s3, s1);     // s3の後にs1を連結 (s3は十分長くとっておく)\n  printf(\"%s\\n\", s3); // xyzabc\n\n  // 文字列の比較\n  char s4[10] = \"abcd\";\n  int cmp1 = strcmp(s1, s4);    // s1 &lt; s2, 負\n  int cmp2 = strcmp(s1, \"abc\"); // s1 == s2, 0\n  printf(\"%d, %d\\n\", cmp1, cmp2);\n  \n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#演習",
+    "href": "week05.html#演習",
+    "title": "5  C言語の復習 4",
+    "section": "5.13 演習",
+    "text": "5.13 演習\n\n5.13.1 問題1\nユーザーが入力した文字列のうち，大文字アルファベットを小文字に，小文字アルファベットを大文字に変換するプログラムを作成せよ． 入力する文字列の最大数をマクロで定義すること． 入力は改行とスペースを含まない1行としてよい． ファイル名をalphabet.cとする．\n\nテスト入力: ABCdef&lt;=&gt;uVwXyZ\nテスト出力: abcDEF&lt;=&gt;UvWxYz\n\n\n\n5.13.2 問題2\n0, '0', \\0, \"0\", \"\\0\"の違いを説明せよ． ファイル名をq2.txtとする．",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
+    ]
+  },
+  {
+    "objectID": "week05.html#asciiコード",
+    "href": "week05.html#asciiコード",
+    "title": "5  C言語の復習 4",
+    "section": "5.14 ASCIIコード",
+    "text": "5.14 ASCIIコード\n\n\n\n文字コード (10進数)\n文字コード (2進数)\n文字\n\n\n\n\n0\n0000 0000\n(NULL)\n\n\n…\n…\n制御文字\n\n\n10\n0000 1010\n\\n (LF)\n\n\n…\n…\n制御文字\n\n\n32\n0010 0000\n(space)\n\n\n…\n…\n数字と記号\n\n\n65\n0100 0001\nA\n\n\n66\n0100 0010\nB\n\n\n67\n0100 0011\nC\n\n\n68\n0100 0100\nD\n\n\n69\n0100 0101\nE\n\n\n70\n0100 0110\nF\n\n\n71\n0100 0111\nG\n\n\n72\n0100 1000\nH\n\n\n73\n0100 1001\nI\n\n\n74\n0100 1010\nJ\n\n\n75\n0100 1011\nK\n\n\n76\n0100 1100\nL\n\n\n77\n0100 1101\nM\n\n\n78\n0100 1110\nN\n\n\n79\n0100 1111\nO\n\n\n80\n0101 0000\nP\n\n\n81\n0101 0001\nQ\n\n\n82\n0101 0010\nR\n\n\n83\n0101 0011\nS\n\n\n84\n0101 0100\nT\n\n\n85\n0101 0101\nU\n\n\n86\n0101 0110\nV\n\n\n87\n0101 0111\nW\n\n\n88\n0101 1000\nX\n\n\n89\n0101 1001\nY\n\n\n90\n0101 1010\nZ\n\n\n91\n0101 1011\n[\n\n\n92\n0101 1100\n\\\n\n\n93\n0101 1101\n]\n\n\n94\n0101 1110\n^\n\n\n95\n0101 1111\n_\n\n\n\n\n\n\n文字コード (10進数)\n文字コード (2進数)\n文字\n\n\n\n\n96\n0110 0000\n`\n\n\n97\n0110 0001\na\n\n\n98\n0110 0010\nb\n\n\n99\n0110 0011\nc\n\n\n100\n0110 0100\nd\n\n\n101\n0110 0101\ne\n\n\n102\n0110 0110\nf\n\n\n103\n0110 0111\ng\n\n\n104\n0110 1000\nh\n\n\n105\n0110 1001\ni\n\n\n106\n0110 1010\nj\n\n\n107\n0110 1011\nk\n\n\n108\n0110 1100\nl\n\n\n109\n0110 1101\nm\n\n\n110\n0110 1110\nn\n\n\n111\n0110 1111\no\n\n\n112\n0111 0000\np\n\n\n113\n0111 0001\nq\n\n\n114\n0111 0010\nr\n\n\n115\n0111 0011\ns\n\n\n116\n0111 0100\nt\n\n\n117\n0111 0101\nu\n\n\n118\n0111 0110\nv\n\n\n119\n0111 0111\nw\n\n\n120\n0111 1000\nx\n\n\n121\n0111 1001\ny\n\n\n122\n0111 1010\nz\n\n\n123\n0111 1011\n{\n\n\n124\n0111 1100\n|\n\n\n125\n0111 1101\n}\n\n\n126\n0111 1110\n~\n\n\n127\n0111 1111\nDEL",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
     ]
   }
 ]
