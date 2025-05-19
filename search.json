@@ -518,5 +518,85 @@
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>C言語の復習 4</span>"
     ]
+  },
+  {
+    "objectID": "week06.html",
+    "href": "week06.html",
+    "title": "6  C言語の復習 5",
+    "section": "",
+    "text": "6.1 おしらせ",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#おしらせ",
+    "href": "week06.html#おしらせ",
+    "title": "6  C言語の復習 5",
+    "section": "",
+    "text": "次週の授業について",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#本日のメニュー",
+    "href": "week06.html#本日のメニュー",
+    "title": "6  C言語の復習 5",
+    "section": "6.2 本日のメニュー",
+    "text": "6.2 本日のメニュー\n\nポインタ",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#ポインタの基本",
+    "href": "week06.html#ポインタの基本",
+    "title": "6  C言語の復習 5",
+    "section": "6.3 ポインタの基本",
+    "text": "6.3 ポインタの基本\nポインタとは，他の変数のメモリアドレスを格納する変数である． ポインタ変数ともいう．ポインタのデータサイズは，64ビットマシンなら64ビット（8バイト）である．\nポインタを宣言するには，データ型 *ポインタ名と書く． 例えば，int型のポインタは以下のように宣言する．\nint a = 10;\nint *p; // int変数へのポインタを宣言\np = &a; // 変数aのアドレスをpに格納\n3行目で，&は変数のアドレスを抽出する演算子なので，pにはaのアドレスが格納される．データを確認してみよう．printfでアドレスを出力する書式指定は%pである．\nprintf(\"%p\\n\", &a); // 0x16b386c88 (変数aのアドレス)\nprintf(\"%p\\n\", p);  // 0x16b386c88 (9桁しかないのは上の桁が0で省略されているため)\n2行目で，pの前には&がついていないことに注意．\nポインタに*をつけると，ポインタが指している変数（つまり，ポインタ変数に格納されているアドレスの変数）と同じ様に扱うことができる．*を間接演算子と呼ぶ．\nint a, b;\nint *p;  // int型へのポインタを宣言\na = 10;\np = &a;  // pにaのアドレスを格納\nb = *p;  // b = a;と同じ\n*p = 20; // a = 20と同じ\nprintf(\"%d\\n\", a);   // 20\nprintf(\"%d\\n\", *p);  // 20\n\n\n\n\n\n\n*をつけてポイント先の変数にアクセス\n\n\n\nこのときの*は，ポインタ変数宣言時の*とは全く別物である． 変数宣言時の\nint *p;\nは，意味的には\nint* p;\nつまり，int型データのアドレスを格納するint*型変数を宣言していると考えるとよい． 実際，int型変数は4バイト，ポインタ変数は8バイト1の変数で別物である．\n\n\n\n\n\n\n\n\nTip\n\n\n\nポインタ変数pをint* p;と宣言することも可能だが，複数個のポインタ変数をまとめて宣言する場合に直観に反する動作をするので，書き方としてはint *p;を推奨する．\nint* p1, p2, p3; // int *p1, p2, p3; と解釈される\nは，p1はポインタ，p2とp3はint型変数となる．\n\n\n\n\n\n\n\n\nTip\n\n\n\n通常の変数に対して*を使うことはできない．\nint a = 10;\n*a; // コンパイル時にエラー",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#関数の引数にポインタを使う",
+    "href": "week06.html#関数の引数にポインタを使う",
+    "title": "6  C言語の復習 5",
+    "section": "6.4 関数の引数にポインタを使う",
+    "text": "6.4 関数の引数にポインタを使う\n関数がreturnで返すことができるデータは1つだけであるが，ポインタを使うと2つ以上の値を得ることができる．\nつぎの例は，2つの変数a, bを受け取って2種類の計算a+bとa-bを行う関数sum_diffを定義している．\n#include &lt;stdio.h&gt;\nvoid sum_diff(int a, int b, int *add, int *diff) {\n  *add = a + b;  // ポインタaddの指すアドレスに値を書き込む\n  *diff = a - b; // ポインタdiffの指すアドレスに値を書き込む\n}\n\nint main(void) {\n  int ad, df; // 戻り値を格納するint型変数\n  sum_diff(10, 100, &ad, &df); // 戻り値用の *アドレス* を関数に渡す\n  printf(\"a-b: %d, a-b: %d\\n\", ad, df);\n  return 0;\n}\n関数の引数int *add, int *diffは計算結果の格納用で，int型のポインタとして受け取っている． 呼び出し元のmain関数では，戻り値の書き込み先のアドレス&ad, &dfを渡している（9行目）．関数sum_diff内では，*演算子を使ってアドレスで参照している先，つまりmainで宣言された変数にアクセスして計算結果を書き込んでいる．\nここで，関数の引数をポインタとせず，通常のint変数で渡すと，エラーにはならないが意図した動作は実現できない． これは，ポインタではない通常の変数を関数に渡すときには，関数内の変数に値がコピーされ，呼び出し元とは別の領域にデータが格納されるためである．これを値渡しという． これに対して，呼び出し元で用意したデータ格納先のアドレスを渡すと，関数内から呼び出し元の変数にアクセスすることができる．これを参照渡しと呼ぶ．\n値渡しと参照渡しの動作の違いを確認するため，渡された2つの数字を入れ替える関数の実装例を見てみよう．\n#include &lt;stdio.h&gt;\nvoid swap1(int a, int b) {// aとbを入れ替える（値渡し）\n  int tmp = a;\n  a = b;\n  b = tmp;\n}\n\nvoid swap2(int *a, int *b) {// aとbを入れ替える（参照渡し）\n  int tmp = *a;\n  *a = *b;\n  *b = tmp;\n}\n\nint main(void) {\n  int a = 1;\n  int b = 10;\n  swap1(a, b);  // 値渡し\n  printf(\"swap 1: a = %d, b = %d\\n\", a, b); // 入れ替わらない\n\n  a = 1;\n  b = 10;\n  swap2(&a, &b); // 参照渡し\n  printf(\"swap 2: a = %d, b = %d\\n\", a, b); // 入れ替わる\n\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#ポインタと配列",
+    "href": "week06.html#ポインタと配列",
+    "title": "6  C言語の復習 5",
+    "section": "6.5 ポインタと配列",
+    "text": "6.5 ポインタと配列\n\n6.5.1 ポインタで配列を走査\n配列は，メモリ上に連番で格納領域を確保するので，連続したアドレスが並ぶことになる．\nint a[3] = {0, 1, 2};\nint *p = &a[0];\n上の例では，ポインタpに配列の先頭a[0]のアドレスが格納される．\nここでpの値を1だけ増加させる．すると，pの値はint型データ1つ分のアドレス（つまり4バイト分）が加算され，a[1]のアドレスと一致する．\np++;                // pをインクリメント\nprintf(\"%d\\n\", *p); // 1 (=a[1])\n同様に，aがdouble型の配列でpがdouble型へのポインタであれば，pに1を加えるとdouble型データ1つ分のアドレス（つまり8バイト分）が加算される．\n#include &lt;stdio.h&gt;\nint main(void) {\n  double a[] = {0.0, 1.0, 2.0};\n  double *p, *q;\n\n  p = &a[0];\n  q = p + 1;\n  printf(\"%lf\\n\", *q);      // 1.0 (=a[1])\n  printf(\"%p, %p\\n\", p, q); // 0x16cf4ec70, 0x16cf4ec78\n  return 0;\n}\n\n\n6.5.2 配列名とアドレス\n第05回で触れたが，配列名単独は，配列の先頭を表すアドレスを意味する．\nint a[] = {0, 1, 2};\nint *p;\np = a; // p = &a[0]と同じ\nまた，配列要素のアドレスは配列名 + インデックス番号と書くことができる． これは，配列名がその配列の先頭へのポインタであることを考えると納得できるであろう．\na;     // = &a[0]\na + 1; // = &a[1]\na + 2; // = &a[2]\nこれを利用して，配列aのi番目要素を*(a + i)のように参照することができる．\n*(a + 1) = 0; // a[1]に 0 を代入\nまとめると，配列aのインデックス1番目を参照する方法として，以下の3種類は同じ意味である．\nint a[] = {0, 1, 2};\nint *p = &a[1]; // a[1]へのポインタ\na[1];     // a[1]の値\n*p;       // a[1]の値\n*(a + 1); // a[1]の値\n\n\n6.5.3 配列を引数とする関数\n配列を引数とする関数は次のように定義する．\n// 配列とその長さを受け取って，すべての要素を出力する関数\nvoid print_array(int a[], int n){\n  for(int i = 0; i &lt; n; i++){\n    printf(\" %d\", a[i]);\n  }\n  printf(\"\\n\");\n}\nこれは，配列先頭へのポインタを渡す関数としても定義できる．\n// 上の関数の引数の表現をポインタに変えたもの\nvoid print_array(int *a, int n){\n  for(int i = 0; i &lt; n; i++){\n    printf(\" %d\", a[i]);\n  }\n  printf(\"\\n\");\n}\nここで，関数の中身（3–6行目）は全く同一であることに注意．つまり，ポインタpに対してp[i]との表記も可能であり，これは*(p + i)を表す．\n\n\n\n\n\n\nTip\n\n\n\n関数の引数を配列形式int a[]とするかポインタ形式int *aとするかは，読ませたい意図によって使い分けることが多いようである．つまり，配列としての意味を強調したいのか，ポインタとして読ませたいかに依る． いずれの場合でも，配列のサイズを超えてアクセスすることがないように，配列のサイズを併せて関数に渡す．\n\n\n配列名とポインタが全く同一のように扱えるか，というとそうではない． たとえば，配列aに別の配列のアドレスを代入することはできない．\nint a[] = {0, 1, 2}\nint *p = a;\nint b[] = {3, 4, 5};\np = b; // OK\na = b; // コンパイル時にエラー",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#演習",
+    "href": "week06.html#演習",
+    "title": "6  C言語の復習 5",
+    "section": "6.6 演習",
+    "text": "6.6 演習\n\n6.6.1 問題1\n要素数5のint型配列aを宣言し，中身を適当に定義せよ． 2種類の方法でaの要素を順番に出力するプログラムを作成せよ． ファイル名はq1.cとする．\n\na[i]のインデックスiをインクリメントするfor文\na[0]のアドレスを格納するポインタをインクリメントするfor文\n\n\n\n6.6.2 問題2\ndouble型配列の要素を逆順に並べ替えて返す関数invertを作成せよ．ただし，invertはポインタを引数とし，関数内でa[i]のように配列にインデックスでアクセスする書き方をしないものとする．\nvoid invert(double *a, int n){\n  // a[i]という書き方は使わない \n}\nファイル名はq2.cとする．",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
+  },
+  {
+    "objectID": "week06.html#footnotes",
+    "href": "week06.html#footnotes",
+    "title": "6  C言語の復習 5",
+    "section": "",
+    "text": "64ビットマシンの場合．↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
+    ]
   }
 ]
