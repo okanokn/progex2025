@@ -598,5 +598,95 @@
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>C言語の復習 5</span>"
     ]
+  },
+  {
+    "objectID": "week07.html",
+    "href": "week07.html",
+    "title": "7  C言語の復習 6",
+    "section": "",
+    "text": "7.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#前回演習の解答",
+    "href": "week07.html#前回演習の解答",
+    "title": "7  C言語の復習 6",
+    "section": "",
+    "text": "ポインタ，ポインタと配列",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#本日のメニュー",
+    "href": "week07.html#本日のメニュー",
+    "title": "7  C言語の復習 6",
+    "section": "7.2 本日のメニュー",
+    "text": "7.2 本日のメニュー\n\n構造体\n共用体",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#構造体",
+    "href": "week07.html#構造体",
+    "title": "7  C言語の復習 6",
+    "section": "7.3 構造体",
+    "text": "7.3 構造体\n単一の数値や文字を保持するにはintやcharなど適当な型を設定した変数を用いて，一連のデータをまとめて扱うには，配列を使えばよかった． たとえば，あるクラスのテストの点数をまとめて管理するためにint型の配列を用いた． これに，テスト受験者の名前—つまり文字列データ—を紐づけて管理するにはどうすればよいか？\n構造体 (structure) を使うと，異なるデータ型をひとまとめにできる．構造体は，その内部に包含するデータの型を宣言し，あたかも新たなデータ型のように使うことができる． つぎの例は，ある人物に関するデータをまとめた構造体の宣言である．\nstruct person{\n  char name[128];  // 氏名\n  float height;    // 身長\n  float weight;    // 体重\n  int age;         // 年齢\n};\n行頭にstructを付けると，構造体の宣言となる．personはその構造体の名前（構造体タグ (structure tag)）である． タグに続くブロック{}の中に，この構造体が含むデータ（メンバ (member)）のデータ型とその名前が定義されている．\n\n\n\n\n\n\nNote\n\n\n\n構造体宣言ブロックの末尾には;が必要である．関数の定義と異なることに注意．\n\n\nこれは構造体personという型の宣言であって，personという名前の変数が作られるわけではない． 実際にデータを格納するには，“person型”の変数を宣言して，値を代入する．\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt; // 文字列をコピーする関数strcpyのために必要\nstruct person {\n  char name[128];  // 名前\n  float height;    // 身長\n  float weight;    // 体重\n  int age;         // 年齢\n};\n\nint main(void) {\n  struct person ohtani;\n  strcpy(ohtani.name, \"Shohei Ohtani\");\n  ohtani.height = 1.93;\n  ohtani.weight = 95.3;\n  ohtani.age = 30;\n  printf(\"%s (%d)\\n\", ohtani.name, ohtani.age);\n  printf(\"H: %4.3f m, W: %4.2f kg\\n\", ohtani.height, ohtani.weight);\n  return 0;\n}\n上のプログラムでは，3–8行目で構造体personを宣言している．この段階ではメモリ上にデータ領域は確保されていない．11行目で，“person型”の変数ohtaniが宣言され，ここでメモリ領域が確保される．大きさはchar[128] = 128バイト，float ✕ 2 = 8バイト，int ✕ 1 = 4バイトの計140バイトである 1． 12–15行目で，ohtaniのメンバに値が代入されており，そのデータは16, 17行目で参照されている．\n.は構造体のメンバにアクセスする演算子である．\n\n\n\n\n\n\n.演算子\n\n\n\n構造体変数struc_nameのメンバmem_nameにアクセスするには，struc_name.mem_nameと書く．\n\n\n\n\n\n\n\n\nTip\n\n\n\nメンバnameは（ポインタ変数ではなく）配列として宣言されているため，\nohtani.name = &\"Shohei Ohtani\"; // エラー\nのように文字列リテラルのアドレスを代入して書き換えることはできない．また，既に宣言済みであって初期化ではないので\nohtani.name = \"Shohei Ohtani\"; // エラー\nもコンパイルエラーとなる．\n\n\n宣言と同時に初期化する場合には，配列の初期化と同様に{}の中に,区切りでメンバの値を指定する．上のプログラムのmain関数部分を以下のように書き換えた．\nint main(void) {\n  struct person ohtani = {\"Shohei Ohtani\", 1.93, 95.3, 30}; // 初期化\n  printf(\"%s (%d)\\n\", ohtani.name, ohtani.age);\n  printf(\"H: %4.3f m, W: %4.2f kg\\n\", ohtani.height, ohtani.weight);\n  return 0;\n}\n\n\n\n\n\n\nTip\n\n\n\n配列の初期化と同様に，{}でメンバの一部のみ初期化した場合は，残りのメンバは0で初期化される．",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#構造体へのポインタ",
+    "href": "week07.html#構造体へのポインタ",
+    "title": "7  C言語の復習 6",
+    "section": "7.4 構造体へのポインタ",
+    "text": "7.4 構造体へのポインタ\n構造体は複数のデータ種類を一つの変数にまとめることができるので，関数の引数をコンパクトに，わかりやすく表現することができる．たとえば，人物に関するデータ処理を行う関数は，名前，身長，体重などのデータを個別に渡すよりも，人物データをひとつの変数にまとめた方がわかりやすいし，保守性が高い．\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\nstruct person {\n  char name[128];  // 氏名\n  float height;    // 身長\n  float weight;    // 体重\n  int age;         // 年齢\n};\n\nvoid printBMI(struct person p) { // BMIを出力する関数\n  printf(\"%s's BMI: %f\\n\", p.name, p.weight / p.height / p.height);\n}\n\nint main(void) {\n  struct person ohtani = {\"Shohei Ohtani\", 1.93, 95.3, 30};\n  printBMI(ohtani);\n  return 0;\n}\n関数で構造体のデータを書き換えるには，構造体へのポインタを関数に渡して（参照渡し），呼び出し元における構造体を関数内で書き換える必要がある．\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\nstruct person {\n  char name[128];  // 氏名\n  float height;    // 身長\n  float weight;    // 体重\n  int age;         // 年齢\n  double bmi;      // BMI\n};\n\nvoid calcBMI(struct person *p) { // BMIを書き込んで返す関数\n  double b = (*p).weight / (*p).height / (*p).height;\n  (*p).bmi = b;\n}\n\nint main(void) {\n  struct person ohtani = {\"Shohei Ohtani\", 1.93, 95.3, 30};\n  calcBMI(&ohtani);\n  printf(\"BMI: %lf\\n\", ohtani.bmi);\n}\nここで，(*p).bmiはp-&gt;bmiと書くこともできる．-&gt;をアロー演算子という． この表現を使うと，上の関数calcBMIはつぎのようにも書ける．\nvoid calcBMI(struct person *p) { // BMIを書き込んで返す関数\n  double b = p-&gt;weight / p-&gt;height / p-&gt;height;\n  p-&gt;bmi = b;\n}\n\n\n\n\n\n\nアロー演算子\n\n\n\n構造体へのポインタpのメンバmemを参照するには，(*p).memだけでなく\np-&gt;mem\nと書くこともできる．",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#構造体の受け渡し",
+    "href": "week07.html#構造体の受け渡し",
+    "title": "7  C言語の復習 6",
+    "section": "7.5 構造体の受け渡し",
+    "text": "7.5 構造体の受け渡し\n配列と異なり，構造体変数に別のオブジェクトを代入することができる．\nstruct person p1, ohtani = {\"Shohei Ohtani\", 1.93, 95.3, 30};\np1 = ohtani;  // 正常\nしたがって，構造体を返す関数を定義して，戻り値を呼び出し元で宣言した構造体変数に代入することもできる．つぎの例の関数createPersonは，必要な情報を受け取って，それらの情報を一つの構造体に加工して呼び出し元に返す関数である．\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\nstruct person {\n  char name[128];  // 氏名\n  float height;    // 身長\n  float weight;    // 体重\n  int age;         // 年齢\n  float bmi;       // BMI\n};\n\nstruct person createPerson(char name[], float h, float w, int a) {\n  struct person p = {\"\", h, w, a};  // 構造体に詰めて返す\n  strcpy(p.name, name);\n  p.bmi = w / h / h;\n  return p;\n}\n\nint main(void) {\n  struct person p;\n  p = createPerson(\"Shohei Ohtani\", 1.93, 95.3, 30);\n}\n構造体の配列も，通常のデータ型の配列と同様に定義できる．\nstruct person player[10];\nplayer[0] = createPerson(\"Shohei Ohtani\", 1.93, 95.3, 30);\nplayer[1] = createPerson(\"Aaron James Judge\", 2.01, 127.9, 33);\n// 後略",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#共用体",
+    "href": "week07.html#共用体",
+    "title": "7  C言語の復習 6",
+    "section": "7.6 共用体",
+    "text": "7.6 共用体\n構造体は型の異なるデータをまとめて管理できるが，メンバを増やすと使用するメモリ領域が大きくなる．複数の型のデータを格納するが，同時に保持するのはひとつのメンバだけという場合には，共用体 (union) として宣言することでメモリ領域を節約できる．\nたとえば，文字，整数，浮動小数点数のいずれかが入るデータ型keywordを定義したいとする．char, int, doubleの3種類をメンバとして持つ構造体は，\nstruct keyword{\n  char c;   // 1バイト\n  int i;    // 4バイト\n  double d; // 8バイト\n};\nとなり13バイト以上（データの切れ目を調整するパディングによって16バイト）が必要である．\nしかし，メンバのうち複数を同時に保持することが無いのであれば，一番大きなdoubleに合わせてメモリ領域を確保しておき（つまり8バイト分），実際には格納しているデータ型に応じて読み出す領域を決めてあげればメモリを節約できる．これは共用体で実現できる．\nunion ukeyword{\n  char c;   // 1バイト\n  int i;    // 4バイト\n  double d; // 8バイト\n}; // 最大のdoubleに合わせて8バイト（宣言時に）確保される\n共用体オブジェクトの参照には構造体と同じく.演算子を使う．",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#演習",
+    "href": "week07.html#演習",
+    "title": "7  C言語の復習 6",
+    "section": "7.7 演習",
+    "text": "7.7 演習\n\n7.7.1 問題1\n書籍の情報を保持する構造体を定義して，手元にある3冊の本の情報を構造体配列に保存せよ． 書籍1冊の情報には，以下を含むこと．\n\n書名\n著者名\n価格\nISBN\n発行年\n\nこの構造体を用いて，以下の動作を実現せよ．\n\n本1冊の情報を出力する関数を作成し，それを用いて3冊全ての情報を出力する\n発行年が古い順に配列を並び替える関数を作成し，並び替えを実行する\n再び3冊全ての情報を出力し，ソートが完了していることを確認する\n\nプログラム名はq1.cとする．\n\n\n7.7.2 問題2\n以下の情報を含む構造体personを定義せよ．\n\n名前\n\n文字列\n\n性別\n\n‘M’または’F’\n\n父親\n\nperson型へのポインタ\n\n母親\n\nperson型へのポインタ\n\n\nサザエさん一家の人物情報を構造体に格納せよ．Fuguta Taraoから出発し，母系の系譜を順に出力せよ．ファイル名はq2.cとする．\n父母が「不明」の場合は，NULLに設定せよ．NULLは何も指さないことを意味する特殊なポインタである．使い方は以下の通り：\npsn[0].father = NULL;\n\n\n\n名前\n性別\n父\n母\n\n\n\n\nIsono Namihei\nM\n不明\n不明\n\n\nIsono Fune\nF\n不明\n不明\n\n\nFuguta Masuo\nM\n不明\n不明\n\n\nFuguta Sazae\nF\n-&gt; Isono Namihei\n-&gt; Isono Fune\n\n\nIsono Katsuo\nM\n-&gt; Isono Namihei\n-&gt; Isono Fune\n\n\nIsono Wakame\nF\n-&gt; Isono Namihei\n-&gt; Isono Fune\n\n\nFuguta Tarao\nM\n-&gt; Fuguta Masuo\n-&gt; Fuguta Sazae",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
+  },
+  {
+    "objectID": "week07.html#footnotes",
+    "href": "week07.html#footnotes",
+    "title": "7  C言語の復習 6",
+    "section": "",
+    "text": "確かめるにはprintf(\"%lu\\n\", sizeof(struct person))としてみよう．メンバの型と順番によってはバイト数の切れ目を調整するパディングが発生し，単純にメンバのデータサイズの和より大きくなることがある．↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>C言語の復習 6</span>"
+    ]
   }
 ]
