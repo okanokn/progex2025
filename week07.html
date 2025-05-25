@@ -266,13 +266,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">int</span> age<span class="op">;</span>         <span class="co">// 年齢</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>行頭に<code>struct</code>を付けると，構造体の宣言となる．<code>person</code>はその構造体の名前（<strong>構造体タグ</strong> (structure tag)）である． タグに続くブロック<code>{}</code>の中に，この構造体が含むデータ（<strong>メンバ</strong> (member)）のデータ型とその名前が定義されている．</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="構造体の宣言ブロック">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+構造体の宣言ブロック
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -301,26 +301,26 @@ Note
 <span id="cb2-19"><a href="#cb2-19"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>上のプログラムでは，3–8行目で構造体<code>person</code>を宣言している．この段階ではメモリ上にデータ領域は確保されていない．11行目で，“<code>person</code>型”の変数<code>ohtani</code>が宣言され，ここでメモリ領域が確保される．大きさは<code>char[128]</code> = 128バイト，<code>float</code> ✕ 2 = 8バイト，<code>int</code> ✕ 1 = 4バイトの計140バイトである <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>． 12–15行目で，<code>ohtani</code>のメンバに値が代入されており，そのデータは16, 17行目で参照されている．</p>
 <p><strong><code>.</code>は構造体のメンバにアクセスする演算子</strong>である．</p>
-<div class="callout callout-style-default callout-note callout-titled" title="`.`演算子">
+<div class="callout callout-style-default callout-note callout-titled" title="メンバにアクセスするための演算子">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>.</code>演算子
+メンバにアクセスするための演算子
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>構造体変数<code>struc_name</code>のメンバ<code>mem_name</code>にアクセスするには，<code>struc_name.mem_name</code>と書く．</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled" title="わざわざ`strcpy`を使う理由">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+わざわざ<code>strcpy</code>を使う理由
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -338,13 +338,13 @@ Tip
 <span id="cb5-4"><a href="#cb5-4"></a>  printf<span class="op">(</span><span class="st">"H: </span><span class="sc">%4.3f</span><span class="st"> m, W: </span><span class="sc">%4.2f</span><span class="st"> kg</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ohtani<span class="op">.</span>height<span class="op">,</span> ohtani<span class="op">.</span>weight<span class="op">);</span></span>
 <span id="cb5-5"><a href="#cb5-5"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled" title="メンバの初期化">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+メンバの初期化
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -394,7 +394,7 @@ Tip
 <span id="cb7-18"><a href="#cb7-18"></a>  calcBMI<span class="op">(&amp;</span>ohtani<span class="op">);</span></span>
 <span id="cb7-19"><a href="#cb7-19"></a>  printf<span class="op">(</span><span class="st">"BMI: </span><span class="sc">%lf\n</span><span class="st">"</span><span class="op">,</span> ohtani<span class="op">.</span>bmi<span class="op">);</span></span>
 <span id="cb7-20"><a href="#cb7-20"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>ここで，<code>(*p).bmi</code>は<code>p-&gt;bmi</code>と書くこともできる．<code>-&gt;</code>をアロー演算子という． この表現を使うと，上の関数<code>calcBMI</code>はつぎのようにも書ける．</p>
+<p>ここで，<code>(*p).bmi</code>は<code>p-&gt;bmi</code>と書くこともできる．<code>-&gt;</code>を<strong>アロー演算子</strong>という． この表現を使うと，上の関数<code>calcBMI</code>はつぎのようにも書ける．</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">void</span> calcBMI<span class="op">(</span><span class="kw">struct</span> person <span class="op">*</span>p<span class="op">)</span> <span class="op">{</span> <span class="co">// BMIを書き込んで返す関数</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>  <span class="dt">double</span> b <span class="op">=</span> p<span class="op">-&gt;</span>weight <span class="op">/</span> p<span class="op">-&gt;</span>height <span class="op">/</span> p<span class="op">-&gt;</span>height<span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>  p<span class="op">-&gt;</span>bmi <span class="op">=</span> b<span class="op">;</span></span>
@@ -410,7 +410,8 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>構造体へのポインタ<code>p</code>のメンバ<code>mem</code>を参照するには，<code>(*p).mem</code>だけでなく</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a>p<span class="op">-&gt;</span>mem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">struct</span> strTag <span class="op">*</span>p<span class="op">;</span> <span class="co">// 構造体 strTagへのポインタ</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>p<span class="op">-&gt;</span>mem<span class="op">;</span>           <span class="co">// = (*p).mem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>と書くこともできる．</p>
 </div>
 </div>
@@ -441,8 +442,9 @@ Tip
 <span id="cb11-18"><a href="#cb11-18"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb11-19"><a href="#cb11-19"></a>  <span class="kw">struct</span> person p<span class="op">;</span></span>
 <span id="cb11-20"><a href="#cb11-20"></a>  p <span class="op">=</span> createPerson<span class="op">(</span><span class="st">"Shohei Ohtani"</span><span class="op">,</span> <span class="fl">1.93</span><span class="op">,</span> <span class="fl">95.3</span><span class="op">,</span> <span class="dv">30</span><span class="op">);</span></span>
-<span id="cb11-21"><a href="#cb11-21"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>構造体の配列も，通常のデータ型の配列と同様に定義できる．</p>
+<span id="cb11-21"><a href="#cb11-21"></a>  <span class="co">// ... 構造 p を使った処理を書く</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>構造体の配列も，データ型の配列と同様に定義できる．</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">struct</span> person player<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>player<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> createPerson<span class="op">(</span><span class="st">"Shohei Ohtani"</span><span class="op">,</span> <span class="fl">1.93</span><span class="op">,</span> <span class="fl">95.3</span><span class="op">,</span> <span class="dv">30</span><span class="op">);</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>player<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> createPerson<span class="op">(</span><span class="st">"Aaron James Judge"</span><span class="op">,</span> <span class="fl">2.01</span><span class="op">,</span> <span class="fl">127.9</span><span class="op">,</span> <span class="dv">33</span><span class="op">);</span></span>
@@ -480,8 +482,8 @@ Tip
 </ul>
 <p>この構造体を用いて，以下の動作を実現せよ．</p>
 <ol type="1">
-<li>本1冊の情報を出力する関数を作成し，それを用いて3冊全ての情報を出力する</li>
-<li>発行年が古い順に配列を並び替える関数を作成し，並び替えを実行する</li>
+<li>本1冊の情報を出力する関数<code>printBookInfo</code>を作成し，それを用いて3冊全ての情報を出力する</li>
+<li>発行年が古い順に配列を並び替える関数<code>sortBookByYear</code>を作成し，並び替えを実行する</li>
 <li>再び3冊全ての情報を出力し，ソートが完了していることを確認する</li>
 </ol>
 <p>プログラム名は<code>q1.c</code>とする．</p>
@@ -507,8 +509,8 @@ Tip
 <li><code>person</code>型へのポインタ</li>
 </ul></li>
 </ul>
-<p>サザエさん一家の人物情報を構造体に格納せよ．Fuguta Taraoから出発し，母系の系譜を順に出力せよ．ファイル名は<code>q2.c</code>とする．</p>
-<p>父母が「不明」の場合は，<code>NULL</code>に設定せよ．<code>NULL</code>は何も指さないことを意味する特殊なポインタである．使い方は以下の通り：</p>
+<p>構造体<code>person</code>を用いて，サザエさん一家（下表のとおりとする）の人物情報を構造体に格納せよ．格納したデータのうちFuguta Taraoを表すデータから出発し，母系の系譜を順に出力せよ．ファイル名は<code>q2.c</code>とする．</p>
+<p>父母が「不明」の場合は，<code>NULL</code>に設定せよ．<code>NULL</code>は何も指さないことを意味する特殊なポインタである．たとえば，構造体変数<code>psn[0]</code>のメンバ<code>father</code>に何も指さないポインタを代入するには，以下のように書く．</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a>psn<span class="op">[</span><span class="dv">0</span><span class="op">].</span>father <span class="op">=</span> NULL<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="caption-top table">
 <thead>
@@ -571,7 +573,7 @@ Tip
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>確かめるには<code>printf("%lu\n", sizeof(struct person))</code>としてみよう．メンバの型と順番によってはバイト数の切れ目を調整するパディングが発生し，単純にメンバのデータサイズの和より大きくなることがある．<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>確かめるには<code>printf("%lu\n", sizeof(struct person))</code>としてみよう．メンバの型と順番によってはバイト数の切れ目を調整するパディングが発生し，単純なメンバのデータサイズの和より大きくなることがある．<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
