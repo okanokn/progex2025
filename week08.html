@@ -449,7 +449,7 @@ a6--&gt;a8([終了])
 <section id="再帰的アルゴリズム" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="再帰的アルゴリズム"><span class="header-section-number">8.5</span> 再帰的アルゴリズム</h2>
 <p>規模の大きい問題に対して，同じ種類の小規模な問題に分割して解く方法がある． たとえば，配列から最大値を見つける問題に対して，配列を2分割して検索対象を小さくし，小さな配列の最大値同士を比較することで元の配列の最大値を求めることができる． <strong>再帰</strong>はそのようなアルゴリズムを実装する方法の一種で，再帰的アルゴリズムは自分自身を用いて定義されるアルゴリズムのことである．</p>
-<p>よくある例として，階乗の計算がある．つぎの関数は，自然数<code>n</code>を引数として，その階乗<span class="math inline">\(n!\)</span>を計算して返す関数である．</p>
+<p>よくある例として，階乗の計算がある．つぎの関数は，自然数<span class="math inline">\(n\)</span>を引数として，その階乗<span class="math inline">\(n!\)</span>を計算して返す関数である．</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> factorial<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="cf">if</span> <span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">return</span> n <span class="op">*</span> factorial<span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
