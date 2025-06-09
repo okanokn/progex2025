@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-06-09">
+
+<title>9&nbsp; リスト構造 – プログラミング演習</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./week08.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2d053c8a602df91ec61aa3379e601c1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week09.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">リスト構造</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">プログラミング演習</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">目次</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ガイダンス・環境構築</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">C言語の復習 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">C言語の復習 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">C言語の復習 4</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">C言語の復習 5</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">C言語の復習 6</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">再帰的アルゴリズム</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week09.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">リスト構造</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前回演習の解答" id="toc-前回演習の解答" class="nav-link active" data-scroll-target="#前回演習の解答"><span class="header-section-number">9.1</span> 前回演習の解答</a></li>
+  <li><a href="#本日のメニュー" id="toc-本日のメニュー" class="nav-link" data-scroll-target="#本日のメニュー"><span class="header-section-number">9.2</span> 本日のメニュー</a></li>
+  <li><a href="#リストの基本" id="toc-リストの基本" class="nav-link" data-scroll-target="#リストの基本"><span class="header-section-number">9.3</span> リストの基本</a></li>
+  <li><a href="#データの追加" id="toc-データの追加" class="nav-link" data-scroll-target="#データの追加"><span class="header-section-number">9.4</span> データの追加</a></li>
+  <li><a href="#データの削除" id="toc-データの削除" class="nav-link" data-scroll-target="#データの削除"><span class="header-section-number">9.5</span> データの削除</a></li>
+  <li><a href="#双方向リスト" id="toc-双方向リスト" class="nav-link" data-scroll-target="#双方向リスト"><span class="header-section-number">9.6</span> 双方向リスト</a></li>
+  <li><a href="#演習" id="toc-演習" class="nav-link" data-scroll-target="#演習"><span class="header-section-number">9.7</span> 演習</a>
+  <ul class="collapse">
+  <li><a href="#問題1" id="toc-問題1" class="nav-link" data-scroll-target="#問題1"><span class="header-section-number">9.7.1</span> 問題1</a></li>
+  <li><a href="#問題2" id="toc-問題2" class="nav-link" data-scroll-target="#問題2"><span class="header-section-number">9.7.2</span> 問題2</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">リスト構造</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 9, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前回演習の解答" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="前回演習の解答"><span class="header-section-number">9.1</span> 前回演習の解答</h2>
+<ul>
+<li>再帰アルゴリズム</li>
+</ul>
+</section>
+<section id="本日のメニュー" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="本日のメニュー"><span class="header-section-number">9.2</span> 本日のメニュー</h2>
+<!-- * デバッガ -->
+<ul>
+<li>リスト構造</li>
+</ul>
+</section>
+<section id="リストの基本" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="リストの基本"><span class="header-section-number">9.3</span> リストの基本</h2>
+<p>順序をもつ一連のデータを保存したいとき，配列を用いる方法は既に学習した．しかし，配列では実現が難しい操作がある:</p>
+<ul>
+<li>配列の途中にデータを挿入する</li>
+<li>順序を入れ替える</li>
+<li>要素を取り出して配列から削除する</li>
+</ul>
+<p>これらの操作は単独の配列では実装が難しい． データ保存用と，順序情報の保存用の2本の配列を用いることで実現は可能であるが，未使用領域の管理が煩雑で非効率的という欠点がある．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./content/09/add_swap_delete_from_array.png" class="img-fluid figure-img"></p>
+<figcaption>配列に対する要素の挿入，順序交換，削除のイメージ図</figcaption>
+</figure>
+</div>
+<p>そこで，データに加えて<strong>前後のデータの保存場所</strong>をひとまとめにしておき，順にデータをたどることができる<strong>リスト構造</strong>を用いる． C言語でこれを実現するには，データと前後のデータへのポインタをメンバにもつ構造体を定義するとよい．</p>
+<p>まずは，一方向にのみデータをたどることができる単方向リストを考えよう． 学生のテストの点数を保存するリストを作る．学生の名前と点数，次の学生のデータへのポインタをメンバにもつ構造体を定義しよう．</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">struct</span> student <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="dt">char</span> name<span class="op">[</span><span class="dv">64</span><span class="op">];</span>        <span class="co">// 学生の名前</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">int</span> score<span class="op">;</span>            <span class="co">// テストの点数</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="kw">struct</span> student <span class="op">*</span>next<span class="op">;</span> <span class="co">// 次の学生データへのポインタ</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="op">};</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">typedef</span> <span class="kw">struct</span> student Student<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>これから<code>struct student</code>をたくさん使うので，いちいち書くのが面倒である．そこで，6行目の<code>typedef</code>宣言で，<code>struct student</code>を新しく<code>Student</code>という名前の型として使用することを宣言している．型名の先頭を大文字にするのは，独自に定義した型であることをわかりやすくするための慣例であって文法上必須ではない．</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="構造体とtypedef宣言をまとめて書く">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+構造体とtypedef宣言をまとめて書く
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>構造体の宣言と<code>typedef</code>をまとめて書くこともできる．</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> student <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">char</span> name<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">int</span> score<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="kw">struct</span> student <span class="op">*</span>next<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="op">}</span> Student<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="データの追加" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="データの追加"><span class="header-section-number">9.4</span> データの追加</h2>
+<p>早速3人分のデータを保存してみよう．</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">名前</th>
+<th style="text-align: left;">点数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alice</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bob</td>
+<td style="text-align: left;">62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dave</td>
+<td style="text-align: left;">80</td>
+</tr>
+</tbody>
+</table>
+<p>構造体の要素を</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a>Student alice <span class="op">=</span> <span class="op">{</span><span class="st">"Alice"</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> NULL<span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>のように一つずつ宣言してポインタでつないでもよいが，リストの先頭からたどることができれば目的は達成なので，個別に変数名を付ける必要はない． そこで，<code>malloc</code>関数を使ってメモリ領域を確保し，その領域へのポインタをリストの前のデータに保存するようにする．</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span><span class="pp"> </span><span class="co">// mallocのために必要</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span><span class="pp"> </span><span class="co">// strcpyのために必要</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">// Student の定義は省略</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  Student <span class="op">*</span>head <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// リストの先頭へのポインタ．とりあえず空で宣言</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="co">// 最初の要素を定義</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  head <span class="op">=</span> <span class="op">(</span>Student <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Student<span class="op">));</span> </span>
+<span id="cb4-11"><a href="#cb4-11"></a>  strcpy<span class="op">(</span>head<span class="op">-&gt;</span>name<span class="op">,</span> <span class="st">"Alice"</span><span class="op">);</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  head<span class="op">-&gt;</span>score <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="co">// 2番目の要素を定義</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>  head<span class="op">-&gt;</span>next <span class="op">=</span> <span class="op">(</span>Student <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Student<span class="op">));</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  strcpy<span class="op">(</span>head<span class="op">-&gt;</span>next<span class="op">-&gt;</span>name<span class="op">,</span> <span class="st">"Bob"</span><span class="op">);</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  head<span class="op">-&gt;</span>next<span class="op">-&gt;</span>score <span class="op">=</span> <span class="dv">62</span><span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="co">// ...</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="co">// 後略</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>10行目の<code>malloc(sizeof(Student))</code>は<code>Student</code>型の分だけメモリ領域を確保する動作を意味する．<code>malloc</code>の戻り値は<code>void*</code>型なので，それを<code>Student*</code>にキャストするために<code>(Student *)</code>が付いている． なお，キャストはしなくても動作する．</p>
+<p>11, 12行目の<code>-&gt;</code>は構造体へのポインタからメンバにアクセスするための演算子であった（cf.&nbsp;<a href="./week07.html">第7週</a>）． つまり，11, 12行目でリストの最初の要素にAliceのデータを保存できている．</p>
+<p>2番目のデータは，15行目でメモリ領域が確保され，16, 17行目でデータが格納されている．</p>
+<p>これを続けていくと，<code>-&gt;</code>がとんでもない長さになりそうである．そこで，リストに要素を追加する関数<code>add_student</code>を定義する．</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">// Student の定義は省略</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">// リストの末尾に新たなStudent要素を追加して返す関数</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>Student <span class="op">*</span>add_student<span class="op">(</span>Student <span class="op">*</span>head<span class="op">,</span> <span class="dt">char</span> name<span class="op">[],</span> <span class="dt">int</span> score<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  Student <span class="op">*</span>new <span class="op">=</span> <span class="op">(</span>Student <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Student<span class="op">));</span>  <span class="co">// 新規要素のメモリ確保</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  strcpy<span class="op">(</span>new<span class="op">-&gt;</span>name<span class="op">,</span> name<span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  new<span class="op">-&gt;</span>score <span class="op">=</span> score<span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>  new<span class="op">-&gt;</span>next <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// 末尾に追加するので次のデータはNULL</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="cf">if</span> <span class="op">(</span>head <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span>          <span class="co">// 既存のリストが空なら</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="cf">return</span> new<span class="op">;</span>                <span class="co">// 新規要素を先頭として返す</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>                     <span class="co">// 既存リストが空でない場合</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>    Student <span class="op">*</span>p <span class="op">=</span> head<span class="op">;</span>         <span class="co">// リストをたどるためのポインタ</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="cf">while</span> <span class="op">(</span>p<span class="op">-&gt;</span>next <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span>  <span class="co">// リストの先頭から末尾までたどる</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>      p <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>    <span class="op">}</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>    p<span class="op">-&gt;</span>next <span class="op">=</span> new<span class="op">;</span>  <span class="co">// 末尾に新規要素を追加</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="cf">return</span> head<span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a>  <span class="op">}</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="op">}</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">// リスト要素のメモリをすべて解放する関数</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="dt">void</span> free_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a>  Student <span class="op">*</span>p <span class="op">=</span> head<span class="op">;</span>  <span class="co">// リストをたどる作業用ポインタ</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a>  <span class="cf">while</span> <span class="op">(</span>p <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a>    Student <span class="op">*</span>nx <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span>  <span class="co">// 次の要素へのポインタを別に保存しておく</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a>    free<span class="op">(</span>p<span class="op">);</span>                <span class="co">// メモリを解法</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a>    p <span class="op">=</span> nx<span class="op">;</span>                 <span class="co">// 次の要素へ進む</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a>  <span class="op">}</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="op">}</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a>  Student <span class="op">*</span>head <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// リストの先頭へのポインタ．とりあえず空で宣言</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Bob"</span><span class="op">,</span> <span class="dv">62</span><span class="op">);</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Dave"</span><span class="op">,</span> <span class="dv">80</span><span class="op">);</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a></span>
+<span id="cb5-42"><a href="#cb5-42"></a>  free_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>8–24行目の関数<code>add_student</code>は，リストの先頭へのポインタと，追加する新規要素のデータを引数にして，末尾にその要素を追加したリストの先頭ポインタを返す関数である． ここで，戻り値としてリスト先頭へのポインタ<code>head</code>を返すのは，先頭のアドレスが<code>add_student</code>内で変更された場合に，そのアドレスを呼び出し元に返す必要があるため． 9–12行目では追加する要素の実体を作成している． 14–23行目は，追加した要素を渡されたリストの末尾に追加する作業を行っている．</p>
+<p>この関数を使うと，3人分のデータをもつリストの作成は37–40行目のようにコンパクトに書くことができる．</p>
+<p>順番が前後したが，27–34行目で定義される<code>free_list</code>関数は，リストの要素を定義するために確保されたメモリ領域を解放する関数である．C言語では，プログラム実行中に<code>malloc</code>で動的に確保されたメモリ領域は自動で解放されず，キープされたままになる（OSがどうにかする場合もある）．これが重なると，メモリ領域を使用し尽くしてしまうので，<code>malloc</code>で確保した領域は，不要になった段階で<code>free</code>で解放する．</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="リストの中身を出力してみよう">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+リストの中身を出力してみよう
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>作成したリストを出力する関数を定義して，内容を確認してみよう．</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">// 渡されたStudentリストの中身を末尾まで出力する関数</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="dt">void</span> print_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  Student <span class="op">*</span>current <span class="op">=</span> head<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  printf<span class="op">(</span><span class="st">"リストの内容:</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="cf">while</span> <span class="op">(</span>current <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">点</span><span class="sc">\n</span><span class="st"> -&gt; "</span><span class="op">,</span> current<span class="op">-&gt;</span>name<span class="op">,</span> current<span class="op">-&gt;</span>score<span class="op">);</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    current <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  printf<span class="op">(</span><span class="st">"NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="op">}</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">){</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="co">// リストの定義は省略</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>    print_list<span class="op">(</span>head<span class="op">);</span> <span class="co">// リストの中身を出力</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    free_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="データの削除" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="データの削除"><span class="header-section-number">9.5</span> データの削除</h2>
+<p>リストからデータを削除する操作を実装しよう． 上記で作成した3人のテスト点数データから，名前をキーとして要素を指定し，一致するデータを削除する．削除後もリスト構造が保持されるようにしなければならない．つまり，削除する<strong>前の</strong>要素の<code>next</code>ポインタを，削除する<strong>次の</strong>要素へ付け替える操作が必要である． これを実現するために，ポインタ変数として，削除対象の要素を指すものとその前の要素を指すものの2つを用意する． リストの先頭が削除対象となる場合には，リストの先頭を表すポインタを書き換えるため，例外処理が必要である．</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">typedef</span> <span class="kw">struct</span> student Student<span class="op">;</span> <span class="co">// 略</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">// リストの末尾に新たなStudent要素を追加して返す関数</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>Student <span class="op">*</span>add_student<span class="op">(</span>Student <span class="op">*</span>head<span class="op">,</span> <span class="dt">char</span> name<span class="op">[],</span> <span class="dt">int</span> score<span class="op">);</span> <span class="co">// 略</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">// リスト要素のメモリをすべて解放する関数</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="dt">void</span> free_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">);</span> <span class="co">// 略</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">// リストの中身を出力する関数</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="dt">void</span> print_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">);</span> <span class="co">// 略</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">// 名前で指定した学生のデータを削除する関数</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>Student <span class="op">*</span>delete_student<span class="op">(</span>Student <span class="op">*</span>head<span class="op">,</span> <span class="dt">char</span> target_name<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>  Student <span class="op">*</span>prev <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>  Student <span class="op">*</span>current <span class="op">=</span> head<span class="op">;</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="cf">while</span> <span class="op">(</span>current <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span>  <span class="co">// リスト末尾まで順に調べるループ</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>    <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>current<span class="op">-&gt;</span>name<span class="op">,</span> target_name<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span>  <span class="co">// 削除対象が見つかった</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>      <span class="cf">if</span> <span class="op">(</span>prev <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span>            <span class="co">// 先頭要素を削除する場合</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a>        head <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span>        <span class="co">// head = 2番目要素へのポインタ</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a>      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>                       <span class="co">// 2番目以降の要素を削除する場合</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>        prev<span class="op">-&gt;</span>next <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span>  <span class="co">// currentを抜いてリストをつなげる</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>      <span class="op">}</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a>      free<span class="op">(</span>current<span class="op">);</span>  <span class="co">// 削除対象のメモリ解放</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a>    <span class="op">}</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a>    prev <span class="op">=</span> current<span class="op">;</span>           <span class="co">// 次の要素へ</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a>    current <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span>  <span class="co">// 次の要素へ</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a>  <span class="op">}</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a>  <span class="cf">return</span> head<span class="op">;</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="op">}</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a>  Student <span class="op">*</span>head <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// リストの先頭へのポインタ．とりあえず空で宣言</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb7-34"><a href="#cb7-34"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Bob"</span><span class="op">,</span> <span class="dv">62</span><span class="op">);</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Dave"</span><span class="op">,</span> <span class="dv">80</span><span class="op">);</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a></span>
+<span id="cb7-37"><a href="#cb7-37"></a>  printf<span class="op">(</span><span class="st">"----削除前----</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a>  print_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb7-39"><a href="#cb7-39"></a>  head <span class="op">=</span> delete_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Bob"</span><span class="op">);</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a>  printf<span class="op">(</span><span class="st">"----削除後----</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a>  print_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb7-42"><a href="#cb7-42"></a></span>
+<span id="cb7-43"><a href="#cb7-43"></a>  free_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb7-44"><a href="#cb7-44"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-45"><a href="#cb7-45"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>13–29行目が削除を行う関数である．17行目では，文字列の比較に<code>strcmp</code>関数を使っている．単純に<code>==</code>で文字列配列の比較ができないことは，<a href="./week05.html">第5週</a>で学んだ．</p>
+</section>
+<section id="双方向リスト" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="双方向リスト"><span class="header-section-number">9.6</span> 双方向リスト</h2>
+<p>要素を順方向にも逆方向にもたどれる双方向リストを実現するには，リストを構成する構造体に前後両方のデータへのポインタを含める． 構造体の宣言を以下のように修正すればよい．</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">struct</span> student <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="dt">char</span> name<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="dt">int</span> score<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="kw">struct</span> student <span class="op">*</span>prev<span class="op">;</span> <span class="co">// 前のデータへのポインタ</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="kw">struct</span> student <span class="op">*</span>next<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="op">};</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> student Student<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="リストを逆順にたどって出力する関数を作成してみよう">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+リストを逆順にたどって出力する関数を作成してみよう
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="kw">struct</span> student <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="dt">char</span> name<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="dt">int</span> score<span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="kw">struct</span> student <span class="op">*</span>prev<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="kw">struct</span> student <span class="op">*</span>next<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="op">};</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="kw">typedef</span> <span class="kw">struct</span> student Student<span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a>Student <span class="op">*</span>add_student<span class="op">(</span>Student <span class="op">*</span>head<span class="op">,</span> <span class="dt">char</span> name<span class="op">[],</span> <span class="dt">int</span> score<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>  Student <span class="op">*</span>new <span class="op">=</span> <span class="op">(</span>Student <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Student<span class="op">));</span>  <span class="co">// 新規要素のメモリ確保</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>  strcpy<span class="op">(</span>new<span class="op">-&gt;</span>name<span class="op">,</span> name<span class="op">);</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>  new<span class="op">-&gt;</span>score <span class="op">=</span> score<span class="op">;</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a>  new<span class="op">-&gt;</span>prev <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// 追加要素の前は未定なのでとりあえずNULL</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>  new<span class="op">-&gt;</span>next <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// 末尾に追加するので次のデータはNULL</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a>  <span class="cf">if</span> <span class="op">(</span>head <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span>          <span class="co">// 既存のリストが空なら</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>    <span class="cf">return</span> new<span class="op">;</span>                <span class="co">// 新規要素を先頭として返す</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>                     <span class="co">// 既存リストが空でない場合</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>    Student <span class="op">*</span>p <span class="op">=</span> head<span class="op">;</span>         <span class="co">// 作業用ポインタ</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>    <span class="cf">while</span> <span class="op">(</span>p<span class="op">-&gt;</span>next <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span>  <span class="co">// リストの先頭から末尾までたどる</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>      p <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>    <span class="op">}</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a>    p<span class="op">-&gt;</span>next <span class="op">=</span> new<span class="op">;</span>  <span class="co">// 末尾に新規要素を追加</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a>    new<span class="op">-&gt;</span>prev <span class="op">=</span> p<span class="op">;</span>  <span class="co">// 追加した要素の前の要素</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>    <span class="cf">return</span> head<span class="op">;</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>  <span class="op">}</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="op">}</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="co">// リストの先頭から出力する関数</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="dt">void</span> print_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  Student <span class="op">*</span>current <span class="op">=</span> head<span class="op">;</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a>  printf<span class="op">(</span><span class="st">"リストの内容: "</span><span class="op">);</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>  <span class="cf">while</span> <span class="op">(</span>current <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> -&gt; "</span><span class="op">,</span> current<span class="op">-&gt;</span>score<span class="op">);</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>    current <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a>  <span class="op">}</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a>  printf<span class="op">(</span><span class="st">"NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="op">}</span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="co">// リストの末尾から出力する関数</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="dt">void</span> print_list_reverse<span class="op">(</span>Student <span class="op">*</span>head<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a>  Student <span class="op">*</span>current <span class="op">=</span> head<span class="op">;</span></span>
+<span id="cb9-45"><a href="#cb9-45"></a>  printf<span class="op">(</span><span class="st">"リストの内容: "</span><span class="op">);</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a>  <span class="cf">while</span> <span class="op">(</span>current<span class="op">-&gt;</span>next <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a>    current <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a>  <span class="op">}</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a>  <span class="cf">while</span> <span class="op">(</span>current <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-50"><a href="#cb9-50"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">点 &lt;- "</span><span class="op">,</span> current<span class="op">-&gt;</span>name<span class="op">,</span> current<span class="op">-&gt;</span>score<span class="op">);</span></span>
+<span id="cb9-51"><a href="#cb9-51"></a>    current <span class="op">=</span> current<span class="op">-&gt;</span>prev<span class="op">;</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a>  <span class="op">}</span></span>
+<span id="cb9-53"><a href="#cb9-53"></a>  printf<span class="op">(</span><span class="st">"NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a><span class="op">}</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a><span class="co">// リスト要素のメモリをすべて解放する関数</span></span>
+<span id="cb9-56"><a href="#cb9-56"></a><span class="dt">void</span> free_list<span class="op">(</span>Student <span class="op">*</span>head<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-57"><a href="#cb9-57"></a>  Student <span class="op">*</span>p <span class="op">=</span> head<span class="op">;</span>  <span class="co">// リストをたどる作業用ポインタ</span></span>
+<span id="cb9-58"><a href="#cb9-58"></a>  <span class="cf">while</span> <span class="op">(</span>p <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a>    Student <span class="op">*</span>nx <span class="op">=</span> p<span class="op">-&gt;</span>next<span class="op">;</span>  <span class="co">// 次の要素へのポインタを別に保存しておく</span></span>
+<span id="cb9-60"><a href="#cb9-60"></a>    free<span class="op">(</span>p<span class="op">);</span>                <span class="co">// メモリを解法</span></span>
+<span id="cb9-61"><a href="#cb9-61"></a>    p <span class="op">=</span> nx<span class="op">;</span>                 <span class="co">// 次の要素へ進む</span></span>
+<span id="cb9-62"><a href="#cb9-62"></a>  <span class="op">}</span></span>
+<span id="cb9-63"><a href="#cb9-63"></a><span class="op">}</span></span>
+<span id="cb9-64"><a href="#cb9-64"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-65"><a href="#cb9-65"></a>  Student <span class="op">*</span>head <span class="op">=</span> NULL<span class="op">;</span>  <span class="co">// リストの先頭へのポインタ．とりあえず空で宣言</span></span>
+<span id="cb9-66"><a href="#cb9-66"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb9-67"><a href="#cb9-67"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Bob"</span><span class="op">,</span> <span class="dv">62</span><span class="op">);</span></span>
+<span id="cb9-68"><a href="#cb9-68"></a>  head <span class="op">=</span> add_student<span class="op">(</span>head<span class="op">,</span> <span class="st">"Dave"</span><span class="op">,</span> <span class="dv">80</span><span class="op">);</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a>  print_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb9-70"><a href="#cb9-70"></a>  print_list_reverse<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb9-71"><a href="#cb9-71"></a>  free_list<span class="op">(</span>head<span class="op">);</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="演習" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="演習"><span class="header-section-number">9.7</span> 演習</h2>
+<section id="問題1" class="level3" data-number="9.7.1">
+<h3 data-number="9.7.1" class="anchored" data-anchor-id="問題1"><span class="header-section-number">9.7.1</span> 問題1</h3>
+<p>テストの点数データの単方向について，リストの指定した番号に新規データを挿入する関数を作成せよ．指定した番号がリストの長さを超える場合は，リストの末尾に追加するとする． 挿入関数の戻り値と引数の型は以下のとおりとする．</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">// 渡したリストのk番目に新規データを挿入する関数</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>Student <span class="op">*</span>insert_student<span class="op">(</span>Student <span class="op">*</span>head<span class="op">,</span> <span class="dt">int</span> k<span class="op">,</span> <span class="dt">char</span> name<span class="op">[],</span> <span class="dt">int</span> score<span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>作成した関数を用いて，データ（Carol, 55点）を3番目（Bobの後）に挿入せよ． また，データ(Edward, 99点)を100番目を指定して（結果的にリストの末尾に）挿入せよ． ファイル名を<code>ins_list1.c</code>とする．</p>
+</section>
+<section id="問題2" class="level3" data-number="9.7.2">
+<h3 data-number="9.7.2" class="anchored" data-anchor-id="問題2"><span class="header-section-number">9.7.2</span> 問題2</h3>
+<p>問題1と同様の仕様で双方向リストに対応した関数を作成せよ． 同じくデータ（Carol, 55点）を3番目に，データ(Edward, 99点)を100番目を指定して（結果的にリストの末尾に）挿入し，リストの中身を順方向と逆方向に出力して編集結果を確認せよ． ファイル名を<code>ins_list2.c</code>とする．</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week08.html" class="pagination-link" aria-label="再帰的アルゴリズム">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">再帰的アルゴリズム</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

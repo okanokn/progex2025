@@ -768,5 +768,85 @@
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>再帰的アルゴリズム</span>"
     ]
+  },
+  {
+    "objectID": "week09.html",
+    "href": "week09.html",
+    "title": "9  リスト構造",
+    "section": "",
+    "text": "9.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#前回演習の解答",
+    "href": "week09.html#前回演習の解答",
+    "title": "9  リスト構造",
+    "section": "",
+    "text": "再帰アルゴリズム",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#本日のメニュー",
+    "href": "week09.html#本日のメニュー",
+    "title": "9  リスト構造",
+    "section": "9.2 本日のメニュー",
+    "text": "9.2 本日のメニュー\n\n\nリスト構造",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#リストの基本",
+    "href": "week09.html#リストの基本",
+    "title": "9  リスト構造",
+    "section": "9.3 リストの基本",
+    "text": "9.3 リストの基本\n順序をもつ一連のデータを保存したいとき，配列を用いる方法は既に学習した．しかし，配列では実現が難しい操作がある:\n\n配列の途中にデータを挿入する\n順序を入れ替える\n要素を取り出して配列から削除する\n\nこれらの操作は単独の配列では実装が難しい． データ保存用と，順序情報の保存用の2本の配列を用いることで実現は可能であるが，未使用領域の管理が煩雑で非効率的という欠点がある．\n\n\n\n配列に対する要素の挿入，順序交換，削除のイメージ図\n\n\nそこで，データに加えて前後のデータの保存場所をひとまとめにしておき，順にデータをたどることができるリスト構造を用いる． C言語でこれを実現するには，データと前後のデータへのポインタをメンバにもつ構造体を定義するとよい．\nまずは，一方向にのみデータをたどることができる単方向リストを考えよう． 学生のテストの点数を保存するリストを作る．学生の名前と点数，次の学生のデータへのポインタをメンバにもつ構造体を定義しよう．\nstruct student {\n  char name[64];        // 学生の名前\n  int score;            // テストの点数\n  struct student *next; // 次の学生データへのポインタ\n};\ntypedef struct student Student;\nこれからstruct studentをたくさん使うので，いちいち書くのが面倒である．そこで，6行目のtypedef宣言で，struct studentを新しくStudentという名前の型として使用することを宣言している．型名の先頭を大文字にするのは，独自に定義した型であることをわかりやすくするための慣例であって文法上必須ではない．\n\n\n\n\n\n\n構造体とtypedef宣言をまとめて書く\n\n\n\n構造体の宣言とtypedefをまとめて書くこともできる．\ntypedef struct student {\n  char name[64];\n  int score;\n  struct student *next;\n} Student;",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#データの追加",
+    "href": "week09.html#データの追加",
+    "title": "9  リスト構造",
+    "section": "9.4 データの追加",
+    "text": "9.4 データの追加\n早速3人分のデータを保存してみよう．\n\n\n\n名前\n点数\n\n\n\n\nAlice\n100\n\n\nBob\n62\n\n\nDave\n80\n\n\n\n構造体の要素を\nStudent alice = {\"Alice\", 100, NULL};\nのように一つずつ宣言してポインタでつないでもよいが，リストの先頭からたどることができれば目的は達成なので，個別に変数名を付ける必要はない． そこで，malloc関数を使ってメモリ領域を確保し，その領域へのポインタをリストの前のデータに保存するようにする．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt; // mallocのために必要\n#include &lt;string.h&gt; // strcpyのために必要\n\n// Student の定義は省略\n\nint main(void) {\n  Student *head = NULL;  // リストの先頭へのポインタ．とりあえず空で宣言\n  // 最初の要素を定義\n  head = (Student *)malloc(sizeof(Student)); \n  strcpy(head-&gt;name, \"Alice\");\n  head-&gt;score = 100;\n\n  // 2番目の要素を定義\n  head-&gt;next = (Student *)malloc(sizeof(Student));\n  strcpy(head-&gt;next-&gt;name, \"Bob\");\n  head-&gt;next-&gt;score = 62;\n  // ...\n  // 後略\n}\n10行目のmalloc(sizeof(Student))はStudent型の分だけメモリ領域を確保する動作を意味する．mallocの戻り値はvoid*型なので，それをStudent*にキャストするために(Student *)が付いている． なお，キャストはしなくても動作する．\n11, 12行目の-&gt;は構造体へのポインタからメンバにアクセスするための演算子であった（cf. 第7週）． つまり，11, 12行目でリストの最初の要素にAliceのデータを保存できている．\n2番目のデータは，15行目でメモリ領域が確保され，16, 17行目でデータが格納されている．\nこれを続けていくと，-&gt;がとんでもない長さになりそうである．そこで，リストに要素を追加する関数add_studentを定義する．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;string.h&gt;\n\n// Student の定義は省略\n\n// リストの末尾に新たなStudent要素を追加して返す関数\nStudent *add_student(Student *head, char name[], int score) {\n  Student *new = (Student *)malloc(sizeof(Student));  // 新規要素のメモリ確保\n  strcpy(new-&gt;name, name);\n  new-&gt;score = score;\n  new-&gt;next = NULL;  // 末尾に追加するので次のデータはNULL\n\n  if (head == NULL) {          // 既存のリストが空なら\n    return new;                // 新規要素を先頭として返す\n  } else {                     // 既存リストが空でない場合\n    Student *p = head;         // リストをたどるためのポインタ\n    while (p-&gt;next != NULL) {  // リストの先頭から末尾までたどる\n      p = p-&gt;next;\n    }\n    p-&gt;next = new;  // 末尾に新規要素を追加\n    return head;\n  }\n}\n\n// リスト要素のメモリをすべて解放する関数\nvoid free_list(Student *head) {\n  Student *p = head;  // リストをたどる作業用ポインタ\n  while (p != NULL) {\n    Student *nx = p-&gt;next;  // 次の要素へのポインタを別に保存しておく\n    free(p);                // メモリを解法\n    p = nx;                 // 次の要素へ進む\n  }\n}\n\nint main(void) {\n  Student *head = NULL;  // リストの先頭へのポインタ．とりあえず空で宣言\n  head = add_student(head, \"Alice\", 100);\n  head = add_student(head, \"Bob\", 62);\n  head = add_student(head, \"Dave\", 80);\n\n  free_list(head);\n  return 0;\n}\n8–24行目の関数add_studentは，リストの先頭へのポインタと，追加する新規要素のデータを引数にして，末尾にその要素を追加したリストの先頭ポインタを返す関数である． ここで，戻り値としてリスト先頭へのポインタheadを返すのは，先頭のアドレスがadd_student内で変更された場合に，そのアドレスを呼び出し元に返す必要があるため． 9–12行目では追加する要素の実体を作成している． 14–23行目は，追加した要素を渡されたリストの末尾に追加する作業を行っている．\nこの関数を使うと，3人分のデータをもつリストの作成は37–40行目のようにコンパクトに書くことができる．\n順番が前後したが，27–34行目で定義されるfree_list関数は，リストの要素を定義するために確保されたメモリ領域を解放する関数である．C言語では，プログラム実行中にmallocで動的に確保されたメモリ領域は自動で解放されず，キープされたままになる（OSがどうにかする場合もある）．これが重なると，メモリ領域を使用し尽くしてしまうので，mallocで確保した領域は，不要になった段階でfreeで解放する．\n\n\n\n\n\n\nリストの中身を出力してみよう\n\n\n\n\n\n作成したリストを出力する関数を定義して，内容を確認してみよう．\n// 渡されたStudentリストの中身を末尾まで出力する関数\nvoid print_list(Student *head) {\n  Student *current = head;\n  printf(\"リストの内容:\\n\");\n  while (current != NULL) {\n    printf(\"%s %d点\\n -&gt; \", current-&gt;name, current-&gt;score);\n    current = current-&gt;next;\n  }\n  printf(\"NULL\\n\");\n}\nint main(void){\n    // リストの定義は省略\n    print_list(head); // リストの中身を出力\n    free_list(head);\n    return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#データの削除",
+    "href": "week09.html#データの削除",
+    "title": "9  リスト構造",
+    "section": "9.5 データの削除",
+    "text": "9.5 データの削除\nリストからデータを削除する操作を実装しよう． 上記で作成した3人のテスト点数データから，名前をキーとして要素を指定し，一致するデータを削除する．削除後もリスト構造が保持されるようにしなければならない．つまり，削除する前の要素のnextポインタを，削除する次の要素へ付け替える操作が必要である． これを実現するために，ポインタ変数として，削除対象の要素を指すものとその前の要素を指すものの2つを用意する． リストの先頭が削除対象となる場合には，リストの先頭を表すポインタを書き換えるため，例外処理が必要である．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;string.h&gt;\ntypedef struct student Student; // 略\n// リストの末尾に新たなStudent要素を追加して返す関数\nStudent *add_student(Student *head, char name[], int score); // 略\n// リスト要素のメモリをすべて解放する関数\nvoid free_list(Student *head); // 略\n// リストの中身を出力する関数\nvoid print_list(Student *head); // 略\n\n// 名前で指定した学生のデータを削除する関数\nStudent *delete_student(Student *head, char target_name[]) {\n  Student *prev = NULL;\n  Student *current = head;\n  while (current != NULL) {  // リスト末尾まで順に調べるループ\n    if (strcmp(current-&gt;name, target_name) == 0) {  // 削除対象が見つかった\n      if (prev == NULL) {            // 先頭要素を削除する場合\n        head = current-&gt;next;        // head = 2番目要素へのポインタ\n      } else {                       // 2番目以降の要素を削除する場合\n        prev-&gt;next = current-&gt;next;  // currentを抜いてリストをつなげる\n      }\n      free(current);  // 削除対象のメモリ解放\n    }\n    prev = current;           // 次の要素へ\n    current = current-&gt;next;  // 次の要素へ\n  }\n  return head;\n}\n\nint main(void) {\n  Student *head = NULL;  // リストの先頭へのポインタ．とりあえず空で宣言\n  head = add_student(head, \"Alice\", 100);\n  head = add_student(head, \"Bob\", 62);\n  head = add_student(head, \"Dave\", 80);\n\n  printf(\"----削除前----\\n\");\n  print_list(head);\n  head = delete_student(head, \"Bob\");\n  printf(\"----削除後----\\n\");\n  print_list(head);\n\n  free_list(head);\n  return 0;\n}\n13–29行目が削除を行う関数である．17行目では，文字列の比較にstrcmp関数を使っている．単純に==で文字列配列の比較ができないことは，第5週で学んだ．",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#双方向リスト",
+    "href": "week09.html#双方向リスト",
+    "title": "9  リスト構造",
+    "section": "9.6 双方向リスト",
+    "text": "9.6 双方向リスト\n要素を順方向にも逆方向にもたどれる双方向リストを実現するには，リストを構成する構造体に前後両方のデータへのポインタを含める． 構造体の宣言を以下のように修正すればよい．\nstruct student {\n  char name[64];\n  int score;\n  struct student *prev; // 前のデータへのポインタ\n  struct student *next;\n};\ntypedef struct student Student;\n\n\n\n\n\n\nリストを逆順にたどって出力する関数を作成してみよう\n\n\n\n\n\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;string.h&gt;\n\nstruct student {\n  char name[64];\n  int score;\n  struct student *prev;\n  struct student *next;\n};\ntypedef struct student Student;\n\nStudent *add_student(Student *head, char name[], int score) {\n  Student *new = (Student *)malloc(sizeof(Student));  // 新規要素のメモリ確保\n  strcpy(new-&gt;name, name);\n  new-&gt;score = score;\n  new-&gt;prev = NULL;  // 追加要素の前は未定なのでとりあえずNULL\n  new-&gt;next = NULL;  // 末尾に追加するので次のデータはNULL\n\n  if (head == NULL) {          // 既存のリストが空なら\n    return new;                // 新規要素を先頭として返す\n  } else {                     // 既存リストが空でない場合\n    Student *p = head;         // 作業用ポインタ\n    while (p-&gt;next != NULL) {  // リストの先頭から末尾までたどる\n      p = p-&gt;next;\n    }\n    p-&gt;next = new;  // 末尾に新規要素を追加\n    new-&gt;prev = p;  // 追加した要素の前の要素\n    return head;\n  }\n}\n// リストの先頭から出力する関数\nvoid print_list(Student *head) {\n  Student *current = head;\n  printf(\"リストの内容: \");\n  while (current != NULL) {\n    printf(\"%d -&gt; \", current-&gt;score);\n    current = current-&gt;next;\n  }\n  printf(\"NULL\\n\");\n}\n// リストの末尾から出力する関数\nvoid print_list_reverse(Student *head) {\n  Student *current = head;\n  printf(\"リストの内容: \");\n  while (current-&gt;next != NULL) {\n    current = current-&gt;next;\n  }\n  while (current != NULL) {\n    printf(\"%s %d点 &lt;- \", current-&gt;name, current-&gt;score);\n    current = current-&gt;prev;\n  }\n  printf(\"NULL\\n\");\n}\n// リスト要素のメモリをすべて解放する関数\nvoid free_list(Student *head) {\n  Student *p = head;  // リストをたどる作業用ポインタ\n  while (p != NULL) {\n    Student *nx = p-&gt;next;  // 次の要素へのポインタを別に保存しておく\n    free(p);                // メモリを解法\n    p = nx;                 // 次の要素へ進む\n  }\n}\nint main(void) {\n  Student *head = NULL;  // リストの先頭へのポインタ．とりあえず空で宣言\n  head = add_student(head, \"Alice\", 100);\n  head = add_student(head, \"Bob\", 62);\n  head = add_student(head, \"Dave\", 80);\n  print_list(head);\n  print_list_reverse(head);\n  free_list(head);\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
+  },
+  {
+    "objectID": "week09.html#演習",
+    "href": "week09.html#演習",
+    "title": "9  リスト構造",
+    "section": "9.7 演習",
+    "text": "9.7 演習\n\n9.7.1 問題1\nテストの点数データの単方向について，リストの指定した番号に新規データを挿入する関数を作成せよ．指定した番号がリストの長さを超える場合は，リストの末尾に追加するとする． 挿入関数の戻り値と引数の型は以下のとおりとする．\n// 渡したリストのk番目に新規データを挿入する関数\nStudent *insert_student(Student *head, int k, char name[], int score)\n作成した関数を用いて，データ（Carol, 55点）を3番目（Bobの後）に挿入せよ． また，データ(Edward, 99点)を100番目を指定して（結果的にリストの末尾に）挿入せよ． ファイル名をins_list1.cとする．\n\n\n9.7.2 問題2\n問題1と同様の仕様で双方向リストに対応した関数を作成せよ． 同じくデータ（Carol, 55点）を3番目に，データ(Edward, 99点)を100番目を指定して（結果的にリストの末尾に）挿入し，リストの中身を順方向と逆方向に出力して編集結果を確認せよ． ファイル名をins_list2.cとする．",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>リスト構造</span>"
+    ]
   }
 ]
