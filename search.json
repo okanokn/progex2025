@@ -878,5 +878,95 @@
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>演習</span>"
     ]
+  },
+  {
+    "objectID": "week11.html",
+    "href": "week11.html",
+    "title": "11  演習",
+    "section": "",
+    "text": "11.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#本日のメニュー",
+    "href": "week11.html#本日のメニュー",
+    "title": "11  演習",
+    "section": "11.2 本日のメニュー",
+    "text": "11.2 本日のメニュー\n\nスタック\nキュー",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#スタックの基本",
+    "href": "week11.html#スタックの基本",
+    "title": "11  演習",
+    "section": "11.3 スタックの基本",
+    "text": "11.3 スタックの基本\nデータを保存–読み出す構造のひとつで，最後に保存したものを最初にとりだす方式（Last-In First-Out; LIFO）のものをスタック（stack）と呼ぶ． 関数の呼び出し関係の表現（コールスタック）や木構造データの深さ優先探索で用いられる．データを縦に積み重ね，データを追加するときは一番上に追加し，取り出すときは一番上からとるイメージを持つと理解しやすい．\nスタックに対する基本操作は以下のとおり：\n\nプッシュ（push）\n\nデータをスタックに追加する\n\nポップ（pop）\n\nスタックからデータを取り出して，スタックから削除する\n\nピーク（peek）\n\nスタックの先頭要素（一番上のデータ）を確認し，削除しない\n\n\nこのほか，スタックに要素があるか否かの確認もよく使う．",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#スタックの実装",
+    "href": "week11.html#スタックの実装",
+    "title": "11  演習",
+    "section": "11.4 スタックの実装",
+    "text": "11.4 スタックの実装\nスタックを実現するには，配列とデータの先頭を表すポインタを使う場合と，リスト構造を使う場合の主に2種類の実装がある． 以下ではリスト構造を使った実装例を見てみよう．\n\n11.4.1 リスト構造によるスタックの実装\nスタックに保存するデータ要素ひとつを構造体で定義する．構造体には，データ（ここではintデータひとつ）と，次の要素へのポインタを含み，単方向リスト構造を構成できるようにする．\n// スタックの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\nこの後，スタックに対する操作を色々実装するので，1本のスタックそのものも型を定義しておく．実体としては，スタック先頭を表すNode構造体へのポインタである．\n// intデータを保持するスタック\ntypedef struct stack {\n  Node *top; // 先頭データへのポインタ\n} Stack;\n新しいスタックを作成したときには，何も要素が入っていない．そこで，先頭要素へのポインタを初期化する関数を作っておく．\n// スタックの初期化\nvoid initStack(Stack *s) {\n  s-&gt;top = NULL;\n}\n\n\n11.4.2 プッシュ\nプッシュ操作は，メモリ領域を確保して，指定されたデータを保持するNodeをスタックの先頭に付ける．\nint push(Stack *s, int newdata) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {  // メモリ領域の確保に失敗したとき\n    return -1;            // 異常値 -1 を呼び出し元に返す\n  }\n\n  newNode-&gt;data = newdata;\n  newNode-&gt;next = s-&gt;top;\n  s-&gt;top = newNode;\n  return 0;\n}\nここで，3–5行目のif文は例外処理である． malloc関数は，メモリ確保に失敗した場合にNULLを返す．メモリが確保できなかった場合には，異常を表す-1を呼び出し元にreturnして終了する．\n正常系の処理はifブロックの後にある．新しいデータであるnewNode（の指すNode）はスタックの先頭になるので，newNodeの次のノードは従来の先頭であるs-&gt;top，新たなスタックの先頭がnewNodeである．\n\n\n11.4.3 ポップ\nポップ操作の実装例は以下のとおり．\nint isEmpty(Stack *s) {\n  return s-&gt;top == NULL;\n}\n\nint pop(Stack *s, int *poppedData) {\n  if (isEmpty(s)) {\n    return -1; // スタックが空のとき異常値 -1 を呼び出し元に返す\n  }\n\n  Node *poppedNode = s-&gt;top;\n  *poppedData = poppedNode-&gt;data;\n  s-&gt;top = poppedNode-&gt;next;\n  free(poppedNode);\n  return 0;\n}\nポップ操作を行うスタックが空のとき，異常値を表す-1を呼び出し元に返す． これにはスタックが空か否かを判定する関数isEmptyを別途作成して利用する．\nポップによって先頭ノードpoppedNodeはスタックから削除され，次のノードpoppedNode-&gt;nextが新たなスタックの先頭となる．\n関数popの戻り値は正常/異常を表すために使うので，読み出したデータは引数として受け取ったポインタに詰めて返す．\n\n\n11.4.4 ピーク\nピーク操作でも，ポップと同様にスタックが空のときは例外処理を行う． ポップと異なり，ピーク操作ではスタックの先頭ノードのデータを返すが，スタックから削除しない．\nint peek(Stack *s, int *topData) {\n  if (isEmpty(s)) {\n    return -1; // スタックが空のとき異常値 -1 を呼び出し元に返す\n  }\n\n  *topData = s-&gt;top-&gt;data;\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#スタックを操作するプログラム例",
+    "href": "week11.html#スタックを操作するプログラム例",
+    "title": "11  演習",
+    "section": "11.5 スタックを操作するプログラム例",
+    "text": "11.5 スタックを操作するプログラム例\n上述の関数を使って，整数データのスタックを操作するプログラムを下記のように作成した．写経して実行してみよう．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// スタックの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するスタック\ntypedef struct stack {\n  Node *top;\n} Stack;\n\n// スタックの初期化\nvoid initStack(Stack *s) { s-&gt;top = NULL; }\n\n// プッシュ\nint push(Stack *s, int newdata) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {  // メモリ領域の確保に失敗したとき\n    return -1;            // 異常値 -1 を呼び出し元に返す\n  }\n\n  newNode-&gt;data = newdata;\n  newNode-&gt;next = s-&gt;top;\n  s-&gt;top = newNode;\n  return 0;\n}\n\n// スタックが空か？\nint isEmpty(Stack *s) { return s-&gt;top == NULL; }\n\n// ポップ\nint pop(Stack *s, int *poppedData) {\n  if (isEmpty(s)) {\n    return -1;\n  }\n  Node *poppedNode = s-&gt;top;\n  *poppedData = poppedNode-&gt;data;\n  s-&gt;top = poppedNode-&gt;next;\n  free(poppedNode);\n  return 0;\n}\n\n// ピーク\nint peek(Stack *s, int *topData) {\n  if (isEmpty(s)) {\n    return -1;\n  }\n  *topData = s-&gt;top-&gt;data;\n  return 0;\n}\n\n// スタックの内容を表示\nvoid printStack(Stack *s) {\n  Node *current = s-&gt;top;\n  while (current != NULL) {\n    printf(\"%d \", current-&gt;data);\n    current = current-&gt;next;\n  }\n  printf(\"\\n\");\n}\n\n// メモリの解放\nvoid freeStack(Stack *s) {\n  Node *current = s-&gt;top;\n  while (current != NULL) {\n    Node *tmp = current;\n    current = current-&gt;next;\n    free(tmp);\n  }\n  s-&gt;top = NULL;\n}\n\nint main(void) {\n  Stack s;\n  initStack(&s);\n\n  while (1) {\n    int menu, x;\n    printf(\"プッシュ(1), ポップ(2), ピーク(3), 表示(4), 終了(0): \");\n    scanf(\"%d\", &menu);\n    if (menu == 0) {\n      break;\n    }\n    switch (menu) {\n      case 1:\n        printf(\"  プッシュするデータ: \");\n        scanf(\"%d\", &x);\n        if (push(&s, x) != 0) {\n          printf(\"プッシュに失敗\\n\");\n        }\n        break;\n      case 2:\n        if (pop(&s, &x) != 0) {\n          printf(\"ポップに失敗\\n\");\n        } else {\n          printf(\"  ポップしたデータ: %d\\n\", x);\n        }\n        break;\n      case 3:\n        if (peek(&s, &x) != 0) {\n          printf(\"ピークに失敗\\n\");\n        } else {\n          printf(\"  ピークしたデータ: %d\\n\", x);\n        }\n        break;\n      case 4:\n        printStack(&s);\n        break;\n      default:\n        break;\n    }\n  }\n  freeStack(&s);\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#キューの基本",
+    "href": "week11.html#キューの基本",
+    "title": "11  演習",
+    "section": "11.6 キューの基本",
+    "text": "11.6 キューの基本\n後入れ先出しであるスタックに対して，先入れ先出し（First-In First-Out; FIFO）のデータ構造をキュー（queue）という．待ち行列とも呼ばれ，その名の通り列に並ぶ客が順番に受付されるイメージを持つと理解しやすい．\nキューに対する基本操作は以下のとおり．\n\nエンキュー（enqueue）\n\nデータをキューの末尾に追加する\n\nデキュー（dequeue）\n\nキューからデータを取り出して，キューから削除する\n\nピーク（peek）\n\nキューの先頭データを取り出すが，キューから削除しない",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#キューの実装",
+    "href": "week11.html#キューの実装",
+    "title": "11  演習",
+    "section": "11.7 キューの実装",
+    "text": "11.7 キューの実装\nリスト構造を使ったキューの実装を紹介する． 配列と，データの先頭と末尾を表す2つのポインタでも実装できる．\n\n11.7.1 リスト構造によるキューの実装\nキューを表す構造体Queueは，先頭ノードへのポインタと末尾ノードへのポインタをメンバにもつ．それ以外はスタックの場合とほぼ同様である．\n// キューの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するキュー\ntypedef struct {\n  Node *front;\n  Node *rear;\n} Queue;\n\n// キューの初期化\nvoid initQueue(Queue *q) {\n  q-&gt;front = NULL;\n  q-&gt;rear = NULL;\n}\n\n// キューが空か？\nint isEmpty(Queue *q) {\n  return q-&gt;front == NULL;\n}\n\n\n11.7.2 エンキュー\nエンキュー操作では，mallocでNode分のメモリを確保し，与えられたデータを格納してからキューの末尾に接続する．\nint enqueue(Queue *q, int data) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {\n    return -1;\n  }\n\n  newNode-&gt;data = data;\n  newNode-&gt;next = NULL;\n  if (isEmpty(q)) {\n    q-&gt;front = newNode;\n    q-&gt;rear = newNode;\n  } else {\n    q-&gt;rear-&gt;next = newNode;  // 末尾ノードのnextにnewNodeをつなぐ\n    q-&gt;rear = newNode;        // キューの末尾ポインタを更新\n  }\n  return 0;\n}\n3–5行目は前述のメモリ確保に失敗した場合の例外処理である． 7行目以降の正常系の処理では，新たなノードに引数で指定されたデータを格納する． その後，キューの先頭q-&gt;frontと末尾q-&gt;rearポインタを更新する．既存のキューが空でない場合，末尾ノードのnextポインタにnewNodeを設定することでリストを構成し，更に末尾ポインタq-&gt;rearを新たなノードに更新している．\n\n\n11.7.3 デキュー\nデキュー操作の実装例は以下のとおり．\nint dequeue(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n\n  Node *f = q-&gt;front;\n  *data = f-&gt;data;\n  q-&gt;front = f-&gt;next;\n  if (q-&gt;front == NULL) {  // キューが空になった場合\n    q-&gt;rear = NULL;        // 末尾ポインタもNULLにしておく\n  }\n  free(f);\n  return 0;\n}\n2–4行目はキューが空の例外処理である． 6行目以降の正常系の処理では，先頭ノードのデータを引数のポインタが指定する先に書き込み（7行目），キューの先頭ポインタq-&gt;frontを更新している．最後に取り出した要素のメモリ解放を行う．\nキューが空になった場合は，末尾ポインタもNULLに初期化している．この記述が無くても，enqueue関数の実装を考えると正常に動作するが，一貫性や安全のためには書いておく方がよい．",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#キューを操作するプログラム例",
+    "href": "week11.html#キューを操作するプログラム例",
+    "title": "11  演習",
+    "section": "11.8 キューを操作するプログラム例",
+    "text": "11.8 キューを操作するプログラム例\n上述の関数を使って，キューを操作するプログラムを下記のように作成した．写経して実行してみよう．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// キューの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するキュー\ntypedef struct {\n  Node *front;\n  Node *rear;\n} Queue;\n\n// キューの初期化\nvoid initQueue(Queue *q) {\n  q-&gt;front = NULL;\n  q-&gt;rear = NULL;\n}\n\nint isEmpty(Queue *q) { return q-&gt;front == NULL; }\n\n// エンキュー\nint enqueue(Queue *q, int data) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {\n    return -1;\n  }\n\n  newNode-&gt;data = data;\n  newNode-&gt;next = NULL;\n  if (isEmpty(q)) {\n    q-&gt;front = newNode;\n    q-&gt;rear = newNode;\n  } else {\n    q-&gt;rear-&gt;next = newNode;  // 末尾ノードのnextにnewNodeをつなぐ\n    q-&gt;rear = newNode;        // キューの末尾ポインタを更新\n  }\n  return 0;\n}\n\n// デキュー\nint dequeue(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n\n  Node *f = q-&gt;front;\n  *data = f-&gt;data;\n  q-&gt;front = f-&gt;next;\n  if (q-&gt;front == NULL) {  // キューが空になった場合\n    q-&gt;rear = NULL;        // 末尾ポインタもNULLにしておく\n  }\n  free(f);\n  return 0;\n}\n\n// ピーク\nint peek(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n  *data = q-&gt;front-&gt;data;\n  return 0;\n}\n\nvoid printQueue(Queue *q) {\n  Node *current = q-&gt;front;\n  while (current != NULL) {\n    printf(\"%d \", current-&gt;data);\n    current = current-&gt;next;\n  }\n  printf(\"\\n\");\n}\n\nvoid freeQueue(Queue *q) {\n  int tmp;\n  while (dequeue(q, &tmp) == 0) {\n  }\n}\n\nint main(void) {\n  Queue q;\n  initQueue(&q);\n\n  while (1) {\n    int menu, x;\n    printf(\"エンキュー(1), デキュー(2), ピーク(3), 表示(4), 終了(0): \");\n    scanf(\"%d\", &menu);\n    if (menu == 0) {\n      break;\n    }\n    switch (menu) {\n      case 1:\n        printf(\"  追加するデータ: \");\n        scanf(\"%d\", &x);\n        if (enqueue(&q, x) != 0) {\n          printf(\"エンキューに失敗\\n\");\n        }\n        break;\n      case 2:\n        if (dequeue(&q, &x) != 0) {\n          printf(\"デキューに失敗\\n\");\n        } else {\n          printf(\"  取り出したデータ: %d\\n\", x);\n        }\n        break;\n      case 3:\n        if (peek(&q, &x) != 0) {\n          printf(\"ピークに失敗\\n\");\n        } else {\n          printf(\"  ピークしたデータ: %d\\n\", x);\n        }\n        break;\n      case 4:\n        printQueue(&q);\n        break;\n      default:\n        break;\n    }\n  }\n  freeQueue(&q);\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
+  },
+  {
+    "objectID": "week11.html#演習",
+    "href": "week11.html#演習",
+    "title": "11  演習",
+    "section": "11.9 演習",
+    "text": "11.9 演習\n\n11.9.1 問題1\nchar型のデータを格納するスタックを用いて，文字列中のカッコの対応関係をチェックするプログラムを作成せよ． 判定対象のカッコは()と[]とする．与えられた文字列を左から順に読み，開カッコが来たらスタックにプッシュし，閉じカッコがきたらスタックからポップする． ポップした文字と今のカッコが対応していれば正常，そうでなければ不正な文字列と判定せよ．",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+    ]
   }
 ]
