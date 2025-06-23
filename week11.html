@@ -280,6 +280,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="前回演習の解答" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="前回演習の解答"><span class="header-section-number">11.1</span> 前回演習の解答</h2>
+<ul>
+<li>授業内小テストの採点結果</li>
+<li>レポート課題2の解説</li>
+</ul>
 </section>
 <section id="本日のメニュー" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="本日のメニュー"><span class="header-section-number">11.2</span> 本日のメニュー</h2>
@@ -291,6 +295,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="スタックの基本" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="スタックの基本"><span class="header-section-number">11.3</span> スタックの基本</h2>
 <p>データを保存–読み出す構造のひとつで，最後に保存したものを最初にとりだす方式（Last-In First-Out; LIFO）のものを<strong>スタック</strong>（stack）と呼ぶ． 関数の呼び出し関係の表現（コールスタック）や木構造データの深さ優先探索で用いられる．データを縦に積み重ね，データを追加するときは一番上に追加し，取り出すときは一番上からとるイメージを持つと理解しやすい．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./content/11/stack.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>スタックの概念図．赤矢印は操作を，黒矢印は後の実装例におけるポインタを表す</figcaption>
+</figure>
+</div>
 <p>スタックに対する基本操作は以下のとおり：</p>
 <ul>
 <li>プッシュ（push）
@@ -507,6 +517,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="キューの基本" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="キューの基本"><span class="header-section-number">11.6</span> キューの基本</h2>
 <p>後入れ先出しであるスタックに対して，先入れ先出し（First-In First-Out; FIFO）のデータ構造を<strong>キュー</strong>（queue）という．待ち行列とも呼ばれ，その名の通り列に並ぶ客が順番に受付されるイメージを持つと理解しやすい．</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./content/11/queue.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>キューの概念図．赤矢印は操作を，黒矢印は後の実装例におけるポインタを表す</figcaption>
+</figure>
+</div>
 <p>キューに対する基本操作は以下のとおり．</p>
 <ul>
 <li>エンキュー（enqueue）
@@ -728,7 +744,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.9" class="anchored" data-anchor-id="演習"><span class="header-section-number">11.9</span> 演習</h2>
 <section id="問題1" class="level3" data-number="11.9.1">
 <h3 data-number="11.9.1" class="anchored" data-anchor-id="問題1"><span class="header-section-number">11.9.1</span> 問題1</h3>
-<p><code>char</code>型のデータを格納するスタックを用いて，文字列中のカッコの対応関係をチェックするプログラムを作成せよ． 判定対象のカッコは<code>()</code>と<code>[]</code>とする．与えられた文字列を左から順に読み，開カッコが来たらスタックにプッシュし，閉じカッコがきたらスタックからポップする． ポップした文字と今のカッコが対応していれば正常，そうでなければ不正な文字列と判定せよ．</p>
+<p><code>char</code>型のデータを格納するスタックを用いて，文字列中のカッコの対応関係をチェックするプログラムを作成せよ．</p>
+<ul>
+<li>判定対象のカッコは<code>()</code>と<code>[]</code>とする</li>
+<li>カッコの対応が正常なら<code>1</code>を，不正なら<code>0</code>を返す関数を作成せよ</li>
+<li>テスト文字列に対して正常/不正を判定して出力せよ
+<ul>
+<li>テスト文字列1: <code>"(a[b(c)])"</code> → 正常</li>
+<li>テスト文字列2: <code>"([)]"</code> → 不正（カッコの順序が不正）</li>
+<li>テスト文字列3: <code>"([()]"</code> → 不正（対応するカッコがない）</li>
+</ul></li>
+</ul>
+<p>ヒント：</p>
+<ul>
+<li>文字データを格納するノードでスタックをつくる</li>
+<li>与えられた文字列を左から順に読み，開カッコが来たらスタックにプッシュし，閉じカッコがきたらスタックからポップする．ポップした文字と今のカッコが対応していれば正常，そうでなければ不正</li>
+</ul>
 
 
 </section>
