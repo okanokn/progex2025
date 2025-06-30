@@ -336,14 +336,16 @@ window.Quarto = {
 </section>
 <section id="ヒープの定義" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="ヒープの定義"><span class="header-section-number">12.5</span> ヒープの定義</h2>
-<p>二分木を構成する頂点に対して順序が定義できる値をひとつ対応させる．例えば頂点に実数をひとつ割り当てる． このとき，以下の条件が成り立つ場合，その二分木<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>を<strong>ヒープ</strong>とよぶ：</p>
+<p>二分木を構成する頂点に対して順序が定義できる値をひとつ対応させる．例えば頂点に実数をひとつ割り当てる． 以下の条件が成り立つ場合，その二分木<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>を<strong>ヒープ</strong>とよぶ：</p>
 <ul>
 <li>葉の深さは<span class="math inline">\(d\)</span>または<span class="math inline">\(d-1\)</span>である（すべての葉の深さの差は高々1）</li>
 <li>深さ<span class="math inline">\(d\)</span>の葉は左詰めに配置されている</li>
 <li>深さ<span class="math inline">\(d-1\)</span>以下の部分について，各頂点はちょうど2個の子をもつ <!-- ↑教科書間違ってる？ d-1未満の...?--></li>
 <li>葉以外のすべての頂点について，その頂点の値はすべての子の値より小さいか等しい</li>
 </ul>
-<p>とくに最後の条件をヒープ条件という<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>． ヒープ条件から，根の値は最小値である． <!-- 1--3番目の条件を満たす二分木を完全二分木という． --> 葉の深さが最大で<span class="math inline">\(d\)</span>のヒープでは，最大で<span class="math inline">\(2^0 + 2^1 + \cdots + 2^d = 2^{d+1} -1\)</span>個の頂点がある．</p>
+<p>とくに最後の条件をヒープ条件という<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>． ヒープ条件から，根の値は最小値である．</p>
+<!-- 1--3番目の条件を満たす二分木を完全二分木という． -->
+<p>1–3番目の条件を言い換えると，根をトップに頂点が上から順に左詰めで並んでいる二分木であると言える． 葉の深さが最大で<span class="math inline">\(d\)</span>のヒープでは，最大で<span class="math inline">\(2^0 + 2^1 + \cdots + 2^d = 2^{d+1} -1\)</span>個の頂点がある．</p>
 <p>ヒープは，データを上下の階層で大小関係が成立する木構造で表現しておくことで，最小値/最大値を素早く取り出すことができる．後述するようにデータの挿入や削除について，データ数<span class="math inline">\(n\)</span>に対して<span class="math inline">\(O(\log n)\)</span>でヒープを保持したまま操作が可能である．</p>
 </section>
 <section id="ヒープの実装" class="level2" data-number="12.6">
@@ -676,7 +678,7 @@ window.Quarto = {
 </section>
 <section id="問題2" class="level3" data-number="12.8.2">
 <h3 data-number="12.8.2" class="anchored" data-anchor-id="問題2"><span class="header-section-number">12.8.2</span> 問題2</h3>
-<p>問題1の計算量を説明せよ． <!-- popは1回で最悪$O(\log n)$．それをn回なので$O(n\log n)$ --></p>
+<p>問題1の計算量を説明せよ．</p>
 
 
 </section>
