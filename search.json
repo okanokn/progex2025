@@ -882,101 +882,201 @@
   {
     "objectID": "week11.html",
     "href": "week11.html",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "",
     "text": "11.1 前回演習の解答",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#前回演習の解答",
     "href": "week11.html#前回演習の解答",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "",
     "text": "授業内小テストの採点結果\nレポート課題2の解説",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#本日のメニュー",
     "href": "week11.html#本日のメニュー",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.2 本日のメニュー",
     "text": "11.2 本日のメニュー\n\nスタック\nキュー",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#スタックの基本",
     "href": "week11.html#スタックの基本",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.3 スタックの基本",
     "text": "11.3 スタックの基本\nデータを保存–読み出す構造のひとつで，最後に保存したものを最初にとりだす方式（Last-In First-Out; LIFO）のものをスタック（stack）と呼ぶ． 関数の呼び出し関係の表現（コールスタック）や木構造データの深さ優先探索で用いられる．データを縦に積み重ね，データを追加するときは一番上に追加し，取り出すときは一番上からとるイメージを持つと理解しやすい．\n\n\n\nスタックの概念図．赤矢印は操作を，黒矢印は後の実装例におけるポインタを表す\n\n\nスタックに対する基本操作は以下のとおり：\n\nプッシュ（push）\n\nデータをスタックに追加する\n\nポップ（pop）\n\nスタックからデータを取り出して，スタックから削除する\n\nピーク（peek）\n\nスタックの先頭要素（一番上のデータ）を確認し，削除しない\n\n\nこのほか，スタックに要素があるか否かの確認もよく使う．",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#スタックの実装",
     "href": "week11.html#スタックの実装",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.4 スタックの実装",
     "text": "11.4 スタックの実装\nスタックを実現するには，配列とデータの先頭を表すポインタを使う場合と，リスト構造を使う場合の主に2種類の実装がある． 以下ではリスト構造を使った実装例を見てみよう．\n\n11.4.1 リスト構造によるスタックの実装\nスタックに保存するデータ要素ひとつを構造体で定義する．構造体には，データ（ここではintデータひとつ）と，次の要素へのポインタを含み，単方向リスト構造を構成できるようにする．\n// スタックの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\nこの後，スタックに対する操作を色々実装するので，1本のスタックそのものも型を定義しておく．実体としては，スタック先頭を表すNode構造体へのポインタである．\n// intデータを保持するスタック\ntypedef struct stack {\n  Node *top; // 先頭データへのポインタ\n} Stack;\n新しいスタックを作成したときには，何も要素が入っていない．そこで，先頭要素へのポインタを初期化する関数を作っておく．\n// スタックの初期化\nvoid initStack(Stack *s) {\n  s-&gt;top = NULL;\n}\n\n\n11.4.2 プッシュ\nプッシュ操作は，メモリ領域を確保して，指定されたデータを保持するNodeをスタックの先頭に付ける．\nint push(Stack *s, int newdata) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {  // メモリ領域の確保に失敗したとき\n    return -1;            // 異常値 -1 を呼び出し元に返す\n  }\n\n  newNode-&gt;data = newdata;\n  newNode-&gt;next = s-&gt;top;\n  s-&gt;top = newNode;\n  return 0;\n}\nここで，3–5行目のif文は例外処理である． malloc関数は，メモリ確保に失敗した場合にNULLを返す．メモリが確保できなかった場合には，異常を表す-1を呼び出し元にreturnして終了する．\n正常系の処理はifブロックの後にある．新しいデータであるnewNode（の指すNode）はスタックの先頭になるので，newNodeの次のノードは従来の先頭であるs-&gt;top，新たなスタックの先頭がnewNodeである．\n\n\n11.4.3 ポップ\nポップ操作の実装例は以下のとおり．\nint isEmpty(Stack *s) {\n  return s-&gt;top == NULL;\n}\n\nint pop(Stack *s, int *poppedData) {\n  if (isEmpty(s)) {\n    return -1; // スタックが空のとき異常値 -1 を呼び出し元に返す\n  }\n\n  Node *poppedNode = s-&gt;top;\n  *poppedData = poppedNode-&gt;data;\n  s-&gt;top = poppedNode-&gt;next;\n  free(poppedNode);\n  return 0;\n}\nポップ操作を行うスタックが空のとき，異常値を表す-1を呼び出し元に返す． これにはスタックが空か否かを判定する関数isEmptyを別途作成して利用する．\nポップによって先頭ノードpoppedNodeはスタックから削除され，次のノードpoppedNode-&gt;nextが新たなスタックの先頭となる．\n関数popの戻り値は正常/異常を表すために使うので，読み出したデータは引数として受け取ったポインタに詰めて返す．\n\n\n11.4.4 ピーク\nピーク操作でも，ポップと同様にスタックが空のときは例外処理を行う． ポップと異なり，ピーク操作ではスタックの先頭ノードのデータを返すが，スタックから削除しない．\nint peek(Stack *s, int *topData) {\n  if (isEmpty(s)) {\n    return -1; // スタックが空のとき異常値 -1 を呼び出し元に返す\n  }\n\n  *topData = s-&gt;top-&gt;data;\n  return 0;\n}",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#スタックを操作するプログラム例",
     "href": "week11.html#スタックを操作するプログラム例",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.5 スタックを操作するプログラム例",
     "text": "11.5 スタックを操作するプログラム例\n上述の関数を使って，整数データのスタックを操作するプログラムを下記のように作成した．写経して実行してみよう．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// スタックの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するスタック\ntypedef struct stack {\n  Node *top;\n} Stack;\n\n// スタックの初期化\nvoid initStack(Stack *s) { s-&gt;top = NULL; }\n\n// プッシュ\nint push(Stack *s, int newdata) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {  // メモリ領域の確保に失敗したとき\n    return -1;            // 異常値 -1 を呼び出し元に返す\n  }\n\n  newNode-&gt;data = newdata;\n  newNode-&gt;next = s-&gt;top;\n  s-&gt;top = newNode;\n  return 0;\n}\n\n// スタックが空か？\nint isEmpty(Stack *s) { return s-&gt;top == NULL; }\n\n// ポップ\nint pop(Stack *s, int *poppedData) {\n  if (isEmpty(s)) {\n    return -1;\n  }\n  Node *poppedNode = s-&gt;top;\n  *poppedData = poppedNode-&gt;data;\n  s-&gt;top = poppedNode-&gt;next;\n  free(poppedNode);\n  return 0;\n}\n\n// ピーク\nint peek(Stack *s, int *topData) {\n  if (isEmpty(s)) {\n    return -1;\n  }\n  *topData = s-&gt;top-&gt;data;\n  return 0;\n}\n\n// スタックの内容を表示\nvoid printStack(Stack *s) {\n  Node *current = s-&gt;top;\n  while (current != NULL) {\n    printf(\"%d \", current-&gt;data);\n    current = current-&gt;next;\n  }\n  printf(\"\\n\");\n}\n\n// メモリの解放\nvoid freeStack(Stack *s) {\n  Node *current = s-&gt;top;\n  while (current != NULL) {\n    Node *tmp = current;\n    current = current-&gt;next;\n    free(tmp);\n  }\n  s-&gt;top = NULL;\n}\n\nint main(void) {\n  Stack s;\n  initStack(&s);\n\n  while (1) {\n    int menu, x;\n    printf(\"プッシュ(1), ポップ(2), ピーク(3), 表示(4), 終了(0): \");\n    scanf(\"%d\", &menu);\n    if (menu == 0) {\n      break;\n    }\n    switch (menu) {\n      case 1:\n        printf(\"  プッシュするデータ: \");\n        scanf(\"%d\", &x);\n        if (push(&s, x) != 0) {\n          printf(\"プッシュに失敗\\n\");\n        }\n        break;\n      case 2:\n        if (pop(&s, &x) != 0) {\n          printf(\"ポップに失敗\\n\");\n        } else {\n          printf(\"  ポップしたデータ: %d\\n\", x);\n        }\n        break;\n      case 3:\n        if (peek(&s, &x) != 0) {\n          printf(\"ピークに失敗\\n\");\n        } else {\n          printf(\"  ピークしたデータ: %d\\n\", x);\n        }\n        break;\n      case 4:\n        printStack(&s);\n        break;\n      default:\n        break;\n    }\n  }\n  freeStack(&s);\n  return 0;\n}",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#キューの基本",
     "href": "week11.html#キューの基本",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.6 キューの基本",
     "text": "11.6 キューの基本\n後入れ先出しであるスタックに対して，先入れ先出し（First-In First-Out; FIFO）のデータ構造をキュー（queue）という．待ち行列とも呼ばれ，その名の通り列に並ぶ客が順番に受付されるイメージを持つと理解しやすい．\n\n\n\nキューの概念図．赤矢印は操作を，黒矢印は後の実装例におけるポインタを表す\n\n\nキューに対する基本操作は以下のとおり．\n\nエンキュー（enqueue）\n\nデータをキューの末尾に追加する\n\nデキュー（dequeue）\n\nキューからデータを取り出して，キューから削除する\n\nピーク（peek）\n\nキューの先頭データを取り出すが，キューから削除しない",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#キューの実装",
     "href": "week11.html#キューの実装",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.7 キューの実装",
     "text": "11.7 キューの実装\nリスト構造を使ったキューの実装を紹介する． 配列と，データの先頭と末尾を表す2つのポインタでも実装できる．\n\n11.7.1 リスト構造によるキューの実装\nキューを表す構造体Queueは，先頭ノードへのポインタと末尾ノードへのポインタをメンバにもつ．それ以外はスタックの場合とほぼ同様である．\n// キューの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するキュー\ntypedef struct {\n  Node *front;\n  Node *rear;\n} Queue;\n\n// キューの初期化\nvoid initQueue(Queue *q) {\n  q-&gt;front = NULL;\n  q-&gt;rear = NULL;\n}\n\n// キューが空か？\nint isEmpty(Queue *q) {\n  return q-&gt;front == NULL;\n}\n\n\n11.7.2 エンキュー\nエンキュー操作では，mallocでNode分のメモリを確保し，与えられたデータを格納してからキューの末尾に接続する．\nint enqueue(Queue *q, int data) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {\n    return -1;\n  }\n\n  newNode-&gt;data = data;\n  newNode-&gt;next = NULL;\n  if (isEmpty(q)) {\n    q-&gt;front = newNode;\n    q-&gt;rear = newNode;\n  } else {\n    q-&gt;rear-&gt;next = newNode;  // 末尾ノードのnextにnewNodeをつなぐ\n    q-&gt;rear = newNode;        // キューの末尾ポインタを更新\n  }\n  return 0;\n}\n3–5行目は前述のメモリ確保に失敗した場合の例外処理である． 7行目以降の正常系の処理では，新たなノードに引数で指定されたデータを格納する． その後，キューの先頭q-&gt;frontと末尾q-&gt;rearポインタを更新する．既存のキューが空でない場合，末尾ノードのnextポインタにnewNodeを設定することでリストを構成し，更に末尾ポインタq-&gt;rearを新たなノードに更新している．\n\n\n11.7.3 デキュー\nデキュー操作の実装例は以下のとおり．\nint dequeue(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n\n  Node *f = q-&gt;front;\n  *data = f-&gt;data;\n  q-&gt;front = f-&gt;next;\n  if (q-&gt;front == NULL) {  // キューが空になった場合\n    q-&gt;rear = NULL;        // 末尾ポインタもNULLにしておく\n  }\n  free(f);\n  return 0;\n}\n2–4行目はキューが空の例外処理である． 6行目以降の正常系の処理では，先頭ノードのデータを引数のポインタが指定する先に書き込み（7行目），キューの先頭ポインタq-&gt;frontを更新している．最後に取り出した要素のメモリ解放を行う．\nキューが空になった場合は，末尾ポインタもNULLに初期化している．この記述が無くても，enqueue関数の実装を考えると正常に動作するが，一貫性や安全のためには書いておく方がよい．",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#キューを操作するプログラム例",
     "href": "week11.html#キューを操作するプログラム例",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.8 キューを操作するプログラム例",
     "text": "11.8 キューを操作するプログラム例\n上述の関数を使って，キューを操作するプログラムを下記のように作成した．写経して実行してみよう．\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// キューの要素ひとつを表す構造体\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\n// intデータを保持するキュー\ntypedef struct {\n  Node *front;\n  Node *rear;\n} Queue;\n\n// キューの初期化\nvoid initQueue(Queue *q) {\n  q-&gt;front = NULL;\n  q-&gt;rear = NULL;\n}\n\nint isEmpty(Queue *q) { return q-&gt;front == NULL; }\n\n// エンキュー\nint enqueue(Queue *q, int data) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {\n    return -1;\n  }\n\n  newNode-&gt;data = data;\n  newNode-&gt;next = NULL;\n  if (isEmpty(q)) {\n    q-&gt;front = newNode;\n    q-&gt;rear = newNode;\n  } else {\n    q-&gt;rear-&gt;next = newNode;  // 末尾ノードのnextにnewNodeをつなぐ\n    q-&gt;rear = newNode;        // キューの末尾ポインタを更新\n  }\n  return 0;\n}\n\n// デキュー\nint dequeue(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n\n  Node *f = q-&gt;front;\n  *data = f-&gt;data;\n  q-&gt;front = f-&gt;next;\n  if (q-&gt;front == NULL) {  // キューが空になった場合\n    q-&gt;rear = NULL;        // 末尾ポインタもNULLにしておく\n  }\n  free(f);\n  return 0;\n}\n\n// ピーク\nint peek(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n  *data = q-&gt;front-&gt;data;\n  return 0;\n}\n\nvoid printQueue(Queue *q) {\n  Node *current = q-&gt;front;\n  while (current != NULL) {\n    printf(\"%d \", current-&gt;data);\n    current = current-&gt;next;\n  }\n  printf(\"\\n\");\n}\n\nvoid freeQueue(Queue *q) {\n  int tmp;\n  while (dequeue(q, &tmp) == 0) {\n  }\n}\n\nint main(void) {\n  Queue q;\n  initQueue(&q);\n\n  while (1) {\n    int menu, x;\n    printf(\"エンキュー(1), デキュー(2), ピーク(3), 表示(4), 終了(0): \");\n    scanf(\"%d\", &menu);\n    if (menu == 0) {\n      break;\n    }\n    switch (menu) {\n      case 1:\n        printf(\"  追加するデータ: \");\n        scanf(\"%d\", &x);\n        if (enqueue(&q, x) != 0) {\n          printf(\"エンキューに失敗\\n\");\n        }\n        break;\n      case 2:\n        if (dequeue(&q, &x) != 0) {\n          printf(\"デキューに失敗\\n\");\n        } else {\n          printf(\"  取り出したデータ: %d\\n\", x);\n        }\n        break;\n      case 3:\n        if (peek(&q, &x) != 0) {\n          printf(\"ピークに失敗\\n\");\n        } else {\n          printf(\"  ピークしたデータ: %d\\n\", x);\n        }\n        break;\n      case 4:\n        printQueue(&q);\n        break;\n      default:\n        break;\n    }\n  }\n  freeQueue(&q);\n  return 0;\n}",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
     ]
   },
   {
     "objectID": "week11.html#演習",
     "href": "week11.html#演習",
-    "title": "11  演習",
+    "title": "11  データ構造 1",
     "section": "11.9 演習",
     "text": "11.9 演習\n\n11.9.1 問題1\nchar型のデータを格納するスタックを用いて，文字列中のカッコの対応関係をチェックするプログラムを作成せよ．\n\n判定対象のカッコは()と[]とする\nカッコの対応が正常なら1を，不正なら0を返す関数を作成せよ\nテスト文字列に対して正常/不正を判定して出力せよ\n\nテスト文字列1: \"(a[b(c)])\" → 正常\nテスト文字列2: \"([)]\" → 不正（カッコの順序が不正）\nテスト文字列3: \"([()]\" → 不正（対応するカッコがない）\n\n\nヒント：\n\n文字データを格納するノードでスタックをつくる\n与えられた文字列を左から順に読み，開カッコが来たらスタックにプッシュし，閉じカッコがきたらスタックからポップする．ポップした文字と今のカッコが対応していれば正常，そうでなければ不正",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>演習</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>データ構造 1</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html",
+    "href": "week12.html",
+    "title": "12  データ構造 2",
+    "section": "",
+    "text": "12.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#前回演習の解答",
+    "href": "week12.html#前回演習の解答",
+    "title": "12  データ構造 2",
+    "section": "",
+    "text": "スタックの使い方",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#本日のメニュー",
+    "href": "week12.html#本日のメニュー",
+    "title": "12  データ構造 2",
+    "section": "12.2 本日のメニュー",
+    "text": "12.2 本日のメニュー\n\nグラフ\nヒープ",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#グラフ",
+    "href": "week12.html#グラフ",
+    "title": "12  データ構造 2",
+    "section": "12.3 グラフ",
+    "text": "12.3 グラフ\n頂点（vertex）を表す離散集合\\(V\\)と，頂点間のつながりを表す辺（edge）の集合\\(E\\subseteq V\\times V\\)で構成される\\(G(V, E)\\)をグラフ（graph）と呼ぶ． グラフは，個人間の交友関係や通信機器間のネットワークなど，つながりをもつ複数の要素を表現する記法として用いられる． 頂点のことをノード，辺のことを枝と呼ぶこともある．\n辺に向きの概念があるグラフは有向グラフ（directed graph）といい，そうでない場合は無向グラフ（undirected ）という． 言い換えると，無向グラフでは，任意の頂点\\(p, q\\in V\\)について，\\((p,q)\\in E \\Rightarrow (q,p) \\in E\\)が成り立つ． 無向グラフは有向グラフの特殊ケースである．例えば通信可否がノード間の空間的な距離のみによって決まる場合は\\(p\\)から\\(q\\)への通信が可能ならば逆も可能であるので，無向グラフで表現できる．\n頂点\\(p\\in V\\)から頂点\\(q\\in V\\)へ，辺と頂点を経て到達できる場合，つまり頂点の列\\(p=v_1, v_2, \\dots, v_k = q\\)について\\((v_i,v_{i+1})\\in E\\), \\(i= 1, 2, \\dots, k-1\\)である場合， \\(p\\)-\\(q\\)間に路（path）が存在するという．このとき路の長さは\\(k-1\\)である． 路の頂点が高々一度しか路に現れない場合，つまり\\(v_1, \\dots, v_{k}\\)が相異なる場合，路は単純（simple）という． 路の頂点\\(v_1, \\dots, v_{k-1}\\)が相異なり，\\(v_1 = v_k\\)であるとき，単純閉路という．\nグラフの任意の頂点から任意の頂点への路が存在する場合，そのグラフは連結であるという．有向グラフのときは，有向路が存在すれば強連結，無向グラフに置き換えたときに連結であれば弱連結という．\n以下では無向グラフのみを考える．",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#木",
+    "href": "week12.html#木",
+    "title": "12  データ構造 2",
+    "section": "12.4 木",
+    "text": "12.4 木\n連結で単純閉路をもたないグラフを木（tree）という． 木では，特定の頂点を基準に選び（根（root）とよぶ），その他の頂点への路を根から下へ向かう路上に配置した図に書き表すことができる． このとき，根からの路の長さごとに階層を揃えて描く．この階層を深さという．\nある頂点の上，つまり根に近い方の辺でつながった頂点を親といい，下，つまり根から遠ざかる方向に辺でつながった頂点を子という． 子を持たない頂点は葉という．葉は木の末端の頂点である．\n根をもつ木で，頂点の子が高々2つの場合，二分木よぶ． 二分木では，左右の概念を導入して，左の子と右の子を区別する．",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#ヒープの定義",
+    "href": "week12.html#ヒープの定義",
+    "title": "12  データ構造 2",
+    "section": "12.5 ヒープの定義",
+    "text": "12.5 ヒープの定義\n二分木を構成する頂点に対して順序が定義できる値をひとつ対応させる．例えば頂点に実数をひとつ割り当てる． このとき，以下の条件が成り立つ場合，その二分木1をヒープとよぶ：\n\n葉の深さは\\(d\\)または\\(d-1\\)である（すべての葉の深さの差は高々1）\n深さ\\(d\\)の葉は左詰めに配置されている\n深さ\\(d-1\\)以下の部分について，各頂点はちょうど2個の子をもつ \n葉以外のすべての頂点について，その頂点の値はすべての子の値より小さいか等しい\n\nとくに最後の条件をヒープ条件という2． ヒープ条件から，根の値は最小値である．  葉の深さが最大で\\(d\\)のヒープでは，最大で\\(2^0 + 2^1 + \\cdots + 2^d = 2^{d+1} -1\\)個の頂点がある．\nヒープは，データを上下の階層で大小関係が成立する木構造で表現しておくことで，最小値/最大値を素早く取り出すことができる．後述するようにデータの挿入や削除について，データ数\\(n\\)に対して\\(O(\\log n)\\)でヒープを保持したまま操作が可能である．",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#ヒープの実装",
+    "href": "week12.html#ヒープの実装",
+    "title": "12  データ構造 2",
+    "section": "12.6 ヒープの実装",
+    "text": "12.6 ヒープの実装\nヒープは配列とデータ数を表す変数を用いて実装できる．\n#define HEAP_SIZE 100\n\ntypedef struct {\n  int data[HEAP_SIZE];\n  int size;\n} Heap;\n\nvoid initHeap(Heap *h) {\n  h-&gt;size = 0;\n}\nヒープの定義から，以下の事実が従う．\n\n\n\n\n\n\nヒープにおける親子のインデックス（親から子）\n\n\n\nヒープの頂点を，根から深さの順に\\(0, 1, 2, \\dots\\)と番号を付ける．同じ深さの頂点は，左から順に並べる． すると，番号\\(i\\)の左の子は（もし存在するなら）番号\\(2i+1\\)，同じく右の子の番号は\\(2i+2\\)である． \n\n\n根の番号を\\(1\\)から始めるとすると，\\(i\\)の左の子は\\(2i\\)，右の子は\\(2i+1\\)である． 頂点の番号づけは上述のように（上詰め左詰めで）順序が決まるので，現在の総データ数だけ保持しておけば配列で表現できる．",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#ヒープの操作",
+    "href": "week12.html#ヒープの操作",
+    "title": "12  データ構造 2",
+    "section": "12.7 ヒープの操作",
+    "text": "12.7 ヒープの操作\nデータからどのようにヒープを構築するかは後述するとして，まずは，ヒープが手元にあるとして，ヒープに対する操作を考えよう．\n\n12.7.1 挿入\nヒープに要素を追加するには，まず空いている末尾に追加して，ヒープ条件が成立するまで親子間を入れ替える．実装例は以下のとおり． ある頂点に対応する配列要素のインデックスを\\(i\\)とすると，親のインデックスは\\(\\lfloor (i-1)/2 \\rfloor\\)であることに注意しよう．ここで，\\(\\lfloor \\cdot \\rfloor\\)は小数点以下を切り捨てる床関数である．\n\n\n\n\n\n\nヒープにおける親子のインデックス（子から親）\n\n\n\n子のインデックスを\\(i\\)とすると，親のインデックスは\\(\\lfloor (i-1)/2 \\rfloor\\)である．\n\n\nvoid swap(int *x, int *y) {\n  int tmp = *x;\n  *x = *y;\n  *y = tmp;\n}\n\nvoid insert(Heap *h, int value) {\n  if (h-&gt;size &gt;= HEAP_SIZE) {\n    printf(\"ヒープが満杯です\\n\");\n    exit(1);  // 異常終了 &lt;stdlib.h&gt;が必要\n  }\n\n  // 末尾に追加\n  int i = h-&gt;size;\n  h-&gt;data[i] = value;\n  h-&gt;size++;\n\n  // ヒープ条件を満たすまで親子を入れ替え\n  while (i &gt; 0) {\n    int parent = (i - 1) / 2;\n    if (h-&gt;data[parent] &gt; h-&gt;data[i]) {\n      swap(&h-&gt;data[parent], &h-&gt;data[i]);\n      i = parent;\n    } else {\n      break;\n    }\n  }\n}\n\n\n12.7.2 最小値の削除\nデータの最小値を取り出して削除するには，まず根を取り出して削除し，新たな根として配列末尾の要素を代入する． 新たな根と子がヒープ条件を満たさない場合は，左右の子のうち値が小さい方と入れ替える． 入れ替えた先の階層において，ヒープ条件が成立するか葉になるまで入れ替えを繰り返す． \nint pop(Heap *h) {\n  if (h-&gt;size == 0) {\n    printf(\"ヒープは空です\\n\");\n    exit(1);  // 異常終了\n  }\n  // 最小値を返す\n  int minVal = h-&gt;data[0];\n  // 末尾を根に\n  h-&gt;data[0] = h-&gt;data[h-&gt;size - 1]; // 末尾インデックスは サイズ数 - 1\n  h-&gt;size--;\n\n  // ヒープ化\n  int i = 0;\n  while (1) {\n    int left = 2 * i + 1;\n    int right = left + 1;\n    int smallest = i;  // 入れ替え対象のインデックス\n    // 左の子からヒープ条件をチェック\n    if ((left &lt; h-&gt;size) && (h-&gt;data[left] &lt; h-&gt;data[smallest])) {\n      smallest = left; // 左の子が存在して自分より小さいとき\n    }\n    if ((right &lt; h-&gt;size) && (h-&gt;data[right] &lt; h-&gt;data[smallest])) {\n      smallest = right;\n    }\n    if (smallest != i) {\n      swap(&h-&gt;data[i], &h-&gt;data[smallest]);\n      i = smallest;\n    } else {\n      break;  // 子が存在しない or 子より小さい\n    }\n  }\n  return minVal;\n}\n\n\n12.7.3 ヒープの構築\n与えられた数列からヒープを構築する方法を考えよう．単純に空のヒープに対して前述の挿入を繰り返すと，挿入1回で\\(O(\\log n)\\)であるから\\(O(n\\log n)\\)を要する．\n少し工夫して，\\(O(n)\\)のヒープ化を考えよう． まず，与えられた数列をそのままヒープに当てはめる． つぎに，葉の親，つまり最小の2分木についてヒープ条件を満たすように入れ替えを行う． 葉の親の階層でヒープが構成できたら，その上の階層で同様の操作を行う．\nこのとき，ヒープ条件を満たすような入れ替えは，最小値削除操作における，仮の根をヒープ条件を満たすように下ろしていく操作と同様である． そこで，この操作を別の関数heapifyとしてくくりだし，最小値削除popと共有することができる．\n// 頂点iをヒープ条件を満たすまで下ろす\nvoid heapify(Heap *h, int i) {\n  while (1) {\n    int left = 2 * i + 1;\n    int right = left + 1;\n    int smallest = i;\n    if (left &lt; h-&gt;size && h-&gt;data[left] &lt; h-&gt;data[smallest]) {\n      smallest = left;\n    }\n    if (right &lt; h-&gt;size && h-&gt;data[right] &lt; h-&gt;data[smallest]) {\n      smallest = right;\n    }\n    if (smallest != i) {\n      swap(&h-&gt;data[i], &h-&gt;data[smallest]);\n      i = smallest;\n    } else {\n      break;  // 子が存在しない or 子より小さい\n    }\n  }\n}\n\n// ヒープ構築\nvoid makeHeap(Heap *h, int array[], int n) {\n  if (n &gt; HEAP_SIZE) {\n    printf(\"サイズが大きすぎます\\n\");\n    exit(1);  // 異常終了\n  }\n\n  // 与えられた順にヒープに詰める\n  for (int i = 0; i &lt; n; i++) {\n    h-&gt;data[i] = array[i];\n  }\n  h-&gt;size = n;\n\n  // 最下層の親ノードからヒープ化\n  for (int i = (n - 2) / 2; i &gt;= 0; i--) {\n    heapify(h, i);\n  }\n}\n\n// 最小値を出力してヒープから削除\nint pop(Heap *h) {\n  if (h-&gt;size == 0) {\n    printf(\"ヒープは空です\\n\");\n    exit(1);  // 異常終了\n  }\n  // 最小値を返す\n  int minVal = h-&gt;data[0];\n  // 末尾を根に\n  h-&gt;data[0] = h-&gt;data[h-&gt;size];\n  h-&gt;size--;\n\n  // ヒープ化\n  heapify(h, 0);\n \n  return minVal;\n}\n関数makeHeapの最後のfor文（36行目）では，子をもつ最下層の頂点から上の階層に向かって順に処理を行う． 配列のインデックス\\(i\\)に対応する頂点の親は，\\(\\lfloor (i-1)/2 \\rfloor\\)であるから，配列の要素数を\\(n\\)として，最後の要素\\(n-1\\)の親のインデックスは\\(\\lfloor (n-2)/2 \\rfloor\\)である． \n\n\n\n\n\n\nヒープの実装例まとめ\n\n\n\n\n\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n#define HEAP_SIZE 100\n\ntypedef struct {\n  int data[HEAP_SIZE];\n  int size;\n} Heap;\n\nvoid initHeap(Heap *h) { h-&gt;size = 0; }\n\nvoid swap(int *x, int *y) {\n  int tmp = *x;\n  *x = *y;\n  *y = tmp;\n}\n\n// データの挿入\nvoid insert(Heap *h, int value) {\n  if (h-&gt;size &gt;= HEAP_SIZE) {\n    printf(\"ヒープが満杯です\\n\");\n    exit(1);  // 異常終了\n  }\n\n  // 末尾に追加\n  int i = h-&gt;size;\n  h-&gt;data[i] = value;\n  h-&gt;size++;\n\n  // ヒープ条件を満たすまで親子を入れ替え\n  while (i &gt; 0) {\n    int parent = (i - 1) / 2;\n    if (h-&gt;data[parent] &gt; h-&gt;data[i]) {\n      swap(&h-&gt;data[parent], &h-&gt;data[i]);\n      i = parent;\n    } else {\n      break;\n    }\n  }\n}\n\n// 頂点iをヒープ条件を満たすまで下ろす\nvoid heapify(Heap *h, int i) {\n  while (1) {\n    int left = 2 * i + 1;\n    int right = left + 1;\n    int smallest = i;\n    if (left &lt; h-&gt;size && h-&gt;data[left] &lt; h-&gt;data[smallest]) {\n      smallest = left;\n    }\n    if (right &lt; h-&gt;size && h-&gt;data[right] &lt; h-&gt;data[smallest]) {\n      smallest = right;\n    }\n    if (smallest != i) {\n      swap(&h-&gt;data[i], &h-&gt;data[smallest]);\n      i = smallest;\n    } else {\n      break;  // 子が存在しない or 子より小さい\n    }\n  }\n}\n\n// 数列からヒープを構築\nvoid makeHeap(Heap *h, int array[], int n) {\n  if (n &gt; HEAP_SIZE) {\n    printf(\"サイズが大きすぎます\\n\");\n    exit(1);  // 異常終了\n  }\n\n  // 与えられた順にヒープに詰める\n  for (int i = 0; i &lt; n; i++) {\n    h-&gt;data[i] = array[i];\n  }\n  h-&gt;size = n;\n\n  // 最下層の親ノードからヒープ化\n  for (int i = (n - 2) / 2; i &gt;= 0; i--) {\n    heapify(h, i);\n  }\n}\n\n// 最小値を出力してヒープから削除\nint pop(Heap *h) {\n  if (h-&gt;size == 0) {\n    printf(\"ヒープは空です\\n\");\n    exit(1);  // 異常終了\n  }\n  // 最小値を返す\n  int minVal = h-&gt;data[0];\n  // 末尾を根に\n  h-&gt;data[0] = h-&gt;data[h-&gt;size - 1];\n  h-&gt;size--;\n\n  // ヒープ化\n  heapify(h, 0);\n  return minVal;\n}\n\n// ヒープ内容表示\nvoid printHeap(Heap *h) {\n  for (int i = 0; i &lt; h-&gt;size; i++) {\n    if ((i & (i + 1)) == 0) {\n      printf(\"/ \");  // 階層の区切り\n    }\n    printf(\"%d \", h-&gt;data[i]);\n  }\n  printf(\"\\n\");\n}\n\nint main() {\n  int a[] = {10, 3, 5, 7, 2, 8, 1, 13};\n  int n = sizeof(a) / sizeof(a[0]);\n  Heap h;\n  initHeap(&h);\n  makeHeap(&h, a, n);\n  printHeap(&h);\n\n  printf(\"最小値: %d\\n\", pop(&h));\n  printHeap(&h);\n\n  int x = 6;\n  printf(\"データ %d を挿入\\n\", x);\n  insert(&h, x);\n  printHeap(&h);\n\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#演習問題",
+    "href": "week12.html#演習問題",
+    "title": "12  データ構造 2",
+    "section": "12.8 演習問題",
+    "text": "12.8 演習問題\n\n12.8.1 問題1\nヒープを使って実数列を昇順に並び替える（ソート）プログラムを作成せよ． * テスト数列: \\(10, 3, 5, 7, 2, 8, 1, 13\\) → \\(1, 2, 3, 5, 7, 8, 10, 13\\)\n\n\n12.8.2 問題2\n問題1の計算量を説明せよ．",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week12.html#footnotes",
+    "href": "week12.html#footnotes",
+    "title": "12  データ構造 2",
+    "section": "",
+    "text": "二分木以外のヒープもある．区別する場合は二分ヒープとよぶ．↩︎\nヒープ条件の大小関係を逆に定義する場合もある．↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
     ]
   }
 ]
