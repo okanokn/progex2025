@@ -1074,7 +1074,7 @@
     "href": "week12.html#footnotes",
     "title": "12  データ構造 2",
     "section": "",
-    "text": "二分木以外のヒープもある．区別する場合は二分ヒープとよぶ．↩︎\nヒープ条件の大小関係を逆に定義する場合もある．↩︎",
+    "text": "二分以外のヒープもある．区別する場合は二分ヒープとよぶ．↩︎\nヒープ条件の大小関係を逆に定義する場合もある．↩︎",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
     ]
