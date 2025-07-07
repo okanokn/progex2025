@@ -597,35 +597,42 @@ window.Quarto = {
 </section>
 <section id="演習" class="level2" data-number="13.8">
 <h2 data-number="13.8" class="anchored" data-anchor-id="演習"><span class="header-section-number">13.8</span> 演習</h2>
+<!-- ### 問題1
+クイックソートの実装例で，関数`partition`における
+```C
+while (a[i] < pivot) i++;
+while (a[j] > pivot) j--;
+```
+では，ピボット以上以下の値を交換対象に選択している．
+これを，ピボット未満とより大きい場合に変更すれば交換回数が減らせそうである．
+そのような修正を行った場合の欠点について考察せよ．
+ピボットの値を複数含む数列を例に考えるとよい． -->
 <section id="問題1" class="level3" data-number="13.8.1">
 <h3 data-number="13.8.1" class="anchored" data-anchor-id="問題1"><span class="header-section-number">13.8.1</span> 問題1</h3>
-<p>クイックソートの実装例で，関数<code>partition</code>における</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;</span> pivot<span class="op">)</span> i<span class="op">++;</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>j<span class="op">]</span> <span class="op">&gt;</span> pivot<span class="op">)</span> j<span class="op">--;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>では，ピボット以上以下の値を交換対象に選択している． これを，ピボット未満とより大きい場合に変更すれば交換回数が減らせそうである． そのような修正を行った場合の欠点について考察せよ． ピボットの値を複数含む数列を例に考えるとよい．</p>
+<p>クイックソートの実装例で，関数<code>partition</code>におけるピボットの選択方法がいくつか提案されている． ピボットが整列対象の最小値や最大値の場合に最悪ケースで，中央値が最良である（なぜか？）． ソート前にその値を知ることはできないが，配列の中央付近の値をピボットとして選択する方法がある． この方法でクイックソートを実装し，正しくソートできることを確認せよ．</p>
 </section>
 <section id="問題2" class="level3" data-number="13.8.2">
 <h3 data-number="13.8.2" class="anchored" data-anchor-id="問題2"><span class="header-section-number">13.8.2</span> 問題2</h3>
 <p>マージソートのマージ処理について，上とは別の実装を考える． ソート済み部分列<code>a[p]</code>, …, <code>a[q]</code>と<code>a[q+1]</code>, …, <code>a[q+r]</code>をマージしてソートされた<code>a[p]</code>, …, <code>a[q]</code>を作成する関数<code>merge</code>を下を参考に作成せよ．</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> merge<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> q<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>    <span class="dt">int</span> n1 <span class="op">=</span> q <span class="op">-</span> p <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="dt">int</span> n2 <span class="op">=</span> r <span class="op">-</span> q<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>    <span class="dt">int</span> L<span class="op">[</span>n1<span class="op">],</span> R<span class="op">[</span>n2<span class="op">];</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>    <span class="dt">int</span> i<span class="op">;</span> <span class="co">// 左部分列のインデックス</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>    <span class="dt">int</span> j<span class="op">;</span> <span class="co">// 右部分列のインデックス</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n1<span class="op">;</span> i<span class="op">++)</span> L<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>p <span class="op">+</span> i<span class="op">];</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n2<span class="op">;</span> j<span class="op">++)</span> R<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>q <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> j<span class="op">];</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a></span>
-<span id="cb9-10"><a href="#cb9-10"></a>    <span class="co">// LとRをマージ</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a>    i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a>    j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a>    <span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> <span class="co">// 書き込み対象のインデックス</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1 <span class="op">&amp;&amp;</span> j <span class="op">&lt;</span> n2<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>        <span class="co">// ここを埋める</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a>    <span class="op">}</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> L<span class="op">[</span>i<span class="op">++];</span> <span class="co">// 左部分列に残りがある場合の処理</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&lt;</span> n2<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> R<span class="op">[</span>j<span class="op">++];</span> <span class="co">// 右部分列に残りがある場合の処理</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">void</span> merge<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> q<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="dt">int</span> n1 <span class="op">=</span> q <span class="op">-</span> p <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="dt">int</span> n2 <span class="op">=</span> r <span class="op">-</span> q<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="dt">int</span> L<span class="op">[</span>n1<span class="op">],</span> R<span class="op">[</span>n2<span class="op">];</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="dt">int</span> i<span class="op">;</span> <span class="co">// 左部分列のインデックス</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="dt">int</span> j<span class="op">;</span> <span class="co">// 右部分列のインデックス</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n1<span class="op">;</span> i<span class="op">++)</span> L<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>p <span class="op">+</span> i<span class="op">];</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n2<span class="op">;</span> j<span class="op">++)</span> R<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>q <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> j<span class="op">];</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="co">// LとRをマージ</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>    j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> <span class="co">// 書き込み対象のインデックス</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1 <span class="op">&amp;&amp;</span> j <span class="op">&lt;</span> n2<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>        <span class="co">// ここを埋める</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>    <span class="op">}</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> L<span class="op">[</span>i<span class="op">++];</span> <span class="co">// 左部分列に残りがある場合の処理</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&lt;</span> n2<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> R<span class="op">[</span>j<span class="op">++];</span> <span class="co">// 右部分列に残りがある場合の処理</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
