@@ -1060,11 +1060,11 @@
     ]
   },
   {
-    "objectID": "week12.html#演習問題",
-    "href": "week12.html#演習問題",
+    "objectID": "week12.html#演習",
+    "href": "week12.html#演習",
     "title": "12  データ構造 2",
-    "section": "12.8 演習問題",
-    "text": "12.8 演習問題\n\n12.8.1 問題1\nヒープを使って実数列を昇順に並び替える（ソート）プログラムを作成せよ．\n\nテスト数列: \\(10, 3, 5, 7, 2, 8, 1, 13\\) → \\(1, 2, 3, 5, 7, 8, 10, 13\\)\n\n\n\n12.8.2 問題2\n問題1の計算量を説明せよ．",
+    "section": "12.8 演習",
+    "text": "12.8 演習\n\n12.8.1 問題1\nヒープを使って実数列を昇順に並び替える（ソート）プログラムを作成せよ．\n\nテスト数列: \\(10, 3, 5, 7, 2, 8, 1, 13\\) → \\(1, 2, 3, 5, 7, 8, 10, 13\\)\n\n\n\n12.8.2 問題2\n問題1の計算量を説明せよ．",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
     ]
@@ -1077,6 +1077,96 @@
     "text": "二分以外のヒープもある．区別する場合は二分ヒープとよぶ．↩︎\nヒープ条件の大小関係を逆に定義する場合もある．↩︎",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>データ構造 2</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html",
+    "href": "week13.html",
+    "title": "13  ソート",
+    "section": "",
+    "text": "13.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#前回演習の解答",
+    "href": "week13.html#前回演習の解答",
+    "title": "13  ソート",
+    "section": "",
+    "text": "ヒープソート",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#本日のメニュー",
+    "href": "week13.html#本日のメニュー",
+    "title": "13  ソート",
+    "section": "13.2 本日のメニュー",
+    "text": "13.2 本日のメニュー\n\nソート",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#ソートの基礎",
+    "href": "week13.html#ソートの基礎",
+    "title": "13  ソート",
+    "section": "13.3 ソートの基礎",
+    "text": "13.3 ソートの基礎\n数値，文字，日付など順序が定義できるデータを，昇順や降順に並び替えることをソート（sort）するという．ソートすること自体が目的の場合や，さまざまなアルゴリズムで手順の一部として登場する． \nソート方法の評価ポイントは，代表的に以下の3点である．\n\n時間計算量: データ数に対してどの程度の手順でソートが完了するか．元のデータの並びによって計算量が変わる場合は最悪，平均，最良の計算量をそれぞれ考える．\n必要メモリ量: 並び替えたいデータの配列に加えて，別途必要となる記憶域がある場合，どの程度か．\n安定性: 同一の値を持つデータが複数ある場合，ソート後に元の順序が保存されるかどうか．\n\n以下では，配列で与えられた整数データを昇順に並び替えることを考える． データを数列\\(a_i\\), \\(i=0,1, \\dots, n-1\\)で表記する．",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#挿入ソート",
+    "href": "week13.html#挿入ソート",
+    "title": "13  ソート",
+    "section": "13.4 挿入ソート",
+    "text": "13.4 挿入ソート\n直観的にわかりやすい挿入ソートを紹介する．これは，配列の左側をソート済み，右側を未整列として，未整列の先頭を，ソート済みの適当な箇所に挿入することを繰り返すものである．\n\nソート済みの末尾インデックスを表す\\(i\\)を\\(1\\)に設定する（配列の最初\\(a_0\\)はソート済みと見なす）．\n\\(i \\geq n\\)ならばすべて並べ終わったので終了．そうでなければ，次の手順に進む．\n\\(a_i\\)を挿入する場所を求める．\\(j\\leftarrow i\\)として以下の手順を繰り返す．\n\n\\(j \\geq 1\\)かつ\\(a_j &lt; a_{j-1}\\)の間，\\(a_j\\)と\\(a_{j-1}\\)を交換し，\\(j \\leftarrow j - 1\\) とする\nそれ以外の場合，\\(a_j\\)の挿入が完了したので次の手順に進む．\n\n\\(i\\leftarrow i+1\\)として手順2に戻る．\n\nソート部分の関数の実装例は以下のとおり．\n// 値を入れ替える関数\nvoid swap(int* a, int* b) {\n  int tmp = *a;\n  *a = *b;\n  *b = tmp;\n}\n// 挿入ソート\nvoid insertionSort(int a[], int n) {\n  for (int i = 1; i &lt; n; i++) {\n    int j = i;\n    while (j &gt;= 1 && a[j] &lt; a[j - 1]) {\n      swap(&a[j], &a[j - 1]);\n      j--;\n    }\n  }\n}\n挿入ソートの最悪計算量は\\(O(n^2)\\)である．",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#マージソート",
+    "href": "week13.html#マージソート",
+    "title": "13  ソート",
+    "section": "13.5 マージソート",
+    "text": "13.5 マージソート\n整列対象のデータ数が多いと，比較対象が多いので挿入ソートでは計算量がかさむ．そこで，ソートしたい配列を分割して部分配列ごとにソートを行い，それらを併合（マージ（merge））することで全体のソートを達成する方法がある．マージソートという．手順は以下のとおり．\n\n配列のサイズが1以下であれば何もしない（ソート済み）．それ以外の場合，配列を2分割し，各部分裂に対して再帰的に同じ手順を適用する．\nソート済みの左部分列と右部分列の先頭（それぞれの最小値）を比べ，小さい方から「ソート済み配列」に順に書き込む．\nどちらかの部分列が尽きたら，他方の残りをすべて書き込む．\n\n手順1の再帰的な分割は以下のように実装できる．\n// a[p], ..., a[p+len-1]をマージソート\nvoid mergeSort(int a[], int b[], int p, int len) {\n  if (len &gt; 1) {\n    int m = len / 2;\n    mergeSort(a, b, p, m);\n    mergeSort(a, b, p + m, len - m);\n    merge(a, b, p, len); // マージ\n  }\n}\n配列aは与えられた配列で，配列bは同じ長さのソート結果を書き込むための配列である． 6行目の関数mergeでは左部分列a[p], …, a[p+len/2-1]と，右部分列a[p+len/2], …, a[p+len-1]のマージを行っている．\nvoid merge(int a[], int b[], int p, int len) {\n  int i = p;            // 左部分列のindex: [p, p + len/2 - 1]\n  int j = p + len / 2;  // 右部分列のindex: [p + len/2, p + len-1]\n  // マージしてb[k]に書き込む\n  for (int k = p; k &lt; p + len; k++) {\n    if (j == p + len || (i &lt; p + len / 2 && a[i] &lt;= a[j])) {\n      b[k] = a[i];\n      i++;\n    } else {\n      b[k] = a[j];\n      j++;\n    }\n  }\n  // bの該当部分をaにコピー\n  for (int k = p; k &lt; p + len; k++) {\n    a[k] = b[k];\n  }\n}\n5行目のkに関するfor文は，b[k]の要素を順に決定していくループである． 6行目のifは，\n\n右部分列が空\n左部分列が空でない かつ 左先頭が右先頭より小さい\n\nのどちらかが真であれば，左部分列の要素a[i]を，そうでなければ右部分列の要素a[j]をb[k]に書き込む．\n\n\n\n\n\n\nマージソートの実装例\n\n\n\n\n\n#include &lt;stdio.h&gt;\n\nvoid merge(int a[], int b[], int p, int len) {\n  int i = p;            // 左部分列のindex [p, p + len/2 - 1]\n  int j = p + len / 2;  // 右部分列のindex [p + len/2, p + len-1]\n  // マージしてb[k]に書き込む\n  for (int k = p; k &lt; p + len; k++) {\n    if (j == p + len || (i &lt; p + len / 2 && a[i] &lt;= a[j])) {\n      b[k] = a[i];\n      i++;\n    } else {\n      b[k] = a[j];\n      j++;\n    }\n  }\n  // bの該当部分をaにコピー\n  for (int k = p; k &lt; p + len; k++) {\n    a[k] = b[k];\n  }\n}\n\nvoid mergeSort(int a[], int b[], int p, int len) {\n  if (len &gt; 1) {\n    int m = len / 2;\n    mergeSort(a, b, p, m);\n    mergeSort(a, b, p + m, len - m);\n    merge(a, b, p, len);\n   }\n}\n\nvoid printArray(int a[], int n) {\n  for (int i = 0; i &lt; n; i++) {\n    printf(\"%d \", a[i]);\n  }\n  printf(\"\\n\");\n}\n\nint main(void) {\n  int data[] = {7, 2, 9, 4, 3, 6, 1, 8, 5};\n  int n = sizeof(data) / sizeof(data[0]);\n  int tmp[n];\n  printf(\"ソート前: \");\n  printArray(data, n);\n\n  mergeSort(data, tmp, 0, n);\n  \n  printf(\"ソート後: \");\n  printArray(data, n);\n  return 0;\n}\n\n\n\n長さ\\(l\\)の部分列同士をマージする際に\\(l\\)回の比較が行われる． これが全体で\\(n/(2l)\\)回行われるので，長さ\\(l\\)の部分列のマージにかかる計算量は\\(O(n)\\)である． 分割により生じる部分列は\\(\\log_2 n\\)本であるから，アルゴリズム全体で最悪・平均時間計算量は\\(O(n\\log n)\\)である．\n比較によってソートするアルゴリズムとしては最良の計算量\\(O(n\\log n)\\)を達成できるが，別途\\(O(n)\\)のメモリが必要である．",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#クイックソート",
+    "href": "week13.html#クイックソート",
+    "title": "13  ソート",
+    "section": "13.6 クイックソート",
+    "text": "13.6 クイックソート\nマージソートと同じく，小さな部分列に分割して処理する方法としてクイックソート（quicksort）がある． これは分割の際に工夫がある．\n\n\\(a_i\\ (i=0,\\dots,n-1)\\)のある値を基準値（ピボット）に設定する．\nピボット以下の\\(a_i\\)を左に，ピボットより大きい\\(a_i\\)を右に移動する．\n左右の部分列について再帰的に同じ手順を適用する．部分列の長さが1以下ならばソート済みで終了．\n\n主要部分の実装例は以下のとおり．\nvoid partition(int a[], int l, int r, int* l_end, int* r_start) {\n  int i = l;\n  int j = r;\n  int pivot = a[l];\n  while (i &lt;= j) {\n    while (a[i] &lt; pivot) i++; // pivot以上を発見するまでiを右に\n    while (a[j] &gt; pivot) j--; // pivot以下を発見するまでjを左に\n    if (i &lt;= j) {\n      swap(&a[i], &a[j]);\n      i++;\n      j--;\n    }\n  }\n  *l_end = j;    // 分割後左部分列の最後尾\n  *r_start = i   // 分割後右部分列の先頭\n}\n\nvoid quickSort(int a[], int l, int r) {\n  if (l &lt; r) {\n    int m1, m2;\n    partition(a, l, r, &m1, &m2);\n    quickSort(a, l, m1);\n    quickSort(a, m2, r);\n  }\n}\nこの例ではa[l]つまり（いま扱っている部分配列a[l], …, a[r]の）先頭の値をピボットに設定している． 左（右）の端からピボット以上（以下）の値を探してiをインクリメント（jをデクリメント）し（6, 7行目），見つかったa[i]とa[j]を交換する（8, 9行目）． （ただしiがjより右にある場合は交換しない．）\n左端から出発したiが右端から出発したjと重なるか追い越したら探索を終了する（5行目）．\n最後に，探索終了時のiとjを新たな部分列の切れ目としてポインタに書き込んで返す（14, 15行目）．\nクイックソートの時間計算量は，元の配列の並びとピボットに選択する値に依るが，全並びパターン\\(n!\\)が等確率で出現するとすると，平均時間計算量は\\(O(n\\log n)\\)である． 最悪ケースでは\\(O(n^2)\\)となる．\n必要なメモリ量は，再帰的な分割を行う過程でスタックとして\\(O(\\log n)\\)が必要である．",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#バケットソート",
+    "href": "week13.html#バケットソート",
+    "title": "13  ソート",
+    "section": "13.7 バケットソート",
+    "text": "13.7 バケットソート\n比較に基づくソートでは\\(O(n\\log n)\\)が最良であるが，ある種の仮定が成り立つ場合に更に高速なアルゴリズムがある．\n\n\n\n\n\n\n仮定\n\n\n\nソート対象のデータは\\(m\\)パターンである．ここで\\(m\\)は正の整数である． 簡単のため，以下ではソート対象のデータは\\(0\\)以上\\(m\\)未満の整数とする．\n\n\nこのとき，\\(0\\)から\\(m-1\\)までのラベルをつけた\\(m\\)個のバケツを用意しておき，整列対象の配列がどの値を何個含むかをカウントする． 最後に小さいラベルのバケツから順に取り出せばソートが完了する．これをバケットソート（bucket sort）という．\n手順は以下のとおり． 1. 数列\\(b_0, b_1, \\dots, b_{m-1}\\)を用意する． 1. 各\\(a_i\\)について，その値に対応する\\(b_*\\)の値をインクリメントする．つまり，\\(b_{a_i}\\leftarrow b_{a_i} + 1\\)． 1. \\(b_0\\)から順に，\\(b_j\\)の値だけ\\(j\\)を並べる．\n値の範囲が\\(0--9\\)の10種類の場合の実装例を以下に示す．\n#define M 10  // 値の範囲（0〜9）\n\nvoid bucketSort(int a[], int n) {\n  int bucket[M] = {0};\n  // 各値の出現回数をカウント\n  for (int i = 0; i &lt; n; i++) {\n    bucket[a[i]]++;\n  }\n  // カウントに基づいてソートされた配列を構築\n  int offset = 0;\n  for (int i = 0; i &lt; M; i++) {\n    for (int j = 0; j &lt; bucket[i]; j++) {\n      a[offset++] = i;\n    }\n  }\n}\na[offset++] = iは，a[offset]にiを代入した後，offsetをインクリメントする動作を表す．\n\n\n\n\n\n\nバケットソートの実装例\n\n\n\n\n\n#include &lt;stdio.h&gt;\n#define M 10  // 値の範囲（0〜9）\n\nvoid bucketSort(int a[], int n) {\n  int count[M] = {0};\n  // 各値の出現回数をカウント\n  for (int i = 0; i &lt; n; i++) {\n    count[a[i]]++;\n  }\n  // カウントに基づいてソートされた配列を構築\n  int offset = 0;\n  for (int i = 0; i &lt; M; i++) {\n    for (int j = 0; j &lt; count[i]; j++) {\n      a[offset++] = i;\n    }\n  }\n}\n\nint main(void) {\n  int data[] = {7, 3, 5, 2, 0, 9, 0};\n  int n = sizeof(data) / sizeof(data[0]);\n  printf(\"ソート前: \");\n  printArray(data, n);\n  bucketSort(data, n);\n  printf(\"ソート後: \");\n  printArray(data, n);\n  return 0;\n}\n\n\n\nバケットソートの時間計算量は\\(O(n+m)\\)である． 整列対象に関して仮定が必要であるが，\\(m\\propto n\\)であれば\\(O(n)\\)でソートを行うことができる． \\(m\\)が非常に大きい場合，メモリを確保できない場合がある．その場合は，桁ごとにバケットソートを行う方法がある．",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
+    ]
+  },
+  {
+    "objectID": "week13.html#演習",
+    "href": "week13.html#演習",
+    "title": "13  ソート",
+    "section": "13.8 演習",
+    "text": "13.8 演習\n\n13.8.1 問題1\nクイックソートの実装例で，関数partitionにおける\nwhile (a[i] &lt; pivot) i++;\nwhile (a[j] &gt; pivot) j--;\nでは，ピボット以上以下の値を交換対象に選択している． これを，ピボット未満とより大きい場合に変更すれば交換回数が減らせそうである． そのような修正を行った場合の欠点について考察せよ． ピボットの値を複数含む数列を例に考えるとよい．\n\n\n13.8.2 問題2\nマージソートのマージ処理について，上とは別の実装を考える． ソート済み部分列a[p], …, a[q]とa[q+1], …, a[q+r]をマージしてソートされたa[p], …, a[q]を作成する関数mergeを下を参考に作成せよ．\nvoid merge(int a[], int p, int q, int r) {\n    int n1 = q - p + 1;\n    int n2 = r - q;\n    int L[n1], R[n2];\n    int i; // 左部分列のインデックス\n    int j; // 右部分列のインデックス\n    for (i = 0; i &lt; n1; i++) L[i] = a[p + i];\n    for (j = 0; j &lt; n2; j++) R[j] = a[q + 1 + j];\n\n    // LとRをマージ\n    i = 0;\n    j = 0;\n    int k = p; // 書き込み対象のインデックス\n    while (i &lt; n1 && j &lt; n2) {\n        // ここを埋める\n    }\n    while (i &lt; n1) a[k++] = L[i++]; // 左部分列に残りがある場合の処理\n    while (j &lt; n2) a[k++] = R[j++]; // 右部分列に残りがある場合の処理\n}",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
     ]
   }
 ]

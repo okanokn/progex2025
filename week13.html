@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-07-07">
+
+<title>13&nbsp; ソート – プログラミング演習</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./week12.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-2d053c8a602df91ec61aa3379e601c1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./week13.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ソート</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">プログラミング演習</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">目次</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ガイダンス・環境構築</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">C言語の復習 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">C言語の復習 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">C言語の復習 3</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">C言語の復習 4</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">C言語の復習 5</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">C言語の復習 6</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">再帰的アルゴリズム</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">リスト構造</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">演習</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">データ構造 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データ構造 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week13.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ソート</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前回演習の解答" id="toc-前回演習の解答" class="nav-link active" data-scroll-target="#前回演習の解答"><span class="header-section-number">13.1</span> 前回演習の解答</a></li>
+  <li><a href="#本日のメニュー" id="toc-本日のメニュー" class="nav-link" data-scroll-target="#本日のメニュー"><span class="header-section-number">13.2</span> 本日のメニュー</a></li>
+  <li><a href="#ソートの基礎" id="toc-ソートの基礎" class="nav-link" data-scroll-target="#ソートの基礎"><span class="header-section-number">13.3</span> ソートの基礎</a></li>
+  <li><a href="#挿入ソート" id="toc-挿入ソート" class="nav-link" data-scroll-target="#挿入ソート"><span class="header-section-number">13.4</span> 挿入ソート</a></li>
+  <li><a href="#マージソート" id="toc-マージソート" class="nav-link" data-scroll-target="#マージソート"><span class="header-section-number">13.5</span> マージソート</a></li>
+  <li><a href="#クイックソート" id="toc-クイックソート" class="nav-link" data-scroll-target="#クイックソート"><span class="header-section-number">13.6</span> クイックソート</a></li>
+  <li><a href="#バケットソート" id="toc-バケットソート" class="nav-link" data-scroll-target="#バケットソート"><span class="header-section-number">13.7</span> バケットソート</a></li>
+  <li><a href="#演習" id="toc-演習" class="nav-link" data-scroll-target="#演習"><span class="header-section-number">13.8</span> 演習</a>
+  <ul class="collapse">
+  <li><a href="#問題1" id="toc-問題1" class="nav-link" data-scroll-target="#問題1"><span class="header-section-number">13.8.1</span> 問題1</a></li>
+  <li><a href="#問題2" id="toc-問題2" class="nav-link" data-scroll-target="#問題2"><span class="header-section-number">13.8.2</span> 問題2</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ソート</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 7, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前回演習の解答" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="前回演習の解答"><span class="header-section-number">13.1</span> 前回演習の解答</h2>
+<ul>
+<li>ヒープソート</li>
+</ul>
+</section>
+<section id="本日のメニュー" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="本日のメニュー"><span class="header-section-number">13.2</span> 本日のメニュー</h2>
+<ul>
+<li>ソート</li>
+</ul>
+</section>
+<section id="ソートの基礎" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="ソートの基礎"><span class="header-section-number">13.3</span> ソートの基礎</h2>
+<p>数値，文字，日付など順序が定義できるデータを，昇順や降順に並び替えることをソート（sort）するという．ソートすること自体が目的の場合や，さまざまなアルゴリズムで手順の一部として登場する． <!-- 日常生活でも，大量の書類（テストの解答用紙など）を順番に整理したいときに便利である． --></p>
+<p>ソート方法の評価ポイントは，代表的に以下の3点である．</p>
+<ul>
+<li>時間計算量: データ数に対してどの程度の手順でソートが完了するか．元のデータの並びによって計算量が変わる場合は最悪，平均，最良の計算量をそれぞれ考える．</li>
+<li>必要メモリ量: 並び替えたいデータの配列に加えて，別途必要となる記憶域がある場合，どの程度か．</li>
+<li>安定性: 同一の値を持つデータが複数ある場合，ソート後に元の順序が保存されるかどうか．</li>
+</ul>
+<p>以下では，配列で与えられた整数データを昇順に並び替えることを考える． データを数列<span class="math inline">\(a_i\)</span>, <span class="math inline">\(i=0,1, \dots, n-1\)</span>で表記する．</p>
+</section>
+<section id="挿入ソート" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="挿入ソート"><span class="header-section-number">13.4</span> 挿入ソート</h2>
+<p>直観的にわかりやすい挿入ソートを紹介する．これは，配列の左側をソート済み，右側を未整列として，未整列の先頭を，ソート済みの適当な箇所に挿入することを繰り返すものである．</p>
+<ol type="1">
+<li>ソート済みの末尾インデックスを表す<span class="math inline">\(i\)</span>を<span class="math inline">\(1\)</span>に設定する（配列の最初<span class="math inline">\(a_0\)</span>はソート済みと見なす）．</li>
+<li><span class="math inline">\(i \geq n\)</span>ならばすべて並べ終わったので終了．そうでなければ，次の手順に進む．</li>
+<li><span class="math inline">\(a_i\)</span>を挿入する場所を求める．<span class="math inline">\(j\leftarrow i\)</span>として以下の手順を繰り返す．
+<ul>
+<li><span class="math inline">\(j \geq 1\)</span>かつ<span class="math inline">\(a_j &lt; a_{j-1}\)</span>の間，<span class="math inline">\(a_j\)</span>と<span class="math inline">\(a_{j-1}\)</span>を交換し，<span class="math inline">\(j \leftarrow j - 1\)</span> とする</li>
+<li>それ以外の場合，<span class="math inline">\(a_j\)</span>の挿入が完了したので次の手順に進む．</li>
+</ul></li>
+<li><span class="math inline">\(i\leftarrow i+1\)</span>として手順2に戻る．</li>
+</ol>
+<p>ソート部分の関数の実装例は以下のとおり．</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">// 値を入れ替える関数</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">void</span> swap<span class="op">(</span><span class="dt">int</span><span class="op">*</span> a<span class="op">,</span> <span class="dt">int</span><span class="op">*</span> b<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">int</span> tmp <span class="op">=</span> <span class="op">*</span>a<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="op">*</span>a <span class="op">=</span> <span class="op">*</span>b<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="op">*</span>b <span class="op">=</span> tmp<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">// 挿入ソート</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="dt">void</span> insertionSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="dt">int</span> j <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&gt;=</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> a<span class="op">[</span>j<span class="op">]</span> <span class="op">&lt;</span> a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">])</span> <span class="op">{</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>      swap<span class="op">(&amp;</span>a<span class="op">[</span>j<span class="op">],</span> <span class="op">&amp;</span>a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>      j<span class="op">--;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="op">}</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>挿入ソートの最悪計算量は<span class="math inline">\(O(n^2)\)</span>である．</p>
+</section>
+<section id="マージソート" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="マージソート"><span class="header-section-number">13.5</span> マージソート</h2>
+<p>整列対象のデータ数が多いと，比較対象が多いので挿入ソートでは計算量がかさむ．そこで，ソートしたい配列を分割して部分配列ごとにソートを行い，それらを併合（マージ（merge））することで全体のソートを達成する方法がある．マージソートという．手順は以下のとおり．</p>
+<ol type="1">
+<li>配列のサイズが1以下であれば何もしない（ソート済み）．それ以外の場合，配列を2分割し，各部分裂に対して再帰的に同じ手順を適用する．</li>
+<li>ソート済みの左部分列と右部分列の先頭（それぞれの最小値）を比べ，小さい方から「ソート済み配列」に順に書き込む．</li>
+<li>どちらかの部分列が尽きたら，他方の残りをすべて書き込む．</li>
+</ol>
+<p>手順1の再帰的な分割は以下のように実装できる．</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// a[p], ..., a[p+len-1]をマージソート</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="dt">void</span> mergeSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> b<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="cf">if</span> <span class="op">(</span>len <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">int</span> m <span class="op">=</span> len <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    mergeSort<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p<span class="op">,</span> m<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    mergeSort<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p <span class="op">+</span> m<span class="op">,</span> len <span class="op">-</span> m<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    merge<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p<span class="op">,</span> len<span class="op">);</span> <span class="co">// マージ</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>配列<code>a</code>は与えられた配列で，配列<code>b</code>は同じ長さのソート結果を書き込むための配列である． 6行目の関数<code>merge</code>では左部分列<code>a[p]</code>, …, <code>a[p+len/2-1]</code>と，右部分列<code>a[p+len/2]</code>, …, <code>a[p+len-1]</code>のマージを行っている．</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">void</span> merge<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> b<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">int</span> i <span class="op">=</span> p<span class="op">;</span>            <span class="co">// 左部分列のindex: [p, p + len/2 - 1]</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">int</span> j <span class="op">=</span> p <span class="op">+</span> len <span class="op">/</span> <span class="dv">2</span><span class="op">;</span>  <span class="co">// 右部分列のindex: [p + len/2, p + len-1]</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="co">// マージしてb[k]に書き込む</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> k <span class="op">&lt;</span> p <span class="op">+</span> len<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> p <span class="op">+</span> len <span class="op">||</span> <span class="op">(</span>i <span class="op">&lt;</span> p <span class="op">+</span> len <span class="op">/</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> a<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;=</span> a<span class="op">[</span>j<span class="op">]))</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>      b<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>      i<span class="op">++;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>      b<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>j<span class="op">];</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>      j<span class="op">++;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="op">}</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="co">// bの該当部分をaにコピー</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> k <span class="op">&lt;</span> p <span class="op">+</span> len<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>    a<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> b<span class="op">[</span>k<span class="op">];</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="op">}</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>5行目の<code>k</code>に関するfor文は，<code>b[k]</code>の要素を順に決定していくループである． 6行目のifは，</p>
+<ul>
+<li>右部分列が空</li>
+<li>左部分列が空でない かつ 左先頭が右先頭より小さい</li>
+</ul>
+<p>のどちらかが真であれば，左部分列の要素<code>a[i]</code>を，そうでなければ右部分列の要素<code>a[j]</code>を<code>b[k]</code>に書き込む．</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="マージソートの実装例">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+マージソートの実装例
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="dt">void</span> merge<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> b<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">int</span> i <span class="op">=</span> p<span class="op">;</span>            <span class="co">// 左部分列のindex [p, p + len/2 - 1]</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">int</span> j <span class="op">=</span> p <span class="op">+</span> len <span class="op">/</span> <span class="dv">2</span><span class="op">;</span>  <span class="co">// 右部分列のindex [p + len/2, p + len-1]</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="co">// マージしてb[k]に書き込む</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> k <span class="op">&lt;</span> p <span class="op">+</span> len<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> p <span class="op">+</span> len <span class="op">||</span> <span class="op">(</span>i <span class="op">&lt;</span> p <span class="op">+</span> len <span class="op">/</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> a<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;=</span> a<span class="op">[</span>j<span class="op">]))</span> <span class="op">{</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>      b<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>      i<span class="op">++;</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>      b<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>j<span class="op">];</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>      j<span class="op">++;</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="op">}</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>  <span class="co">// bの該当部分をaにコピー</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> k <span class="op">&lt;</span> p <span class="op">+</span> len<span class="op">;</span> k<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    a<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> b<span class="op">[</span>k<span class="op">];</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="op">}</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="op">}</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="dt">void</span> mergeSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> b<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="cf">if</span> <span class="op">(</span>len <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="dt">int</span> m <span class="op">=</span> len <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>    mergeSort<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p<span class="op">,</span> m<span class="op">);</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>    mergeSort<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p <span class="op">+</span> m<span class="op">,</span> len <span class="op">-</span> m<span class="op">);</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>    merge<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> p<span class="op">,</span> len<span class="op">);</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>   <span class="op">}</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="op">}</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="dt">void</span> printArray<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> "</span><span class="op">,</span> a<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>  <span class="op">}</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="op">}</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>  <span class="dt">int</span> data<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">7</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a>  <span class="dt">int</span> n <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>data<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>data<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a>  <span class="dt">int</span> tmp<span class="op">[</span>n<span class="op">];</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>  printf<span class="op">(</span><span class="st">"ソート前: "</span><span class="op">);</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a>  printArray<span class="op">(</span>data<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a></span>
+<span id="cb4-45"><a href="#cb4-45"></a>  mergeSort<span class="op">(</span>data<span class="op">,</span> tmp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a>  </span>
+<span id="cb4-47"><a href="#cb4-47"></a>  printf<span class="op">(</span><span class="st">"ソート後: "</span><span class="op">);</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>  printArray<span class="op">(</span>data<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>長さ<span class="math inline">\(l\)</span>の部分列同士をマージする際に<span class="math inline">\(l\)</span>回の比較が行われる． これが全体で<span class="math inline">\(n/(2l)\)</span>回行われるので，長さ<span class="math inline">\(l\)</span>の部分列のマージにかかる計算量は<span class="math inline">\(O(n)\)</span>である． 分割により生じる部分列は<span class="math inline">\(\log_2 n\)</span>本であるから，アルゴリズム全体で最悪・平均時間計算量は<span class="math inline">\(O(n\log n)\)</span>である．</p>
+<p>比較によってソートするアルゴリズムとしては最良の計算量<span class="math inline">\(O(n\log n)\)</span>を達成できるが，別途<span class="math inline">\(O(n)\)</span>のメモリが必要である．</p>
+</section>
+<section id="クイックソート" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="クイックソート"><span class="header-section-number">13.6</span> クイックソート</h2>
+<p>マージソートと同じく，小さな部分列に分割して処理する方法としてクイックソート（quicksort）がある． これは分割の際に工夫がある．</p>
+<ol type="1">
+<li><span class="math inline">\(a_i\ (i=0,\dots,n-1)\)</span>のある値を基準値（ピボット）に設定する．</li>
+<li>ピボット以下の<span class="math inline">\(a_i\)</span>を左に，ピボットより大きい<span class="math inline">\(a_i\)</span>を右に移動する．</li>
+<li>左右の部分列について再帰的に同じ手順を適用する．部分列の長さが1以下ならばソート済みで終了．</li>
+</ol>
+<p>主要部分の実装例は以下のとおり．</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="dt">void</span> partition<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">,</span> <span class="dt">int</span><span class="op">*</span> l_end<span class="op">,</span> <span class="dt">int</span><span class="op">*</span> r_start<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="dt">int</span> i <span class="op">=</span> l<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">int</span> j <span class="op">=</span> r<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="dt">int</span> pivot <span class="op">=</span> a<span class="op">[</span>l<span class="op">];</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;=</span> j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;</span> pivot<span class="op">)</span> i<span class="op">++;</span> <span class="co">// pivot以上を発見するまでiを右に</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>j<span class="op">]</span> <span class="op">&gt;</span> pivot<span class="op">)</span> j<span class="op">--;</span> <span class="co">// pivot以下を発見するまでjを左に</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">&lt;=</span> j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>      swap<span class="op">(&amp;</span>a<span class="op">[</span>i<span class="op">],</span> <span class="op">&amp;</span>a<span class="op">[</span>j<span class="op">]);</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>      i<span class="op">++;</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>      j<span class="op">--;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>    <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="op">*</span>l_end <span class="op">=</span> j<span class="op">;</span>    <span class="co">// 分割後左部分列の最後尾</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="op">*</span>r_start <span class="op">=</span> i   <span class="co">// 分割後右部分列の先頭</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="op">}</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="dt">void</span> quickSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="cf">if</span> <span class="op">(</span>l <span class="op">&lt;</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>    <span class="dt">int</span> m1<span class="op">,</span> m2<span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>    partition<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> r<span class="op">,</span> <span class="op">&amp;</span>m1<span class="op">,</span> <span class="op">&amp;</span>m2<span class="op">);</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    quickSort<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> m1<span class="op">);</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a>    quickSort<span class="op">(</span>a<span class="op">,</span> m2<span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a>  <span class="op">}</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>この例では<code>a[l]</code>つまり（いま扱っている部分配列<code>a[l]</code>, …, <code>a[r]</code>の）先頭の値をピボットに設定している． 左（右）の端からピボット以上（以下）の値を探して<code>i</code>をインクリメント（<code>j</code>をデクリメント）し（6, 7行目），見つかった<code>a[i]</code>と<code>a[j]</code>を交換する（8, 9行目）． （ただし<code>i</code>が<code>j</code>より右にある場合は交換しない．）</p>
+<p>左端から出発した<code>i</code>が右端から出発した<code>j</code>と重なるか追い越したら探索を終了する（5行目）．</p>
+<p>最後に，探索終了時の<code>i</code>と<code>j</code>を新たな部分列の切れ目としてポインタに書き込んで返す（14, 15行目）．</p>
+<p>クイックソートの時間計算量は，元の配列の並びとピボットに選択する値に依るが，全並びパターン<span class="math inline">\(n!\)</span>が等確率で出現するとすると，平均時間計算量は<span class="math inline">\(O(n\log n)\)</span>である． 最悪ケースでは<span class="math inline">\(O(n^2)\)</span>となる．</p>
+<p>必要なメモリ量は，再帰的な分割を行う過程でスタックとして<span class="math inline">\(O(\log n)\)</span>が必要である．</p>
+</section>
+<section id="バケットソート" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="バケットソート"><span class="header-section-number">13.7</span> バケットソート</h2>
+<p>比較に基づくソートでは<span class="math inline">\(O(n\log n)\)</span>が最良であるが，ある種の仮定が成り立つ場合に更に高速なアルゴリズムがある．</p>
+<div class="callout callout-style-default callout-note callout-titled" title="仮定">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+仮定
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ソート対象のデータは<span class="math inline">\(m\)</span>パターンである．ここで<span class="math inline">\(m\)</span>は正の整数である． 簡単のため，以下ではソート対象のデータは<span class="math inline">\(0\)</span>以上<span class="math inline">\(m\)</span>未満の整数とする．</p>
+</div>
+</div>
+<p>このとき，<span class="math inline">\(0\)</span>から<span class="math inline">\(m-1\)</span>までのラベルをつけた<span class="math inline">\(m\)</span>個のバケツを用意しておき，整列対象の配列がどの値を何個含むかをカウントする． 最後に小さいラベルのバケツから順に取り出せばソートが完了する．これをバケットソート（bucket sort）という．</p>
+<p>手順は以下のとおり． 1. 数列<span class="math inline">\(b_0, b_1, \dots, b_{m-1}\)</span>を用意する． 1. 各<span class="math inline">\(a_i\)</span>について，その値に対応する<span class="math inline">\(b_*\)</span>の値をインクリメントする．つまり，<span class="math inline">\(b_{a_i}\leftarrow b_{a_i} + 1\)</span>． 1. <span class="math inline">\(b_0\)</span>から順に，<span class="math inline">\(b_j\)</span>の値だけ<span class="math inline">\(j\)</span>を並べる．</p>
+<p>値の範囲が<span class="math inline">\(0--9\)</span>の10種類の場合の実装例を以下に示す．</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="pp">#define M </span><span class="dv">10</span><span class="pp">  </span><span class="co">// 値の範囲（0〜9）</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="dt">void</span> bucketSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="dt">int</span> bucket<span class="op">[</span>M<span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="co">// 各値の出現回数をカウント</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    bucket<span class="op">[</span>a<span class="op">[</span>i<span class="op">]]++;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="co">// カウントに基づいてソートされた配列を構築</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="dt">int</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> M<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> bucket<span class="op">[</span>i<span class="op">];</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>      a<span class="op">[</span>offset<span class="op">++]</span> <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="op">}</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>a[offset++] = i</code>は，<code>a[offset]</code>に<code>i</code>を代入した後，<code>offset</code>をインクリメントする動作を表す．</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="バケットソートの実装例">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+バケットソートの実装例
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="pp">#define M </span><span class="dv">10</span><span class="pp">  </span><span class="co">// 値の範囲（0〜9）</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="dt">void</span> bucketSort<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="dt">int</span> count<span class="op">[</span>M<span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="co">// 各値の出現回数をカウント</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    count<span class="op">[</span>a<span class="op">[</span>i<span class="op">]]++;</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  <span class="co">// カウントに基づいてソートされた配列を構築</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="dt">int</span> offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> M<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> count<span class="op">[</span>i<span class="op">];</span> j<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>      a<span class="op">[</span>offset<span class="op">++]</span> <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>    <span class="op">}</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="op">}</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="op">}</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a>  <span class="dt">int</span> data<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">7</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">0</span><span class="op">};</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>  <span class="dt">int</span> n <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>data<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>data<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>  printf<span class="op">(</span><span class="st">"ソート前: "</span><span class="op">);</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a>  printArray<span class="op">(</span>data<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a>  bucketSort<span class="op">(</span>data<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a>  printf<span class="op">(</span><span class="st">"ソート後: "</span><span class="op">);</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a>  printArray<span class="op">(</span>data<span class="op">,</span> n<span class="op">);</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>バケットソートの時間計算量は<span class="math inline">\(O(n+m)\)</span>である． 整列対象に関して仮定が必要であるが，<span class="math inline">\(m\propto n\)</span>であれば<span class="math inline">\(O(n)\)</span>でソートを行うことができる． <span class="math inline">\(m\)</span>が非常に大きい場合，メモリを確保できない場合がある．その場合は，桁ごとにバケットソートを行う方法がある．</p>
+</section>
+<section id="演習" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="演習"><span class="header-section-number">13.8</span> 演習</h2>
+<section id="問題1" class="level3" data-number="13.8.1">
+<h3 data-number="13.8.1" class="anchored" data-anchor-id="問題1"><span class="header-section-number">13.8.1</span> 問題1</h3>
+<p>クイックソートの実装例で，関数<code>partition</code>における</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;</span> pivot<span class="op">)</span> i<span class="op">++;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="cf">while</span> <span class="op">(</span>a<span class="op">[</span>j<span class="op">]</span> <span class="op">&gt;</span> pivot<span class="op">)</span> j<span class="op">--;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>では，ピボット以上以下の値を交換対象に選択している． これを，ピボット未満とより大きい場合に変更すれば交換回数が減らせそうである． そのような修正を行った場合の欠点について考察せよ． ピボットの値を複数含む数列を例に考えるとよい．</p>
+</section>
+<section id="問題2" class="level3" data-number="13.8.2">
+<h3 data-number="13.8.2" class="anchored" data-anchor-id="問題2"><span class="header-section-number">13.8.2</span> 問題2</h3>
+<p>マージソートのマージ処理について，上とは別の実装を考える． ソート済み部分列<code>a[p]</code>, …, <code>a[q]</code>と<code>a[q+1]</code>, …, <code>a[q+r]</code>をマージしてソートされた<code>a[p]</code>, …, <code>a[q]</code>を作成する関数<code>merge</code>を下を参考に作成せよ．</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> merge<span class="op">(</span><span class="dt">int</span> a<span class="op">[],</span> <span class="dt">int</span> p<span class="op">,</span> <span class="dt">int</span> q<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="dt">int</span> n1 <span class="op">=</span> q <span class="op">-</span> p <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="dt">int</span> n2 <span class="op">=</span> r <span class="op">-</span> q<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="dt">int</span> L<span class="op">[</span>n1<span class="op">],</span> R<span class="op">[</span>n2<span class="op">];</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="dt">int</span> i<span class="op">;</span> <span class="co">// 左部分列のインデックス</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="dt">int</span> j<span class="op">;</span> <span class="co">// 右部分列のインデックス</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n1<span class="op">;</span> i<span class="op">++)</span> L<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>p <span class="op">+</span> i<span class="op">];</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n2<span class="op">;</span> j<span class="op">++)</span> R<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>q <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> j<span class="op">];</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a>    <span class="co">// LとRをマージ</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>    j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="dt">int</span> k <span class="op">=</span> p<span class="op">;</span> <span class="co">// 書き込み対象のインデックス</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1 <span class="op">&amp;&amp;</span> j <span class="op">&lt;</span> n2<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>        <span class="co">// ここを埋める</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>    <span class="op">}</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n1<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> L<span class="op">[</span>i<span class="op">++];</span> <span class="co">// 左部分列に残りがある場合の処理</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&lt;</span> n2<span class="op">)</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> R<span class="op">[</span>j<span class="op">++];</span> <span class="co">// 右部分列に残りがある場合の処理</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week12.html" class="pagination-link" aria-label="データ構造 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">データ構造 2</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
