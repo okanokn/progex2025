@@ -1168,5 +1168,75 @@
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>ソート</span>"
     ]
+  },
+  {
+    "objectID": "week14.html",
+    "href": "week14.html",
+    "title": "14  探索",
+    "section": "",
+    "text": "14.1 前回演習の解答",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#前回演習の解答",
+    "href": "week14.html#前回演習の解答",
+    "title": "14  探索",
+    "section": "",
+    "text": "クイックソート\nマージソート",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#本日のメニュー",
+    "href": "week14.html#本日のメニュー",
+    "title": "14  探索",
+    "section": "14.2 本日のメニュー",
+    "text": "14.2 本日のメニュー\n\nグラフ上の探索",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#グラフ",
+    "href": "week14.html#グラフ",
+    "title": "14  探索",
+    "section": "14.3 グラフ",
+    "text": "14.3 グラフ\nグラフで表現されるデータについて，頂点\\(v_i\\)から\\(v_j\\)への最短経路を調べたり，グラフが閉路を持つか否かを判定したい場合がある． そのような場合に，すべての頂点を辺をたどって確認する手順が必要となる．\n以下では無向グラフ\\(G(V, E)\\)について，深さ優先探索（depth-first search）と幅優先探索（breadth-first search）の2種類の探索方法を解説する．\nグラフをプログラム上で表現する方法として，ここでは隣接行列を用いる．隣接行列\\(A\\in\\mathbb{R}^{|V|\\times |V|}\\)の\\((i, j)\\)成分\\(a_{ij}\\)はつぎのように定義される: \\[\na_{ij}=\n\\begin{cases}\n1 & \\text{if } (v_i,v_j)\\in E,\\\\\n0 & \\text{otherwise}.\n\\end{cases}\n\\] つまり，\\(v_i\\)と\\(v_j\\)が辺で繋がっていれば\\(1\\)，そうでなければ\\(0\\)をとる． 無向グラフであれば\\(A\\)は対称行列である．\n無向グラフ Figure 14.1 の隣接行列を，グローバル変数の2次元配列で定義する実装例を示す．\n\n\n\n\n\n\nFigure 14.1: 無向グラフの例\n\n\n\n#include &lt;stdio.h&gt;\n#define N 5           // 頂点数\nint adj[N][N] = {0};  // 隣接行列\n\nint main(void) {\n  // グラフの定義\n  adj[0][1] = adj[1][0] = 1;\n  adj[0][2] = adj[2][0] = 1;\n  adj[1][3] = adj[3][1] = 1;\n  adj[1][4] = adj[4][1] = 1;\n  adj[2][4] = adj[4][2] = 1;\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#深さ優先探索",
+    "href": "week14.html#深さ優先探索",
+    "title": "14  探索",
+    "section": "14.4 深さ優先探索",
+    "text": "14.4 深さ優先探索\n深さ優先探索は，辺をたどって深く潜ってから戻って来る探索方法である． 今見ている頂点が複数の未訪問頂点に隣接する場合は，どれかひとつを選んで先に進み，進んだ先の頂点をすべて訪問してから分岐点に戻って来る．\n\n\n\n深さ優先探索の探索順（赤字は訪問順）\n\n\n深さ優先探索は再帰を使って実現できる． または，再帰によるコールスタックを明示的にスタックとして実装することでも実現可能である．\n以下は再帰を用いた実装例である．\n// グローバル変数 各頂点の訪問フラグ\nint visited[N] = {0};  // 0: 未訪問, 1: 済み\n\n// 頂点vから深さ優先探索する関数\nvoid dfs(int v) {\n  visited[v] = 1;   // 訪問済みに設定して\n  printf(\"%d \", v); // 頂点番号を出力\n  for (int i = 0; i &lt; N; i++) {\n    if (adj[v][i] && !visited[i]) {  // 隣接していて未訪問なら\n      dfs(i);                        // 先に進む\n    }\n  }\n}\n\n\n\n\n\n\nmain関数を含む実装例\n\n\n\n\n\n#include &lt;stdio.h&gt;\n#define N 5\nint adj[N][N] = {0};   // 隣接行列\nint visited[N] = {0};  // 各頂点の訪問フラグ. 0: 未, 1: 済み\n\nvoid dfs(int v) {\n  visited[v] = 1;\n  printf(\"%d \", v);\n  for (int i = 0; i &lt; N; i++) {\n    if (adj[v][i] && !visited[i]) {\n      dfs(i);  // 未訪問の頂点に進む\n    }\n  }\n}\n\nint main(void) {\n  // グラフの定義\n  adj[0][1] = adj[1][0] = 1;\n  adj[0][2] = adj[2][0] = 1;\n  adj[1][3] = adj[3][1] = 1;\n  adj[1][4] = adj[4][1] = 1;\n  adj[2][4] = adj[4][2] = 1;\n\n  dfs(0);\n\n  return 0;\n}\n\n\n\n深さ優先探索のなかでも，行きがけに頂点をチェックして訪問済みとする行きがけ順と，先が無い頂点から帰りがけに行うか帰りがけ順がある．上の実装は行きがけ順である．",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#幅優先探索",
+    "href": "week14.html#幅優先探索",
+    "title": "14  探索",
+    "section": "14.5 幅優先探索",
+    "text": "14.5 幅優先探索\n幅優先探索は，ある頂点に隣接する頂点をすべて調べてから先の頂点に進む探索方法である．\n\n\n\n幅優先探索の探索順（赤字は訪問順）\n\n\n幅優先探索は，訪問した頂点に隣接する頂点をキューに順次追加して，キューの先頭から順に訪問する方法で実装できる． 以下は，第11週で紹介したキューの実装例を用いた幅優先探索関数の例である．\n// 頂点startから幅優先探索を行う関数\nvoid bfs(Queue *q, int start) {\n  visited[start] = 1;\n  enqueue(q, start);  // 初期頂点をキューに追加\n  while (!isEmpty(q)) {\n    int v;\n    dequeue(q, &v);  // キュー先頭のv\n    printf(\"%d \", v);\n    for (int i = 0; i &lt; N; i++) {// vの隣接頂点を順にチェック\n      if (adj[v][i] && !visited[i]) {\n        visited[i] = 1;  // vに隣接する未訪問頂点\n        enqueue(q, i);   // キューに追加して次の隣接頂点へ\n      }\n    }\n  }\n}\n12行目の，発見した隣接頂点iをキューに追加しつつ，vの隣接頂点の確認を続行するところがポイントである．\n\n\n\n\n\n\nmain関数を含む実装例\n\n\n\n\n\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#define N 5\nint adj[N][N] = {0};\nint visited[N] = {0};\n\ntypedef struct node {\n  int data;\n  struct node *next;\n} Node;\n\ntypedef struct {\n  Node *front;\n  Node *rear;\n} Queue;\n\nvoid initQueue(Queue *q) {\n  q-&gt;front = NULL;\n  q-&gt;rear = NULL;\n}\n\nint isEmpty(Queue *q) { return q-&gt;front == NULL; }\n\nint enqueue(Queue *q, int data) {\n  Node *newNode = (Node *)malloc(sizeof(Node));\n  if (newNode == NULL) {\n    return -1;\n  }\n  newNode-&gt;data = data;\n  newNode-&gt;next = NULL;\n  if (isEmpty(q)) {\n    q-&gt;front = newNode;\n    q-&gt;rear = newNode;\n  } else {\n    q-&gt;rear-&gt;next = newNode;\n    q-&gt;rear = newNode;\n  }\n  return 0;\n}\n\nint dequeue(Queue *q, int *data) {\n  if (isEmpty(q)) {\n    return -1;\n  }\n  Node *f = q-&gt;front;\n  *data = f-&gt;data;\n  q-&gt;front = f-&gt;next;\n  if (q-&gt;front == NULL) {\n    q-&gt;rear = NULL;\n  }\n  free(f);\n  return 0;\n}\n\nvoid freeQueue(Queue *q) {\n  int tmp;\n  while (dequeue(q, &tmp) == 0) {\n  }\n}\n\nvoid bfs(Queue *q, int start) {\n  visited[start] = 1;\n  enqueue(q, start);  // 初期頂点をキューに追加\n\n  while (!isEmpty(q)) {\n    int v;\n    dequeue(q, &v);  // キューの先頭vを訪問\n    printf(\"%d \", v);\n    for (int i = 0; i &lt; N; i++) {\n      if (adj[v][i] && !visited[i]) {\n        visited[i] = 1;  // vに隣接する未訪問頂点\n        enqueue(q, i);   // キューに追加して次のvの隣接頂点へ\n      }\n    }\n  }\n}\n\nint main(void) {\n  // グラフの定義\n  adj[0][1] = adj[1][0] = 1;\n  adj[0][2] = adj[2][0] = 1;\n  adj[1][3] = adj[3][1] = 1;\n  adj[1][4] = adj[4][1] = 1;\n  adj[2][4] = adj[4][2] = 1;\n\n  Queue q;\n  initQueue(&q);\n  bfs(&q, 0);\n  freeQueue(&q);\n  return 0;\n}",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
+  },
+  {
+    "objectID": "week14.html#演習",
+    "href": "week14.html#演習",
+    "title": "14  探索",
+    "section": "14.6 演習",
+    "text": "14.6 演習\n本日の演習を兼ねてレポート課題3に取り組む．",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>探索</span>"
+    ]
   }
 ]
